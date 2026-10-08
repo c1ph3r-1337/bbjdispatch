@@ -1,0 +1,158 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-dispatch-accent: #fbc21e;
+    --color-dispatch-accent-light: #fed156;
+    --color-dispatch-accent-dark: #d9a30b;
+  }
+
+  body {
+    background-color: #081017;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Explicit text and background accent overrides ensuring #fbc21e priority */
+.text-dispatch-yellow {
+  color: #fbc21e !important;
+}
+
+.bg-dispatch-yellow {
+  background-color: #fbc21e !important;
+}
+
+.border-dispatch-yellow {
+  border-color: #fbc21e !important;
+}
+
+/* Custom text stroke for hollow background typography */
+.text-stroke-dispatch {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.12);
+  color: transparent;
+  user-select: none;
+}
+
+.text-stroke-subtle {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.07);
+  color: transparent;
+  user-select: none;
+}
+
+.text-stroke-yellow {
+  -webkit-text-stroke: 1.5px rgba(251, 194, 30, 0.35);
+  color: transparent;
+  user-select: none;
+}
+
+/* Polar radar pulse animation */
+@keyframes radar-pulse {
+  0%, 100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 0.65;
+  }
+}
+
+.animate-radar {
+  animation: radar-pulse 6s ease-in-out infinite;
+}
+
+/* Truck Drive-In Entrance Animation */
+@keyframes truckDriveIn {
+  0% {
+    transform: translateX(110vw) scale(0.98);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  75% {
+    transform: translateX(-12px) scale(1);
+  }
+  88% {
+    transform: translateX(5px) scale(1);
+  }
+  100% {
+    transform: translateX(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-truck-drive {
+  animation: truckDriveIn 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Subtle Engine Idle Floating Suspension */
+@keyframes truckIdle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.animate-truck-idle {
+  animation: truckIdle 4s ease-in-out infinite 2.4s;
+}
+
+/* Staggered Headline Reveal */
+@keyframes headlineReveal {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-headline-1 {
+  animation: headlineReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+  opacity: 0;
+}
+
+.animate-headline-2 {
+  animation: headlineReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+  opacity: 0;
+}
+
+.animate-headline-sub {
+  animation: headlineReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
+  opacity: 0;
+}
+
+/* Circular Iris Opening Transition */
+@keyframes irisExpand {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+  }
+}
+
+.animate-iris-wipe {
+  animation: irisExpand 1.2s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+
+/* Hide default scrollbar for sleek presentation */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #081017;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2b38;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #fbc21e;
+}
