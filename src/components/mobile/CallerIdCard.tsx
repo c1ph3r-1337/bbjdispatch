@@ -76,6 +76,33 @@ export const CallerIdCard: React.FC<CallerIdCardProps> = ({ onCallInitiated }) =
               {/* Origin Marker (Pure White) */}
               <circle cx="60" cy="210" r="4.5" fill="#ffffff" stroke="#081017" strokeWidth="2" />
 
+              {/* Small Commercial Freight Truck at Starting Point */}
+              <g transform="translate(52, 193.5)">
+                {/* Subtle Road Contact Shadow */}
+                <ellipse cx="14" cy="18.5" rx="14" ry="1.8" fill="#000000" fillOpacity="0.55" />
+
+                {/* Gold Trailer Body */}
+                <rect x="0" y="3" width="18" height="11" rx="1.5" fill="#fbc21e" />
+                <line x1="2" y1="12" x2="16" y2="12" stroke="#081017" strokeWidth="0.8" strokeOpacity="0.3" />
+
+                {/* Cab Unit */}
+                <path d="M 18 6 L 23 6 L 26 10 L 26 14 L 18 14 Z" fill="#fed156" />
+                <path d="M 20 7.5 L 23 7.5 L 24.5 10 L 20 10 Z" fill="#081017" fillOpacity="0.85" />
+
+                {/* Dual Trailer Wheels */}
+                <circle cx="4" cy="14.5" r="2" fill="#081017" />
+                <circle cx="4" cy="14.5" r="0.75" fill="#ffffff" />
+                <circle cx="13" cy="14.5" r="2" fill="#081017" />
+                <circle cx="13" cy="14.5" r="0.75" fill="#ffffff" />
+
+                {/* Steer Cab Wheel */}
+                <circle cx="23" cy="14.5" r="2" fill="#081017" />
+                <circle cx="23" cy="14.5" r="0.75" fill="#ffffff" />
+
+                {/* Headlight Beam Blip */}
+                <circle cx="27" cy="12" r="1.2" fill="#ffffff" fillOpacity="0.95" />
+              </g>
+
               {/* Destination Beacon (Pure Gold #fbc21e with In-Place Pulse Animation) */}
               <circle cx="430" cy="40" r="5" fill="#fbc21e" fillOpacity="0.35">
                 <animate attributeName="r" values="5;14;5" dur="2.4s" repeatCount="indefinite" />
