@@ -1,36 +1,37 @@
 import React from 'react';
+import { Search, PhoneCall, FileCheck, Briefcase } from 'lucide-react';
 import { openWhatsApp } from '../utils/whatsapp';
 
 interface GeometricGalleryProps {
   onOpenEnrollModal?: (topic?: string) => void;
 }
 
-export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ onOpenEnrollModal }) => {
+export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
   const galleryItems = [
     {
       id: 1,
-      image: './assets/gallery-1.png',
+      icon: Search,
       title: 'Load Board Sourcing',
       subtitle: 'DAT One & Truckstop search, filtering & load selection',
       shapeClass: 'rounded-[50px] md:rounded-[70px]', // Clover capsule representation
     },
     {
       id: 2,
-      image: './assets/gallery-2.png',
+      icon: PhoneCall,
       title: 'Broker Negotiation',
       subtitle: 'Live broker calls, scripts & rate per mile calculations',
       shapeClass: 'rounded-full', // Perfect vertical oval
     },
     {
       id: 3,
-      image: './assets/gallery-3.png',
+      icon: FileCheck,
       title: 'Booking & Papers',
       subtitle: 'Rate confirmations, BOLs, PODs & driver load coordination',
       shapeClass: 'rounded-t-[100px] rounded-b-xl', // Architectural archway
     },
     {
       id: 4,
-      image: './assets/gallery-4.png',
+      icon: Briefcase,
       title: 'Job & Interview Prep',
       subtitle: 'Resume building, mock interviews & placement guidance',
       shapeClass: 'rounded-[50px] md:rounded-[70px]', // Figure-8 capsule
@@ -67,13 +68,17 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ onOpenEnroll
             >
               {/* Geometric Shaped Card Container */}
               <div
-                className={`w-full h-full overflow-hidden border border-white/10 group-hover:border-dispatch-yellow/60 transition-all duration-300 shadow-2xl shadow-black/80 ${item.shapeClass}`}
+                className={`w-full h-full overflow-hidden border border-white/10 group-hover:border-dispatch-yellow/60 transition-all duration-300 shadow-2xl shadow-black/80 bg-[#0d1620] relative flex flex-col items-center justify-center p-5 text-center ${item.shapeClass}`}
               >
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500 brightness-95 group-hover:brightness-105"
-                />
+                <div className="w-12 h-12 rounded-full bg-dispatch-yellow/10 border border-dispatch-yellow/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <item.icon className="w-6 h-6 text-dispatch-yellow" />
+                </div>
+                <h4 className="text-sm font-bold text-white mb-2 leading-tight">
+                  {item.title}
+                </h4>
+                <p className="text-[11px] text-white/50 leading-relaxed font-mono">
+                  {item.subtitle}
+                </p>
               </div>
 
               {/* Hover Badge Description */}
@@ -89,3 +94,5 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ onOpenEnroll
     </section>
   );
 };
+
+export default GeometricGallery;
