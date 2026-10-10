@@ -13,13 +13,15 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   onNavigate,
   onOpenEnrollModal,
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      setScrollY(currentScrollY);
 
       // Auto-collapse into circle on scroll
       if (Math.abs(currentScrollY - lastScrollY) > 8) {
@@ -29,6 +31,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -51,6 +54,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   };
 
   const currentSection = activeSection || 'hero';
+  const isFirstSection = currentSection === 'hero' || scrollY < 200;
   const isHomeActive = ['hero', 'features'].includes(currentSection);
   const isCoursesActive = ['step-by-step-course', 'gallery', 'courses'].includes(currentSection);
   const isHotlineActive = currentSection === 'caller-id';
@@ -58,12 +62,16 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
 
   return (
     <div
-      className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full translate-y-0 opacity-100 pointer-events-auto ${
+      className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
+        isFirstSection
+          ? 'translate-y-24 opacity-0 pointer-events-none'
+          : 'translate-y-0 opacity-100 pointer-events-auto'
+      } ${
         isCollapsed
           ? 'w-12 h-12 cursor-pointer active:scale-95'
           : 'w-[calc(100vw-2rem)] max-w-[360px] h-14'
       }`}
-      onClick={isCollapsed ? () => setIsCollapsed(false) : undefined}
+      onClick={!isFirstSection && isCollapsed ? () => setIsCollapsed(false) : undefined}
       role={isCollapsed ? 'button' : 'navigation'}
       aria-label={isCollapsed ? 'Open Navigation Menu' : 'Mobile Navigation Menu'}
     >
@@ -101,11 +109,6 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
         >
           <Home className={`w-4 h-4 transition-transform duration-200 ${isHomeActive ? 'stroke-[2.5px] scale-110 fill-dispatch-yellow/20' : 'stroke-[1.8]'}`} />
           <span className="text-[9px] tracking-tight mt-0.5">Home</span>
-          <span
-            className={`w-1 h-1 rounded-full transition-all duration-200 mt-0.5 ${
-              isHomeActive ? 'bg-dispatch-yellow scale-100 shadow-[0_0_6px_#fbc21e]' : 'bg-transparent scale-0'
-            }`}
-          />
         </button>
 
         {/* Courses */}
@@ -123,11 +126,6 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
         >
           <Package className={`w-4 h-4 transition-transform duration-200 ${isCoursesActive ? 'stroke-[2.5px] scale-110' : 'stroke-[1.8]'}`} />
           <span className="text-[9px] tracking-tight mt-0.5">Courses</span>
-          <span
-            className={`w-1 h-1 rounded-full transition-all duration-200 mt-0.5 ${
-              isCoursesActive ? 'bg-dispatch-yellow scale-100 shadow-[0_0_6px_#fbc21e]' : 'bg-transparent scale-0'
-            }`}
-          />
         </button>
 
         {/* Caller ID / Hotline */}
@@ -145,11 +143,6 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
         >
           <PhoneCall className={`w-4 h-4 transition-transform duration-200 ${isHotlineActive ? 'stroke-[2.5px] scale-110' : 'stroke-[1.8]'}`} />
           <span className="text-[9px] tracking-tight mt-0.5">Hotline</span>
-          <span
-            className={`w-1 h-1 rounded-full transition-all duration-200 mt-0.5 ${
-              isHotlineActive ? 'bg-dispatch-yellow scale-100 shadow-[0_0_6px_#fbc21e]' : 'bg-transparent scale-0'
-            }`}
-          />
         </button>
 
         {/* Enroll Button */}
