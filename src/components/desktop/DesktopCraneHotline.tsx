@@ -17,7 +17,7 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
       {/* LEFT COLUMN: Large Industrial Crane Bleeding Left Edge    */}
       {/* ========================================================= */}
       <div className="relative w-[54%] xl:w-[56%] 2xl:w-[58%] h-full flex items-center justify-start pointer-events-none overflow-visible">
-        <div className="relative w-[115%] lg:w-[120%] xl:w-[125%] max-w-none ml-0 -mt-8 lg:-mt-12 xl:-mt-16">
+        <div className="relative w-[130%] lg:w-[136%] xl:w-[142%] max-w-none ml-0 -mt-8 lg:-mt-12 xl:-mt-16">
           <img
             src="/assets/crane-lifting-container-route.svg"
             alt="Industrial Crane Lifting Container with Freight Route"
