@@ -69,9 +69,11 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
 
   // Section-based state transitions
   useEffect(() => {
-    if (activeSection === 'features') {
+    if (activeSection === 'hero') {
       setIsCollapsed(false);
-      suppressCollapseUntilRef.current = Date.now() + 800;
+    } else if (activeSection === 'features') {
+      setIsCollapsed(false);
+      suppressCollapseUntilRef.current = Date.now() + 1000;
     } else if (activeSection === 'caller-id') {
       setIsCollapsed(true);
     }
@@ -87,22 +89,22 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
           : 'translate-x-0 translate-y-0 opacity-100 pointer-events-auto'
       } ${
         isCollapsed
-          ? 'w-12 h-12 cursor-pointer active:scale-95'
+          ? 'w-14 h-14 cursor-pointer active:scale-95'
           : 'w-[calc(100vw-2rem)] max-w-[360px] h-14'
       }`}
       onClick={!isFirstSection && !isSixthSection && isCollapsed ? () => setIsCollapsed(false) : undefined}
       role={isCollapsed ? 'button' : 'navigation'}
       aria-label={isCollapsed ? 'Open Navigation Menu' : 'Mobile Navigation Menu'}
     >
-      {/* Collapsed State: Compass Icon View */}
+      {/* Collapsed State: Fixed Discover / Compass Icon View */}
       <div
-        className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isCollapsed
-            ? 'opacity-100 scale-100 pointer-events-auto'
-            : 'opacity-0 scale-75 pointer-events-none'
+            ? 'opacity-100 scale-100 rotate-0'
+            : 'opacity-0 scale-75 -rotate-45'
         }`}
       >
-        <Compass className="w-5 h-5 text-dispatch-yellow" />
+        <Compass className="w-6 h-6 text-dispatch-yellow stroke-[2.2] drop-shadow-[0_0_8px_rgba(251,194,30,0.45)]" />
       </div>
 
       {/* Expanded State: Full Nav Items Row (No Close Button, 4 Evenly Spaced Items) */}
