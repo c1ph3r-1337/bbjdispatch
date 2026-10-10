@@ -79,25 +79,53 @@ export const App: React.FC = () => {
   useEffect(() => {
     if (currentRoute !== 'home' || modalOpen) return;
 
+    const getClosestSectionIndex = (): number => {
+      const windowCenter = window.scrollY + window.innerHeight / 2;
+      let closestIdx = 0;
+      let minDistance = Infinity;
+
+      SECTIONS.forEach(({ id }, idx) => {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const elementCenter = window.scrollY + rect.top + rect.height / 2;
+          const dist = Math.abs(windowCenter - elementCenter);
+          if (dist < minDistance) {
+            minDistance = dist;
+            closestIdx = idx;
+          }
+        }
+      });
+
+      return closestIdx;
+    };
+
     const handleWheel = (e: WheelEvent) => {
       if (modalOpen) return;
 
-      // Ignore small trackpad jitter
-      if (Math.abs(e.deltaY) < 25) return;
+      // Normalize wheel delta across physical mice (deltaMode === 1 lines) and trackpads (deltaMode === 0 pixels)
+      const normalizedDelta =
+        e.deltaMode === 1
+          ? e.deltaY * 40
+          : e.deltaMode === 2
+          ? e.deltaY * window.innerHeight
+          : e.deltaY;
+
+      // Ignore minuscule jitter/drift
+      if (Math.abs(normalizedDelta) < 12) return;
 
       if (isScrollingRef.current) {
         e.preventDefault();
         return;
       }
 
-      const currentIndex = SECTIONS.findIndex((s) => s.id === activeSection);
-      if (currentIndex === -1) return;
+      const currentIndex = getClosestSectionIndex();
 
-      if (e.deltaY > 0 && currentIndex < SECTIONS.length - 1) {
+      if (normalizedDelta > 0 && currentIndex < SECTIONS.length - 1) {
         e.preventDefault();
         isScrollingRef.current = true;
         scrollToSection(SECTIONS[currentIndex + 1].id);
-      } else if (e.deltaY < 0 && currentIndex > 0) {
+      } else if (normalizedDelta < 0 && currentIndex > 0) {
         e.preventDefault();
         isScrollingRef.current = true;
         scrollToSection(SECTIONS[currentIndex - 1].id);
@@ -106,7 +134,7 @@ export const App: React.FC = () => {
       if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
       scrollTimeoutRef.current = window.setTimeout(() => {
         isScrollingRef.current = false;
-      }, 650);
+      }, 450);
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -114,14 +142,14 @@ export const App: React.FC = () => {
       const target = e.target as HTMLElement;
       if (target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
 
+      const currentIndex = getClosestSectionIndex();
+
       if (['ArrowDown', 'PageDown'].includes(e.key)) {
-        const currentIndex = SECTIONS.findIndex((s) => s.id === activeSection);
         if (currentIndex < SECTIONS.length - 1) {
           e.preventDefault();
           scrollToSection(SECTIONS[currentIndex + 1].id);
         }
       } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
-        const currentIndex = SECTIONS.findIndex((s) => s.id === activeSection);
         if (currentIndex > 0) {
           e.preventDefault();
           scrollToSection(SECTIONS[currentIndex - 1].id);
@@ -143,7 +171,7 @@ export const App: React.FC = () => {
       window.removeEventListener('keydown', handleKeyDown);
       if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
     };
-  }, [currentRoute, modalOpen, activeSection]);
+  }, [currentRoute, modalOpen]);
 
   // Dynamically activate CSS scroll snap only on home view when modals are closed
   useEffect(() => {
