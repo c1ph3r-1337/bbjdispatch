@@ -17,7 +17,7 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
       {/* LEFT COLUMN: Large Industrial Crane Bleeding Left Edge    */}
       {/* ========================================================= */}
       <div className="relative w-[54%] xl:w-[56%] 2xl:w-[58%] h-full flex items-center justify-start pointer-events-none overflow-visible">
-        <div className="relative w-[130%] lg:w-[136%] xl:w-[142%] max-w-none -ml-[18%] lg:-ml-[22%] xl:-ml-[25%] -mt-8 lg:-mt-12 xl:-mt-16">
+        <div className="relative w-[115%] lg:w-[120%] xl:w-[125%] max-w-none ml-0 -mt-8 lg:-mt-12 xl:-mt-16">
           <img
             src="/assets/crane-lifting-container-route.svg"
             alt="Industrial Crane Lifting Container with Freight Route"
@@ -86,7 +86,7 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
 
             <button
               onClick={() => openWhatsApp('talk', 'Senior Trainer Harry Dhillon')}
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-white bg-white/5 hover:bg-white/10 border border-white/15 px-4 sm:px-5 py-2.5 rounded-xl transition-all shrink-0 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-white/70 transition-colors shrink-0"
               aria-label="Chat with Harry Dhillon on WhatsApp"
             >
               <WhatsAppIcon className="w-4 h-4 fill-white" />
@@ -115,10 +115,10 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
 
             <a
               href="tel:+919814379035"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-dispatch-yellow hover:border-dispatch-yellow/40 bg-white/5 hover:bg-white/10 border border-white/15 px-4 sm:px-5 py-2.5 rounded-xl transition-all shrink-0 hover:scale-[1.02]"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-white hover:text-white/70 transition-colors shrink-0"
               aria-label="Call Jazz Dhillon"
             >
-              <Phone className="w-4 h-4 text-dispatch-yellow" />
+              <Phone className="w-4 h-4 text-white" />
               <span>Call</span>
             </a>
           </div>
