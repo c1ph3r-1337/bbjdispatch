@@ -21,9 +21,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   return (
     <footer id="footer" className="snap-section relative z-20 min-h-screen flex flex-col justify-center bg-[#081017] border-t border-white/10 pt-20 pb-28 sm:pb-24 md:pb-16 text-sm text-dispatch-muted">
       <div className="w-full max-w-7xl lg:max-w-[90rem] xl:max-w-[96rem] mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
-        {/* Brand Header */}
-        <div className="space-y-3 pb-8 text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-2">
+        {/* Brand Header - Centered */}
+        <div className="space-y-3 pb-8 text-center">
+          <div className="flex items-center justify-center gap-2">
             <span className="font-extrabold text-2xl tracking-tight text-white">
               bbj dispatch
             </span>
@@ -32,19 +32,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               Training Academy
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-dispatch-muted max-w-2xl lg:max-w-4xl mx-auto md:mx-0 leading-relaxed">
+          <p className="text-xs sm:text-sm text-dispatch-muted max-w-2xl lg:max-w-3xl mx-auto leading-relaxed text-center">
             45-Day comprehensive U.S. truck dispatch training course. Practical instruction covering load boards, broker negotiation, rate confirmations, billing, and career preparation.
           </p>
         </div>
 
-        {/* 2 Side-by-Side Columns: Direct Contact on Left, 45-Day Curriculum on Right (Horizontal Side-by-Side on Mobile & Desktop) */}
-        <div className="grid grid-cols-2 gap-5 sm:gap-10 md:gap-16 lg:gap-32 xl:gap-40 py-8 md:py-10 border-t border-white/10">
+        {/* 2 Side-by-Side Columns: Direct Contact on Left, 45-Day Curriculum on Right (Centered Grid & Text) */}
+        <div className="max-w-4xl lg:max-w-5xl mx-auto grid grid-cols-2 gap-8 sm:gap-12 md:gap-20 lg:gap-32 py-8 md:py-10 border-t border-white/10 text-center">
           {/* Left Column: Direct Contact */}
-          <div className="space-y-4 text-left">
+          <div className="space-y-4 text-center">
             <h4 className="text-xs font-bold uppercase tracking-wider text-dispatch-yellow">
               Direct Contact
             </h4>
-            <ul className="space-y-3 text-xs sm:text-sm text-dispatch-muted">
+            <ul className="space-y-3 text-xs sm:text-sm text-dispatch-muted text-center">
               <li>
                 <span className="text-[10px] sm:text-[11px] text-white/50 block">Harry Dhillon (Trainer)</span>
                 <a
@@ -85,15 +85,15 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
 
           {/* Right Column: 45-Day Curriculum */}
-          <div className="space-y-4 text-left">
+          <div className="space-y-4 text-center">
             <h4 className="text-xs font-bold uppercase tracking-wider text-dispatch-yellow">
               45-Day Curriculum
             </h4>
-            <ul className="space-y-2.5 text-xs sm:text-sm">
+            <ul className="space-y-2.5 text-xs sm:text-sm text-center">
               <li>
                 <button
                   onClick={() => openWhatsApp('batch', 'Days 1-10 Basics')}
-                  className="text-dispatch-muted hover:text-dispatch-yellow transition-colors text-left inline-block leading-snug"
+                  className="text-dispatch-muted hover:text-dispatch-yellow transition-colors text-center inline-block leading-snug"
                 >
                   Days 1–10: Basics &amp; Equipment
                 </button>
@@ -101,7 +101,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => openWhatsApp('batch', 'Days 11-22 Load Boards')}
-                  className="text-dispatch-muted hover:text-dispatch-yellow transition-colors text-left inline-block leading-snug"
+                  className="text-dispatch-muted hover:text-dispatch-yellow transition-colors text-center inline-block leading-snug"
                 >
                   Days 11–22: Load Boards (DAT)
                 </button>
@@ -109,7 +109,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => openWhatsApp('batch', 'Days 23-35 Negotiation')}
-                  className="text-dispatch-muted hover:text-dispatch-yellow transition-colors text-left inline-block leading-snug"
+                  className="text-dispatch-muted hover:text-dispatch-yellow transition-colors text-center inline-block leading-snug"
                 >
                   Days 23–35: Rates &amp; Negotiation
                 </button>
@@ -117,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li>
                 <button
                   onClick={() => openWhatsApp('batch', 'Days 36-45 Mock Practice')}
-                  className="text-dispatch-muted hover:text-dispatch-yellow transition-colors text-left inline-block leading-snug"
+                  className="text-dispatch-muted hover:text-dispatch-yellow transition-colors text-center inline-block leading-snug"
                 >
                   Days 36–45: Live Mock Calls
                 </button>
@@ -125,7 +125,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               <li className="pt-0.5">
                 <button
                   onClick={() => openWhatsApp('demo')}
-                  className="text-dispatch-yellow font-bold hover:underline text-left inline-block leading-snug"
+                  className="text-dispatch-yellow font-bold hover:underline text-center inline-block leading-snug"
                 >
                   Attend Free Demo Class →
                 </button>
@@ -149,11 +149,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </p>
         </div>
 
-        {/* Bottom Bar: Copyright & Dedicated Legal Links */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-dispatch-textMuted text-center sm:text-left">
+        {/* Bottom Bar: Centered Copyright & Dedicated Legal Links */}
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 text-xs text-dispatch-textMuted text-center">
           <div>
             <span>© 2026 BBJ Dispatch Academy. All rights reserved.</span>
           </div>
+
+          <span className="hidden sm:inline text-white/20">•</span>
 
           <div className="flex items-center gap-6">
             <button
