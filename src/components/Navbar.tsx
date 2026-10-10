@@ -59,6 +59,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
     };
   }, [isDragging, dragOffset]);
 
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  // Monitor scroll offset to adapt navbar density and shadow
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // Lock body scroll when menu is open
   useEffect(() => {
     if (menuOpen) {
@@ -73,9 +85,23 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
 
   return (
     <>
-      <header className="relative z-40 w-full px-6 py-5 md:px-12 lg:px-16 flex items-center justify-between">
+      <header
+        className={`fixed top-0 inset-x-0 z-40 w-full px-6 md:px-12 lg:px-16 flex items-center justify-between transition-all duration-300 ${
+          isScrolled
+            ? 'py-3.5 md:py-4 bg-[#081017]/95 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/40'
+            : 'py-4 md:py-5 bg-[#081017]/80 backdrop-blur-md border-b border-white/5'
+        }`}
+      >
         {/* Left: Logo */}
-        <a href="#" className="flex items-center gap-1.5 group z-10">
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="flex items-center gap-1.5 group z-10"
+          aria-label="BBJ Dispatch Homepage"
+        >
           <span className="text-2xl font-extrabold tracking-tight text-white group-hover:text-dispatch-yellow transition-colors">
             bbj
           </span>
@@ -86,7 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
         </a>
 
         {/* Center: Desktop Pull-Down '=' Handle with Bouncing Arrows (Desktop Only) */}
-        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-3.5 lg:top-4 flex-col items-center z-10 select-none">
+        <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex-col items-center z-10 select-none">
           <div
             onMouseDown={handleDragStart}
             onClick={handleClick}

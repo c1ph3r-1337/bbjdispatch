@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
   };
 
   return (
-    <section id="hero" className="snap-section relative min-h-screen flex flex-col justify-center pt-16 md:pt-20 pb-12 sm:pb-16 overflow-hidden">
+    <section id="hero" className="snap-section relative min-h-screen flex flex-col justify-center pt-24 md:pt-28 pb-12 sm:pb-16 overflow-hidden">
       {/* Polar Radar Vector in upper right */}
       <RadarBackground />
 
