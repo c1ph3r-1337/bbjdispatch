@@ -47,7 +47,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
         </div>
 
         {/* 2. Industrial Crane Lifting 3D Yellow Container Graphic */}
-        <div className="relative w-[114%] max-w-none -ml-[7%] my-1 pointer-events-none overflow-visible">
+        <div className="relative w-[118%] max-w-none -ml-[12%] my-1 pointer-events-none overflow-visible">
           <img
             src="./assets/crane-lifting-container-route.svg"
             alt="Industrial Crane Lifting Container with Freight Route"
