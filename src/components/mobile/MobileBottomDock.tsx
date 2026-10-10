@@ -55,29 +55,39 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
 
   const currentSection = activeSection || 'hero';
   const isFirstSection = currentSection === 'hero' || scrollY < 200;
+  const isSixthSection = currentSection === 'caller-id';
   const isHomeActive = ['hero', 'features'].includes(currentSection);
   const isCoursesActive = ['step-by-step-course', 'gallery', 'courses'].includes(currentSection);
   const isHotlineActive = currentSection === 'caller-id';
   const isEnrollActive = ['reviews', 'spotlight', 'contact-banners', 'footer'].includes(currentSection);
 
+  // Auto-collapse when entering Section 6
+  useEffect(() => {
+    if (activeSection === 'caller-id') {
+      setIsCollapsed(true);
+    }
+  }, [activeSection]);
+
   return (
     <div
-      className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
+      className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transform-gpu will-change-[transform,opacity,width] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
         isFirstSection
-          ? 'translate-y-24 opacity-0 pointer-events-none'
-          : 'translate-y-0 opacity-100 pointer-events-auto'
+          ? 'translate-y-24 translate-x-0 opacity-0 pointer-events-none'
+          : isSixthSection
+          ? '-translate-x-36 translate-y-0 opacity-0 pointer-events-none'
+          : 'translate-x-0 translate-y-0 opacity-100 pointer-events-auto'
       } ${
         isCollapsed
           ? 'w-12 h-12 cursor-pointer active:scale-95'
           : 'w-[calc(100vw-2rem)] max-w-[360px] h-14'
       }`}
-      onClick={!isFirstSection && isCollapsed ? () => setIsCollapsed(false) : undefined}
+      onClick={!isFirstSection && !isSixthSection && isCollapsed ? () => setIsCollapsed(false) : undefined}
       role={isCollapsed ? 'button' : 'navigation'}
       aria-label={isCollapsed ? 'Open Navigation Menu' : 'Mobile Navigation Menu'}
     >
       {/* Collapsed State: Compass Icon View */}
       <div
-        className={`absolute inset-0 flex items-center justify-center transition-all duration-200 ${
+        className={`absolute inset-0 flex items-center justify-center transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isCollapsed
             ? 'opacity-100 scale-100 pointer-events-auto'
             : 'opacity-0 scale-75 pointer-events-none'
@@ -88,10 +98,10 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
 
       {/* Expanded State: Full Nav Items Row (No Close Button, 4 Evenly Spaced Items) */}
       <div
-        className={`w-full h-full px-3.5 flex items-center justify-around transition-all duration-250 ${
+        className={`w-full h-full px-3.5 flex items-center justify-around transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isCollapsed
-            ? 'opacity-0 pointer-events-none -translate-x-4'
-            : 'opacity-100 pointer-events-auto translate-x-0'
+            ? 'opacity-0 pointer-events-none -translate-x-4 scale-95'
+            : 'opacity-100 pointer-events-auto translate-x-0 scale-100'
         }`}
       >
         {/* Home */}
