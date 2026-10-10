@@ -11,10 +11,24 @@
     }
   }
 
+  @-webkit-keyframes cranePendulum {
+    0% {
+      -webkit-transform: rotate(-1.3deg);
+    }
+    50% {
+      -webkit-transform: rotate(1.3deg);
+    }
+    100% {
+      -webkit-transform: rotate(-1.3deg);
+    }
+  }
+
   #hanging-assembly {
     transform-origin: 144px 48.5px;
+    -webkit-transform-origin: 144px 48.5px;
+    transform-box: view-box;
     animation: cranePendulum 6.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
-    transform-box: fill-box;
+    -webkit-animation: cranePendulum 6.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     will-change: transform;
   }
 </style>
