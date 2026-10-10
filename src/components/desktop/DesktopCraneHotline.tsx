@@ -19,7 +19,7 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
       <div className="relative w-[54%] xl:w-[56%] 2xl:w-[58%] h-full flex items-center justify-start pointer-events-none overflow-visible">
         <div className="relative w-[130%] lg:w-[136%] xl:w-[142%] max-w-none ml-0 -mt-8 lg:-mt-12 xl:-mt-16">
           <img
-            src="/assets/crane-lifting-container-route.svg"
+            src="./assets/crane-lifting-container-route.svg"
             alt="Industrial Crane Lifting Container with Freight Route"
             className="w-full h-auto object-contain select-none drop-shadow-[0_25px_40px_rgba(0,0,0,0.85)]"
           />
