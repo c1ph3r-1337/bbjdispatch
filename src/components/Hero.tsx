@@ -44,12 +44,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
   };
 
   return (
-    <section id="hero" className="snap-section relative min-h-screen flex flex-col justify-center pt-24 md:pt-28 pb-12 sm:pb-16 overflow-hidden">
+    <section id="hero" className="snap-section relative min-h-screen flex flex-col justify-center pt-20 md:pt-24 pb-20 md:pb-24 lg:pb-28 overflow-hidden">
       {/* Polar Radar Vector in upper right */}
       <RadarBackground />
 
       {/* Hero Content Grid */}
-      <div className="relative z-20 max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16 pt-4 md:pt-8">
+      <div className="relative z-20 max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-start">
           {/* Main Headline with Staggered Slide-In */}
           <div key={`headline-${animKey}`} className="lg:col-span-8">
@@ -87,13 +87,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
       {/* Central Visual Showcase: 3D Yellow Freight Truck with Entrance Animation */}
       <div
         ref={truckWrapperRef}
-        className="relative z-20 w-full mt-6 sm:mt-8 md:mt-10 flex flex-col items-center justify-center will-change-transform"
+        className="relative z-20 w-full mt-4 sm:mt-6 md:mt-8 flex flex-col items-center justify-center will-change-transform"
         style={{
           transform: 'translate3d(0, 0px, 0)',
         }}
       >
         {/* Giant Hollow Outlined Background Text behind the truck */}
-        <div className="absolute -top-12 sm:-top-14 md:top-auto md:-bottom-12 inset-x-0 w-full flex justify-center pointer-events-none overflow-hidden select-none z-0">
+        <div className="absolute top-1/2 -translate-y-1/2 inset-x-0 w-full flex justify-center pointer-events-none overflow-hidden select-none z-0">
           <span className="text-[18vw] sm:text-[18.5vw] md:text-[18vw] font-black uppercase tracking-wider text-stroke-dispatch opacity-80 whitespace-nowrap">
             TRAINING
           </span>
@@ -108,7 +108,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
             <img
               src="./assets/truck-side.svg"
               alt="BBJ Dispatch Commercial Freight Fleet Truck Driving In"
-              className="w-full h-auto max-w-[340px] sm:max-w-[500px] md:max-w-[760px] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-transform duration-500 cursor-pointer"
+              className="w-full h-auto max-w-[340px] sm:max-w-[480px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-transform duration-500 cursor-pointer"
               onClick={handleReplay}
               title="Click to replay drive-in animation"
             />
