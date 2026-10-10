@@ -122,6 +122,20 @@
   animation: truckIdle 4s ease-in-out infinite 2.4s;
 }
 
+/* Smooth Industrial Crane Floating Suspension */
+@keyframes craneFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-crane-float {
+  animation: craneFloat 5s ease-in-out infinite;
+}
+
 /* Staggered Headline Reveal */
 @keyframes headlineReveal {
   0% {
