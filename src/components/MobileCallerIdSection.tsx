@@ -11,7 +11,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
   onOpenConsultation,
 }) => {
   return (
-    <section id="caller-id" className="snap-section relative z-20 min-h-screen flex flex-col justify-center pt-20 md:pt-24 pb-14 md:pb-16 px-4 sm:px-6 md:px-10 lg:px-12 xl:px-16 bg-[#081017] border-t border-white/5 overflow-hidden">
+    <section id="caller-id" className="snap-section relative z-20 min-h-screen flex flex-col justify-center pt-20 md:pt-24 pb-14 md:pb-16 px-4 sm:px-6 md:px-10 lg:p-0 lg:px-0 lg:py-0 bg-[#081017] border-t border-white/5 overflow-hidden">
       {/* Background Subtle Radar & Grid Lines */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
