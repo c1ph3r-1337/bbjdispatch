@@ -17,7 +17,7 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
       {/* LEFT COLUMN: Large Industrial Crane Bleeding Left Edge    */}
       {/* ========================================================= */}
       <div className="relative w-[70%] xl:w-[72%] 2xl:w-[73%] h-full flex items-start justify-start pt-10 lg:pt-14 xl:pt-16 pointer-events-none overflow-visible">
-        <div className="relative w-[108%] lg:w-[112%] xl:w-[115%] max-w-none -ml-[4%] lg:-ml-[5%] xl:-ml-[6%] -mt-2 lg:-mt-4 xl:-mt-6">
+        <div className="relative w-[108%] lg:w-[112%] xl:w-[115%] max-w-none -ml-[8%] lg:-ml-[9%] xl:-ml-[10%] -mt-2 lg:-mt-4 xl:-mt-6">
           <img
             src="./assets/crane-lifting-container-route.svg"
             alt="Industrial Crane Lifting Container with Freight Route"
@@ -29,7 +29,7 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
       {/* ========================================================= */}
       {/* RIGHT COLUMN: Senior Dispatch Trainer & Campus Direct Line*/}
       {/* ========================================================= */}
-      <div className="relative w-[30%] xl:w-[28%] 2xl:w-[27%] flex flex-col justify-end pb-12 lg:pb-16 xl:pb-20 pr-6 lg:pr-10 xl:pr-14 pl-2 z-10">
+      <div className="relative w-[30%] xl:w-[28%] 2xl:w-[27%] -translate-x-5 lg:-translate-x-8 xl:-translate-x-10 flex flex-col justify-end pb-12 lg:pb-16 xl:pb-20 pr-6 lg:pr-10 xl:pr-14 pl-2 z-10">
         {/* Header Typography */}
         <div className="space-y-1.5 mb-5 lg:mb-6 text-left">
           <h2 className="text-xl sm:text-2xl xl:text-3xl font-extrabold tracking-tightest text-white leading-[1.15]">
