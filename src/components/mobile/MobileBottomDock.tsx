@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Home, Package, PhoneCall, UserCheck, Compass } from 'lucide-react';
 import { openWhatsApp } from '../../utils/whatsapp';
 
@@ -15,6 +15,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [scrollY, setScrollY] = useState(0);
+  const suppressCollapseUntilRef = useRef<number>(0);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -22,6 +23,11 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrollY(currentScrollY);
+
+      if (Date.now() < suppressCollapseUntilRef.current) {
+        lastScrollY = currentScrollY;
+        return;
+      }
 
       // Auto-collapse into circle on scroll
       if (Math.abs(currentScrollY - lastScrollY) > 8) {
@@ -61,9 +67,12 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   const isHotlineActive = currentSection === 'caller-id';
   const isEnrollActive = ['reviews', 'spotlight', 'contact-banners', 'footer'].includes(currentSection);
 
-  // Auto-collapse when entering Section 6
+  // Section-based state transitions
   useEffect(() => {
-    if (activeSection === 'caller-id') {
+    if (activeSection === 'features') {
+      setIsCollapsed(false);
+      suppressCollapseUntilRef.current = Date.now() + 800;
+    } else if (activeSection === 'caller-id') {
       setIsCollapsed(true);
     }
   }, [activeSection]);
@@ -72,7 +81,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
     <div
       className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transform-gpu will-change-[transform,opacity,width] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
         isFirstSection
-          ? 'translate-y-24 translate-x-0 opacity-0 pointer-events-none'
+          ? 'translate-y-28 translate-x-0 opacity-0 pointer-events-none'
           : isSixthSection
           ? '-translate-x-36 translate-y-0 opacity-0 pointer-events-none'
           : 'translate-x-0 translate-y-0 opacity-100 pointer-events-auto'
