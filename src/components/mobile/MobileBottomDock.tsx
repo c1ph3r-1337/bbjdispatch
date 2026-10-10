@@ -69,7 +69,6 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ onOpenEnroll
         }`}
       >
         <Compass className="w-5 h-5 text-dispatch-yellow" />
-        <span className="absolute top-2 right-2 w-2 h-2 bg-dispatch-yellow rounded-full ring-2 ring-[#0f1722]" />
       </div>
 
       {/* Expanded State: Full Nav Items Row */}
