@@ -20,7 +20,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
   return (
     <footer id="footer" className="snap-section relative z-20 min-h-screen flex flex-col justify-center bg-[#081017] border-t border-white/10 pt-20 pb-28 sm:pb-24 md:pb-16 text-sm text-dispatch-muted">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+      <div className="w-full max-w-7xl lg:max-w-[90rem] xl:max-w-[96rem] mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
         {/* Brand Header */}
         <div className="space-y-3 pb-8 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2">
@@ -32,13 +32,13 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
               Training Academy
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-dispatch-muted max-w-2xl mx-auto md:mx-0 leading-relaxed">
+          <p className="text-xs sm:text-sm text-dispatch-muted max-w-2xl lg:max-w-4xl mx-auto md:mx-0 leading-relaxed">
             45-Day comprehensive U.S. truck dispatch training course. Practical instruction covering load boards, broker negotiation, rate confirmations, billing, and career preparation.
           </p>
         </div>
 
         {/* 2 Side-by-Side Columns: Direct Contact on Left, 45-Day Curriculum on Right (Horizontal Side-by-Side on Mobile & Desktop) */}
-        <div className="grid grid-cols-2 gap-5 sm:gap-10 md:gap-16 lg:gap-24 py-8 md:py-10 border-t border-white/10">
+        <div className="grid grid-cols-2 gap-5 sm:gap-10 md:gap-16 lg:gap-32 xl:gap-40 py-8 md:py-10 border-t border-white/10">
           {/* Left Column: Direct Contact */}
           <div className="space-y-4 text-left">
             <h4 className="text-xs font-bold uppercase tracking-wider text-dispatch-yellow">

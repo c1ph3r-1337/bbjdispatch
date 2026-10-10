@@ -43,11 +43,11 @@ export const SectionPagination: React.FC<SectionPaginationProps> = ({
             aria-label={`Jump to ${section.label}`}
             aria-current={isActive ? 'true' : undefined}
           >
-            {/* Minimalist Indicator Dot Only */}
+            {/* Minimalist Indicator Dot Only (No Glow) */}
             <span
               className={`rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'w-2.5 h-6 bg-dispatch-yellow shadow-md shadow-dispatch-yellow/40 ring-2 ring-dispatch-yellow/30'
+                  ? 'w-2 h-6 bg-dispatch-yellow'
                   : 'w-2 h-2 bg-white/30 group-hover:bg-white/80 group-hover:scale-125'
               }`}
             />
