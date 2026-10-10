@@ -44,13 +44,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
   };
 
   return (
-    <section id="hero" className="snap-section relative min-h-screen flex flex-col justify-center pt-20 md:pt-24 pb-20 md:pb-24 lg:pb-28 overflow-hidden">
+    <section id="hero" className="snap-section relative min-h-[100dvh] min-h-screen flex flex-col justify-center pt-16 sm:pt-20 md:pt-24 pb-14 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden">
       {/* Polar Radar Vector in upper right */}
       <RadarBackground />
 
       {/* Hero Content Grid */}
       <div className="relative z-20 max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 md:gap-10 lg:gap-14 items-start">
           {/* Main Headline with Staggered Slide-In */}
           <div key={`headline-${animKey}`} className="lg:col-span-8">
             <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tightest leading-[1.04] text-white">
@@ -87,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
       {/* Central Visual Showcase: 3D Yellow Freight Truck with Entrance Animation */}
       <div
         ref={truckWrapperRef}
-        className="relative z-20 w-full mt-4 sm:mt-6 md:mt-8 flex flex-col items-center justify-center will-change-transform"
+        className="relative z-20 w-full mt-8 sm:mt-10 md:mt-14 lg:mt-16 xl:mt-20 flex flex-col items-center justify-center will-change-transform"
         style={{
           transform: 'translate3d(0, 0px, 0)',
         }}
@@ -127,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
         </div>
 
         {/* Mobile Tactile "Slide to Get Started >>>" Button (Mirroring User Reference Screen 1) */}
-        <div className="w-full max-w-sm px-6 mt-4 sm:mt-6 mb-2 md:mb-0 md:hidden relative z-30">
+        <div className="w-full max-w-sm px-6 mt-6 sm:mt-8 mb-2 md:mb-0 md:hidden relative z-30">
           <SlideToActionButton
             label="Slide to Get Started"
             icon={<Truck className="w-5 h-5 text-dispatch-bg fill-dispatch-bg" />}

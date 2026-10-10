@@ -36,13 +36,13 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
   ];
 
   return (
-    <section id="courses" className="snap-section relative z-20 min-h-screen flex flex-col justify-center items-center py-16 md:py-20 lg:py-0 px-6 md:px-12 lg:px-16 bg-[#081017]">
+    <section id="courses" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center items-center py-6 sm:py-8 md:py-14 lg:py-0 px-4 sm:px-6 md:px-12 lg:px-16 bg-[#081017]">
       <div className="max-w-5xl lg:max-w-6xl mx-auto w-full">
         {/* Tilted Yellow Circular Badge */}
-        <div className="flex justify-center mb-6 md:mb-8 lg:mb-8">
+        <div className="flex justify-center mb-4 sm:mb-6 md:mb-8 lg:mb-8">
           <div className="relative group cursor-pointer">
-            <div className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 transform group-hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20">
-              <span className="text-dispatch-bg font-extrabold text-[11px] md:text-xs lg:text-sm tracking-wider uppercase">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 transform group-hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20">
+              <span className="text-dispatch-bg font-extrabold text-[10px] sm:text-[11px] md:text-xs lg:text-sm tracking-wider uppercase">
                 Courses
               </span>
             </div>
@@ -60,7 +60,7 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 onClick={() => openWhatsApp('batch', course.title)}
-                className={`group cursor-pointer relative py-4 sm:py-5 md:py-6 lg:py-6 border-b transition-colors duration-300 ${
+                className={`group cursor-pointer relative py-3.5 sm:py-4 md:py-6 lg:py-6 border-b transition-colors duration-300 ${
                   isHovered ? 'border-dispatch-yellow' : 'border-white/15'
                 }`}
               >

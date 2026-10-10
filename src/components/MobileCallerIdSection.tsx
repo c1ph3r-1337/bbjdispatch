@@ -16,7 +16,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
   const distanceInfo = useVisitorDistance();
 
   return (
-    <section id="caller-id" className="snap-section relative z-20 min-h-screen flex flex-col justify-center pt-14 md:pt-20 pb-10 md:pb-14 px-4 sm:px-6 md:px-10 lg:p-0 lg:px-0 lg:py-0 bg-[#081017] border-t border-white/5 overflow-hidden">
+    <section id="caller-id" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center items-center py-6 sm:py-8 md:py-14 lg:p-0 lg:px-0 lg:py-0 bg-[#081017] border-t border-white/5 overflow-hidden">
       {/* Background Subtle Radar & Grid Lines */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
