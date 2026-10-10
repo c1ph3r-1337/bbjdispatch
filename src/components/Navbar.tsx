@@ -86,10 +86,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-40 w-full px-6 md:px-12 lg:px-16 flex items-center justify-between transition-all duration-300 ${
+        className={`fixed top-0 inset-x-0 z-40 w-full px-6 md:px-12 lg:px-16 flex items-center justify-between transition-all duration-300 border-b border-white/5 ${
           isScrolled
-            ? 'py-3.5 md:py-4 bg-[#081017]/95 backdrop-blur-xl border-b border-white/10'
-            : 'py-4 md:py-5 bg-[#081017]/80 backdrop-blur-md border-b border-white/5'
+            ? 'py-3.5 md:py-4 bg-[#081017]/95 backdrop-blur-xl'
+            : 'py-4 md:py-5 bg-[#081017]/80 backdrop-blur-md'
         }`}
       >
         {/* Left: Logo */}
