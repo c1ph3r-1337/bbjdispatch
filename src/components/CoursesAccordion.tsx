@@ -36,13 +36,13 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
   ];
 
   return (
-    <section id="courses" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 px-6 md:px-12 lg:px-16 bg-[#081017]">
-      <div className="max-w-6xl mx-auto">
+    <section id="courses" className="snap-section relative z-20 min-h-screen flex flex-col justify-center pt-20 md:pt-24 pb-12 md:pb-16 px-6 md:px-12 lg:px-16 bg-[#081017]">
+      <div className="max-w-7xl mx-auto w-full">
         {/* Tilted Yellow Circular Badge */}
-        <div className="flex justify-center mb-16 md:mb-20">
+        <div className="flex justify-center mb-8 md:mb-10">
           <div className="relative group cursor-pointer">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 transform group-hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20">
-              <span className="text-dispatch-bg font-extrabold text-xs md:text-sm tracking-wider uppercase">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 transform group-hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20">
+              <span className="text-dispatch-bg font-extrabold text-[11px] md:text-xs tracking-wider uppercase">
                 Courses
               </span>
             </div>
@@ -60,15 +60,15 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 onClick={() => openWhatsApp('batch', course.title)}
-                className={`group cursor-pointer relative py-8 md:py-12 border-b transition-colors duration-300 ${
+                className={`group cursor-pointer relative py-5 sm:py-6 md:py-7 border-b transition-colors duration-300 ${
                   isHovered ? 'border-dispatch-yellow' : 'border-white/15'
                 }`}
               >
-                <div className="grid grid-cols-12 items-center gap-4">
+                <div className="grid grid-cols-12 items-center gap-3 sm:gap-4 md:gap-6">
                   {/* Left: Index Number */}
-                  <div className="col-span-2 md:col-span-1">
+                  <div className="col-span-2 sm:col-span-1">
                     <span
-                      className={`text-base md:text-xl font-bold transition-colors duration-300 ${
+                      className={`text-lg sm:text-xl md:text-2xl font-bold font-mono transition-colors duration-300 ${
                         isHovered || index === 1 ? 'text-dispatch-yellow' : 'text-white/60'
                       }`}
                     >
@@ -77,12 +77,12 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
                   </div>
 
                   {/* Center: Subtitle and Large Title */}
-                  <div className="col-span-8 md:col-span-9 flex flex-col items-center md:items-start text-center md:text-left">
-                    <span className="text-xs md:text-sm text-dispatch-muted font-normal tracking-wide mb-1.5 transition-colors group-hover:text-white/80">
+                  <div className="col-span-8 sm:col-span-9 md:col-span-9 flex flex-col text-left">
+                    <span className="text-xs sm:text-sm text-dispatch-muted font-normal tracking-wide mb-1 transition-colors group-hover:text-white/80 line-clamp-1 sm:line-clamp-none">
                       {course.subtitle}
                     </span>
                     <h3
-                      className={`text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest transition-colors duration-300 ${
+                      className={`text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tightest transition-colors duration-300 ${
                         isHovered ? 'text-dispatch-yellow' : 'text-white'
                       }`}
                     >
@@ -91,7 +91,7 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
                   </div>
 
                   {/* Right: Floating 3D Thumbnail & Arrow */}
-                  <div className="col-span-2 md:col-span-2 flex items-center justify-end gap-3 md:gap-5">
+                  <div className="col-span-2 sm:col-span-2 md:col-span-2 flex items-center justify-end gap-2 sm:gap-3 md:gap-5">
                     {/* Dynamic 3D Thumbnail revealing on hover */}
                     <div
                       className={`transition-all duration-300 transform ${
@@ -109,7 +109,7 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
 
                     {/* Arrow Indicator */}
                     <span
-                      className={`text-2xl md:text-4xl transition-all duration-300 transform group-hover:translate-x-2 ${
+                      className={`text-2xl md:text-3xl transition-all duration-300 transform group-hover:translate-x-2 ${
                         isHovered ? 'text-dispatch-yellow' : 'text-white/70'
                       }`}
                     >
