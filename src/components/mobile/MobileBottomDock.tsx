@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Home, Package, PhoneCall, UserCheck, Compass, X } from 'lucide-react';
+import { Home, Package, PhoneCall, UserCheck, Compass } from 'lucide-react';
 import { openWhatsApp } from '../../utils/whatsapp';
 
 interface MobileBottomDockProps {
+  activeSection?: string;
+  onNavigate?: (id: string) => void;
   onOpenEnrollModal?: () => void;
 }
 
-export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ onOpenEnrollModal }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(true);
+export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
+  activeSection = 'hero',
+  onNavigate,
+  onOpenEnrollModal,
+}) => {
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      setIsVisible(currentScrollY > 70);
 
       // Auto-collapse into circle on scroll
       if (Math.abs(currentScrollY - lastScrollY) > 8) {
@@ -25,16 +29,19 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ onOpenEnroll
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (onNavigate) {
+      onNavigate(id);
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   };
 
@@ -43,15 +50,15 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ onOpenEnroll
     setIsCollapsed(true);
   };
 
-  if (!isVisible) return null;
+  const currentSection = activeSection || 'hero';
+  const isHomeActive = ['hero', 'features'].includes(currentSection);
+  const isCoursesActive = ['step-by-step-course', 'gallery', 'courses'].includes(currentSection);
+  const isHotlineActive = currentSection === 'caller-id';
+  const isEnrollActive = ['reviews', 'spotlight', 'contact-banners', 'footer'].includes(currentSection);
 
   return (
     <div
-      className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
-        isVisible
-          ? 'translate-y-0 opacity-100 pointer-events-auto'
-          : 'translate-y-20 opacity-0 pointer-events-none'
-      } ${
+      className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full translate-y-0 opacity-100 pointer-events-auto ${
         isCollapsed
           ? 'w-12 h-12 cursor-pointer active:scale-95'
           : 'w-[calc(100vw-2rem)] max-w-[360px] h-14'
@@ -71,37 +78,34 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ onOpenEnroll
         <Compass className="w-5 h-5 text-dispatch-yellow" />
       </div>
 
-      {/* Expanded State: Full Nav Items Row */}
+      {/* Expanded State: Full Nav Items Row (No Close Button, 4 Evenly Spaced Items) */}
       <div
-        className={`w-full h-full px-3 flex items-center justify-between transition-all duration-250 ${
+        className={`w-full h-full px-3.5 flex items-center justify-around transition-all duration-250 ${
           isCollapsed
             ? 'opacity-0 pointer-events-none -translate-x-4'
             : 'opacity-100 pointer-events-auto translate-x-0'
         }`}
       >
-        {/* Close Toggle */}
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsCollapsed(true);
-          }}
-          className="p-1.5 rounded-full text-white/50 hover:text-white hover:bg-white/10 transition-colors"
-          aria-label="Close menu"
-        >
-          <X className="w-4 h-4" />
-        </button>
-
         {/* Home */}
         <button
           onClick={(e) => {
             e.stopPropagation();
-            handleNav(() => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            handleNav(() => scrollTo('hero'));
           }}
-          className="flex flex-col items-center justify-center text-white/80 hover:text-dispatch-yellow transition-colors"
+          className={`flex flex-col items-center justify-center transition-all duration-200 py-1 px-2.5 rounded-xl active:scale-95 ${
+            isHomeActive
+              ? 'text-dispatch-yellow font-bold'
+              : 'text-white/60 hover:text-white font-medium'
+          }`}
           aria-label="Home"
         >
-          <Home className="w-4 h-4 fill-current" />
-          <span className="text-[9px] font-bold tracking-tight mt-0.5">Home</span>
+          <Home className={`w-4 h-4 transition-transform duration-200 ${isHomeActive ? 'stroke-[2.5px] scale-110 fill-dispatch-yellow/20' : 'stroke-[1.8]'}`} />
+          <span className="text-[9px] tracking-tight mt-0.5">Home</span>
+          <span
+            className={`w-1 h-1 rounded-full transition-all duration-200 mt-0.5 ${
+              isHomeActive ? 'bg-dispatch-yellow scale-100 shadow-[0_0_6px_#fbc21e]' : 'bg-transparent scale-0'
+            }`}
+          />
         </button>
 
         {/* Courses */}
@@ -110,11 +114,20 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ onOpenEnroll
             e.stopPropagation();
             handleNav(() => scrollTo('courses'));
           }}
-          className="flex flex-col items-center justify-center text-white/80 hover:text-dispatch-yellow transition-colors"
+          className={`flex flex-col items-center justify-center transition-all duration-200 py-1 px-2.5 rounded-xl active:scale-95 ${
+            isCoursesActive
+              ? 'text-dispatch-yellow font-bold'
+              : 'text-white/60 hover:text-white font-medium'
+          }`}
           aria-label="Courses"
         >
-          <Package className="w-4 h-4" />
-          <span className="text-[9px] font-semibold tracking-tight mt-0.5">Courses</span>
+          <Package className={`w-4 h-4 transition-transform duration-200 ${isCoursesActive ? 'stroke-[2.5px] scale-110' : 'stroke-[1.8]'}`} />
+          <span className="text-[9px] tracking-tight mt-0.5">Courses</span>
+          <span
+            className={`w-1 h-1 rounded-full transition-all duration-200 mt-0.5 ${
+              isCoursesActive ? 'bg-dispatch-yellow scale-100 shadow-[0_0_6px_#fbc21e]' : 'bg-transparent scale-0'
+            }`}
+          />
         </button>
 
         {/* Caller ID / Hotline */}
@@ -123,11 +136,20 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ onOpenEnroll
             e.stopPropagation();
             handleNav(() => scrollTo('caller-id'));
           }}
-          className="flex flex-col items-center justify-center text-white/80 hover:text-dispatch-yellow transition-colors"
+          className={`flex flex-col items-center justify-center transition-all duration-200 py-1 px-2.5 rounded-xl active:scale-95 ${
+            isHotlineActive
+              ? 'text-dispatch-yellow font-bold'
+              : 'text-white/60 hover:text-white font-medium'
+          }`}
           aria-label="Admissions Hotline"
         >
-          <PhoneCall className="w-4 h-4" />
-          <span className="text-[9px] font-semibold tracking-tight mt-0.5">Hotline</span>
+          <PhoneCall className={`w-4 h-4 transition-transform duration-200 ${isHotlineActive ? 'stroke-[2.5px] scale-110' : 'stroke-[1.8]'}`} />
+          <span className="text-[9px] tracking-tight mt-0.5">Hotline</span>
+          <span
+            className={`w-1 h-1 rounded-full transition-all duration-200 mt-0.5 ${
+              isHotlineActive ? 'bg-dispatch-yellow scale-100 shadow-[0_0_6px_#fbc21e]' : 'bg-transparent scale-0'
+            }`}
+          />
         </button>
 
         {/* Enroll Button */}
@@ -136,10 +158,14 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({ onOpenEnroll
             e.stopPropagation();
             handleNav(onOpenEnrollModal || (() => openWhatsApp('batch')));
           }}
-          className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-dispatch-yellow text-dispatch-bg font-extrabold text-[10px] uppercase tracking-wider shadow-md hover:bg-dispatch-yellowLight active:scale-95 transition-all"
+          className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full font-extrabold text-[10px] uppercase tracking-wider transition-all duration-200 active:scale-95 ${
+            isEnrollActive
+              ? 'bg-dispatch-yellow text-dispatch-bg shadow-[0_0_14px_rgba(251,194,30,0.65)] ring-2 ring-dispatch-yellow/50 scale-105'
+              : 'bg-dispatch-yellow text-dispatch-bg shadow-md hover:bg-dispatch-yellowLight'
+          }`}
           aria-label="Enroll"
         >
-          <UserCheck className="w-3.5 h-3.5" />
+          <UserCheck className="w-3.5 h-3.5 stroke-[2.5]" />
           <span>Enroll</span>
         </button>
       </div>

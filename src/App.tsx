@@ -321,6 +321,8 @@ export const App: React.FC = () => {
 
       {/* Persistent Floating iOS Bottom Navigation Dock on Mobile Viewports */}
       <MobileBottomDock
+        activeSection={activeSection}
+        onNavigate={scrollToSection}
         onOpenEnrollModal={() => handleOpenEnroll('Admissions Consultation')}
       />
     </div>
