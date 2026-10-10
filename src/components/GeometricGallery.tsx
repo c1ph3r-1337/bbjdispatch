@@ -39,7 +39,7 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
   ];
 
   return (
-    <section className="relative z-20 py-24 md:py-36 bg-[#081017] overflow-hidden">
+    <section id="gallery" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 bg-[#081017] overflow-hidden">
       {/* Giant Hollow Outlined Display Typography behind the cards */}
       <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-center pointer-events-none select-none z-0">
         <span className="text-[17vw] font-black uppercase tracking-wider text-stroke-dispatch opacity-70 whitespace-nowrap">

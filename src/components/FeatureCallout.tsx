@@ -7,7 +7,7 @@ interface FeatureCalloutProps {
 
 export const FeatureCallout: React.FC<FeatureCalloutProps> = ({ onOpenEnrollModal }) => {
   return (
-    <section id="features" className="relative z-20 py-24 md:py-32 px-6 md:px-12 lg:px-16 border-t border-white/5 bg-[#081017]">
+    <section id="features" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 px-6 md:px-12 lg:px-16 border-t border-white/5 bg-[#081017]">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         {/* Left Column: Descriptive Story & Arrow Button */}
         <div className="lg:col-span-5 space-y-8 order-2 lg:order-1">

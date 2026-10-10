@@ -9,10 +9,31 @@
     --color-dispatch-accent-dark: #d9a30b;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html.scroll-snap-active {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 5rem;
+  }
+
   body {
     background-color: #081017;
     color: #ffffff;
     font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+}
+
+/* Section Snap Alignment for Full-Height Presentation Stages */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+@media (min-width: 768px) {
+  .snap-section {
+    scroll-snap-align: center;
   }
 }
 

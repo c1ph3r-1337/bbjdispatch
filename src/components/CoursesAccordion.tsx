@@ -36,7 +36,7 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
   ];
 
   return (
-    <section id="courses" className="relative z-20 py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-[#081017]">
+    <section id="courses" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 px-6 md:px-12 lg:px-16 bg-[#081017]">
       <div className="max-w-6xl mx-auto">
         {/* Tilted Yellow Circular Badge */}
         <div className="flex justify-center mb-16 md:mb-20">

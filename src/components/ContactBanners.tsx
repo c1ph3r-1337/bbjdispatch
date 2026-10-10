@@ -11,7 +11,7 @@ export const ContactBanners: React.FC<ContactBannersProps> = ({
   onOpenSyllabusModal,
 }) => {
   return (
-    <section className="relative z-20 bg-[#081017] border-t border-white/10">
+    <section id="contact-banners" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 bg-[#081017] border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
         {/* Banner 1: Book Free Demo (Yellow) */}
         <div

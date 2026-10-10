@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { FeatureCallout } from './components/FeatureCallout';
@@ -12,6 +12,7 @@ import { ContactBanners } from './components/ContactBanners';
 import { Footer } from './components/Footer';
 import { EnrollModal } from './components/EnrollModal';
 import { MobileBottomDock } from './components/mobile/MobileBottomDock';
+import { SectionPagination, SECTIONS } from './components/SectionPagination';
 import { TermsPage } from './pages/TermsPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { openDialer } from './utils/whatsapp';
@@ -31,6 +32,131 @@ export const App: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState('45-Day Truck Dispatch Course');
   const [isSyllabusMode, setIsSyllabusMode] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('hero');
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<number | null>(null);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: isMobile ? 'start' : 'center',
+      });
+      setActiveSection(id);
+    }
+  };
+
+  // Track currently active section in viewport
+  useEffect(() => {
+    if (currentRoute !== 'home') return;
+
+    const options: IntersectionObserverInit = {
+      root: null,
+      rootMargin: '-20% 0px -20% 0px',
+      threshold: [0.1, 0.4],
+    };
+
+    const handleIntersect: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, options);
+    SECTIONS.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [currentRoute]);
+
+  // Discrete Wheel & Keyboard Section Snapping Controller
+  useEffect(() => {
+    if (currentRoute !== 'home' || modalOpen) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (modalOpen) return;
+
+      // Ignore small trackpad jitter
+      if (Math.abs(e.deltaY) < 25) return;
+
+      if (isScrollingRef.current) {
+        e.preventDefault();
+        return;
+      }
+
+      const currentIndex = SECTIONS.findIndex((s) => s.id === activeSection);
+      if (currentIndex === -1) return;
+
+      if (e.deltaY > 0 && currentIndex < SECTIONS.length - 1) {
+        e.preventDefault();
+        isScrollingRef.current = true;
+        scrollToSection(SECTIONS[currentIndex + 1].id);
+      } else if (e.deltaY < 0 && currentIndex > 0) {
+        e.preventDefault();
+        isScrollingRef.current = true;
+        scrollToSection(SECTIONS[currentIndex - 1].id);
+      }
+
+      if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = window.setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 650);
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (modalOpen) return;
+      const target = e.target as HTMLElement;
+      if (target && ['INPUT', 'TEXTAREA', 'SELECT'].includes(target.tagName)) return;
+
+      if (['ArrowDown', 'PageDown'].includes(e.key)) {
+        const currentIndex = SECTIONS.findIndex((s) => s.id === activeSection);
+        if (currentIndex < SECTIONS.length - 1) {
+          e.preventDefault();
+          scrollToSection(SECTIONS[currentIndex + 1].id);
+        }
+      } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
+        const currentIndex = SECTIONS.findIndex((s) => s.id === activeSection);
+        if (currentIndex > 0) {
+          e.preventDefault();
+          scrollToSection(SECTIONS[currentIndex - 1].id);
+        }
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        scrollToSection(SECTIONS[0].id);
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        scrollToSection(SECTIONS[SECTIONS.length - 1].id);
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('keydown', handleKeyDown);
+      if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
+    };
+  }, [currentRoute, modalOpen, activeSection]);
+
+  // Dynamically activate CSS scroll snap only on home view when modals are closed
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (currentRoute === 'home' && !modalOpen) {
+      document.documentElement.classList.add('scroll-snap-active');
+    } else {
+      document.documentElement.classList.remove('scroll-snap-active');
+    }
+    return () => {
+      document.documentElement.classList.remove('scroll-snap-active');
+    };
+  }, [currentRoute, modalOpen]);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -109,6 +235,12 @@ export const App: React.FC = () => {
       <Navbar
         onOpenEnrollModal={handleOpenEnroll}
         onOpenContactModal={handleOpenContact}
+      />
+
+      {/* Desktop Floating Right-Side Section Pagination Dots */}
+      <SectionPagination
+        activeSection={activeSection}
+        onSelectSection={scrollToSection}
       />
 
       {/* Main Page Flow */}
