@@ -31,34 +31,34 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
       {/* ========================================================= */}
       <div className="relative w-[30%] xl:w-[28%] 2xl:w-[27%] -translate-x-5 lg:-translate-x-8 xl:-translate-x-10 flex flex-col justify-end pb-12 lg:pb-16 xl:pb-20 pr-6 lg:pr-10 xl:pr-14 pl-2 z-10">
         {/* Header Typography */}
-        <div className="space-y-1.5 mb-5 lg:mb-6 text-left">
-          <h2 className="text-xl sm:text-2xl xl:text-3xl font-extrabold tracking-tightest text-white leading-[1.15]">
+        <div className="space-y-1 mb-3.5 lg:mb-4 text-left">
+          <h2 className="text-lg sm:text-xl xl:text-2xl font-extrabold tracking-tightest text-white leading-[1.15]">
             Direct Line To Your <br />
             <span className="text-dispatch-yellow">Senior Dispatch Trainer</span>
           </h2>
 
-          <p className="text-[11px] sm:text-xs xl:text-[13px] text-dispatch-muted leading-relaxed max-w-xs mt-1.5">
+          <p className="text-[10px] sm:text-[11px] xl:text-xs text-dispatch-muted leading-relaxed max-w-xs mt-1">
             Direct telephone lines, WhatsApp consultation, and driving directions to the Zira academy campus.
           </p>
         </div>
 
         {/* Compact Spaced Rows with Outlined Yellow Icons */}
-        <div className="space-y-3 lg:space-y-3.5">
+        <div className="space-y-2.5 lg:space-y-3">
           {/* 1. Campus Location Row */}
-          <div className="flex items-start gap-3">
-            <MapPin className="w-4 h-4 text-dispatch-yellow stroke-[2] shrink-0 mt-0.5" />
+          <div className="flex items-start gap-2.5">
+            <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-dispatch-yellow stroke-[2] shrink-0 mt-0.5" />
             <div>
-              <h3 className="text-xs sm:text-sm xl:text-base font-bold text-white tracking-tight leading-snug">
+              <h3 className="text-xs sm:text-[13px] xl:text-sm font-bold text-white tracking-tight leading-snug">
                 Mallawala Road, Zira Campus
               </h3>
-              <p className="text-[10px] sm:text-[11px] text-white/60 leading-tight mt-0.5">
+              <p className="text-[9.5px] sm:text-[10px] xl:text-[10.5px] text-white/60 leading-tight mt-0.5">
                 District Ferozepur, Punjab 142047
               </p>
               <a
                 href={distanceInfo.googleMapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block text-[10px] sm:text-[11px] font-mono text-dispatch-yellow font-semibold mt-1 hover:underline cursor-pointer"
+                className="inline-block text-[9.5px] sm:text-[10px] xl:text-[10.5px] font-mono text-dispatch-yellow font-semibold mt-0.5 hover:underline cursor-pointer"
               >
                 ~{distanceInfo.roadDistanceKm} km • {distanceInfo.drivingTime} drive from {distanceInfo.city}
               </a>
@@ -68,17 +68,17 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
           <div className="border-t border-white/10" />
 
           {/* 2. Trainer 1 Row (Harry Dhillon) */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-start gap-3">
-              <User className="w-4 h-4 text-dispatch-yellow stroke-[2] shrink-0 mt-0.5" />
+          <div className="flex items-center justify-between gap-2.5">
+            <div className="flex items-start gap-2.5">
+              <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-dispatch-yellow stroke-[2] shrink-0 mt-0.5" />
               <div>
                 <a
                   href="tel:+917888825122"
-                  className="text-xs sm:text-sm xl:text-base font-bold text-white hover:text-dispatch-yellow transition-colors block"
+                  className="text-xs sm:text-[13px] xl:text-sm font-bold text-white hover:text-dispatch-yellow transition-colors block"
                 >
                   Harry Dhillon • +91 78888 25122
                 </a>
-                <span className="text-[10px] sm:text-[11px] text-white/60 block mt-0.5">
+                <span className="text-[9.5px] sm:text-[10px] xl:text-[10.5px] text-white/60 block mt-0.5">
                   Senior Dispatch Trainer • Admissions &amp; Batches
                 </span>
               </div>
@@ -86,10 +86,10 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
 
             <button
               onClick={() => openWhatsApp('talk', 'Senior Trainer Harry Dhillon')}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-white/70 transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-white hover:text-white/70 transition-colors shrink-0"
               aria-label="Chat with Harry Dhillon on WhatsApp"
             >
-              <WhatsAppIcon className="w-3.5 h-3.5 fill-white" />
+              <WhatsAppIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-white" />
               <span>WhatsApp</span>
             </button>
           </div>
@@ -97,17 +97,17 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
           <div className="border-t border-white/10" />
 
           {/* 3. Trainer 2 Row (Jazz Dhillon) */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex items-start gap-3">
-              <User className="w-4 h-4 text-dispatch-yellow stroke-[2] shrink-0 mt-0.5" />
+          <div className="flex items-center justify-between gap-2.5">
+            <div className="flex items-start gap-2.5">
+              <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-dispatch-yellow stroke-[2] shrink-0 mt-0.5" />
               <div>
                 <a
                   href="tel:+919814379035"
-                  className="text-xs sm:text-sm xl:text-base font-bold text-white hover:text-dispatch-yellow transition-colors block"
+                  className="text-xs sm:text-[13px] xl:text-sm font-bold text-white hover:text-dispatch-yellow transition-colors block"
                 >
                   Jazz Dhillon • +91 98143 79035
                 </a>
-                <span className="text-[10px] sm:text-[11px] text-white/60 block mt-0.5">
+                <span className="text-[9.5px] sm:text-[10px] xl:text-[10.5px] text-white/60 block mt-0.5">
                   Course Enquiry &amp; Free Demo Class Booking
                 </span>
               </div>
@@ -115,10 +115,10 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
 
             <a
               href="tel:+919814379035"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-white hover:text-white/70 transition-colors shrink-0"
+              className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold text-white hover:text-white/70 transition-colors shrink-0"
               aria-label="Call Jazz Dhillon"
             >
-              <Phone className="w-3.5 h-3.5 text-white" />
+              <Phone className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
               <span>Call</span>
             </a>
           </div>
