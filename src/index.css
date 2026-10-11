@@ -15,8 +15,8 @@
 
   html.scroll-snap-active {
     scroll-snap-type: y mandatory;
-    scroll-padding-top: 4rem;
-    scroll-padding-bottom: 4rem;
+    scroll-padding-top: 0px;
+    scroll-padding-bottom: 0px;
   }
 
   body {
@@ -28,7 +28,7 @@
 
 /* Universal Section Snap Alignment for Full-Height Presentation Stages */
 .snap-section {
-  scroll-snap-align: center;
+  scroll-snap-align: start;
   scroll-snap-stop: always;
 }
 

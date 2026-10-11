@@ -7,7 +7,7 @@ interface ExperienceMetricsProps {
 
 export const ExperienceMetrics: React.FC<ExperienceMetricsProps> = ({ onOpenEnrollModal }) => {
   return (
-    <section id="step-by-step-course" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-10 sm:py-14 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-[#081017] overflow-hidden">
+    <section id="step-by-step-course" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 px-4 sm:px-6 md:px-12 lg:px-16 bg-[#081017] overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Unified 45 Days Stat & 3/4 Rotated Rear Truck Grid (Mobile & Desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center">

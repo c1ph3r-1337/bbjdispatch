@@ -7,7 +7,7 @@ interface SpotlightCTAProps {
 
 export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ onOpenEnrollModal }) => {
   return (
-    <section id="spotlight" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 bg-[#081017] overflow-hidden">
+    <section id="spotlight" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 bg-[#081017] overflow-hidden">
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col items-center">
         {/* Top Header with Tilted CTA Badge */}
         <div className="relative text-center mb-8 md:mb-12">
