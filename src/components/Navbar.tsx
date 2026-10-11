@@ -15,7 +15,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
   const startYRef = useRef<number>(0);
   const currentDragOffsetRef = useRef<number>(0);
 
-  // Desktop pull-down drag interactions with direct GPU transform (zero React re-render thrashing)
+  const menuOpenRef = useRef(menuOpen);
+  menuOpenRef.current = menuOpen;
+  const desktopPanelRef = useRef<HTMLDivElement>(null);
+
+  // Desktop drag interactions with direct GPU transform for handle and drawer
   const handleDragStart = (e: React.MouseEvent) => {
     isDraggingRef.current = true;
     startYRef.current = e.clientY;
@@ -23,30 +27,66 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
     if (dragHandleRef.current) {
       dragHandleRef.current.style.transition = 'none';
     }
+    if (desktopPanelRef.current) {
+      desktopPanelRef.current.style.transition = 'none';
+    }
   };
 
   const handleClick = () => {
-    if (currentDragOffsetRef.current < 10) {
-      setMenuOpen(true);
+    // If movement is negligible (< 8px), treat as click toggle
+    if (Math.abs(currentDragOffsetRef.current) < 8) {
+      setMenuOpen((prev) => !prev);
     }
   };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDraggingRef.current) return;
-      const deltaY = Math.max(0, Math.min(e.clientY - startYRef.current, 90));
-      currentDragOffsetRef.current = deltaY;
+      const isOpen = menuOpenRef.current;
+      const rawDelta = e.clientY - startYRef.current;
 
-      if (dragHandleRef.current) {
-        dragHandleRef.current.style.transform = `translate3d(0, ${deltaY}px, 0)`;
-      }
+      if (!isOpen) {
+        // Closed state: allow dragging downwards (0 to 90px)
+        const deltaY = Math.max(0, Math.min(rawDelta, 90));
+        currentDragOffsetRef.current = deltaY;
 
-      if (deltaY >= 55) {
-        setMenuOpen(true);
-        isDraggingRef.current = false;
         if (dragHandleRef.current) {
-          dragHandleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
-          dragHandleRef.current.style.transform = 'translate3d(0, 0px, 0)';
+          dragHandleRef.current.style.transform = `translate3d(0, ${deltaY}px, 0)`;
+        }
+
+        // Auto trigger open if dragged past 45px
+        if (deltaY >= 45) {
+          setMenuOpen(true);
+          isDraggingRef.current = false;
+          if (dragHandleRef.current) {
+            dragHandleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            dragHandleRef.current.style.transform = 'translate3d(0, 0px, 0)';
+          }
+        }
+      } else {
+        // Open state: allow dragging upwards (-90px to 0) or downwards (clamped)
+        const deltaY = Math.max(-90, Math.min(rawDelta, 20));
+        currentDragOffsetRef.current = deltaY;
+
+        if (dragHandleRef.current) {
+          dragHandleRef.current.style.transform = `translate3d(0, ${deltaY}px, 0)`;
+        }
+        if (desktopPanelRef.current) {
+          desktopPanelRef.current.style.transform = `translate3d(0, ${deltaY}px, 0)`;
+        }
+
+        // Auto trigger close if dragged up past 40px
+        if (deltaY <= -40) {
+          setMenuOpen(false);
+          isDraggingRef.current = false;
+          if (dragHandleRef.current) {
+            dragHandleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            dragHandleRef.current.style.transform = 'translate3d(0, 0px, 0)';
+          }
+          if (desktopPanelRef.current) {
+            desktopPanelRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+            desktopPanelRef.current.style.transform = 'translate3d(0, 0px, 0)';
+          }
         }
       }
     };
@@ -54,12 +94,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
     const handleMouseUp = () => {
       if (!isDraggingRef.current) return;
       isDraggingRef.current = false;
-      if (currentDragOffsetRef.current >= 50) {
+      const isOpen = menuOpenRef.current;
+      const offset = currentDragOffsetRef.current;
+
+      if (!isOpen && offset >= 35) {
         setMenuOpen(true);
+      } else if (isOpen && offset <= -25) {
+        setMenuOpen(false);
       }
+
       if (dragHandleRef.current) {
         dragHandleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
         dragHandleRef.current.style.transform = 'translate3d(0, 0px, 0)';
+      }
+      if (desktopPanelRef.current) {
+        desktopPanelRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        desktopPanelRef.current.style.transform = 'translate3d(0, 0px, 0)';
       }
       currentDragOffsetRef.current = 0;
     };
@@ -228,8 +278,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
         }`}
       >
         {/* Desktop Container (Glassmorphic floating panel centered under header) */}
-        <div className="hidden md:block max-w-4xl mx-auto px-4">
-          <div className="bg-[#081017]/95 backdrop-blur-2xl border-x border-b border-white/10 rounded-b-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] p-6 lg:p-8">
+        <div ref={desktopPanelRef} className="hidden md:block max-w-4xl mx-auto px-4 transform-gpu will-change-transform">
+          <div className="relative bg-[#081017]/95 backdrop-blur-2xl border-x border-b border-white/10 rounded-b-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] p-6 lg:p-8">
+            {/* Top-Right Quick Close Button */}
+            <button
+              onClick={() => setMenuOpen(false)}
+              className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer"
+              aria-label="Close navigation menu"
+              title="Close menu"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
             <div className="grid grid-cols-12 gap-8 items-center">
               {/* Left Column: 6 Section Links in a 2-column minimalist sub-grid */}
               <div className="col-span-7">
@@ -298,6 +358,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
                   <span>BOOK FREE DEMO CLASS</span>
                 </button>
               </div>
+            </div>
+
+            {/* Bottom Drag-Up Handle Bar */}
+            <div
+              onMouseDown={handleDragStart}
+              onClick={() => setMenuOpen(false)}
+              className="mt-6 pt-3 border-t border-white/5 flex flex-col items-center justify-center cursor-grab active:cursor-grabbing group select-none"
+              title="Drag up or click to close"
+            >
+              <div className="w-12 h-1 rounded-full bg-white/20 group-hover:bg-dispatch-yellow transition-colors mb-1" />
+              <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 group-hover:text-dispatch-yellow transition-colors">
+                Pull up to close
+              </span>
             </div>
           </div>
         </div>
