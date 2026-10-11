@@ -97,9 +97,9 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
       role={isCollapsed ? 'button' : 'navigation'}
       aria-label={isCollapsed ? 'Open Navigation Menu' : 'Mobile Navigation Menu'}
     >
-      {/* Collapsed State: Custom Home Image Icon View */}
+      {/* Collapsed State: Custom Home Image Icon View (True Mathematical & Optical Center) */}
       <div
-        className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`absolute inset-0 flex items-center justify-center pointer-events-none origin-center transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isCollapsed
             ? 'opacity-100 scale-100 rotate-0'
             : 'opacity-0 scale-75 -rotate-45'
@@ -108,7 +108,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
         <div
           role="img"
           aria-label="Home Navigation"
-          className="w-6 h-6 bg-dispatch-yellow drop-shadow-[0_0_8px_rgba(251,194,30,0.55)] transition-transform"
+          className="w-6 h-6 bg-dispatch-yellow drop-shadow-[0_0_8px_rgba(251,194,30,0.55)] translate-y-[0.75px] transition-transform"
           style={{
             maskImage: `url(${homeIcon})`,
             WebkitMaskImage: `url(${homeIcon})`,
