@@ -53,26 +53,26 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 md:px-12 lg:px-16">
         {/* Section Header */}
-        <div className="mb-6 sm:mb-8 md:mb-14 text-center">
-          <p className="text-dispatch-yellow text-xs font-mono tracking-widest uppercase mb-2">
+        <div className="mb-4 sm:mb-6 md:mb-14 text-center">
+          <p className="text-dispatch-yellow text-xs font-mono tracking-widest uppercase mb-1 sm:mb-2">
             // What You'll Learn • 45-Day Syllabus
           </p>
-          <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">
+          <h3 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
             Practical Skills Taught Step-By-Step With Live Practice
           </h3>
         </div>
 
         {/* 4 Geometric Cutout Gallery Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 items-center justify-items-center">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 xs:gap-3 sm:gap-5 md:gap-8 items-center justify-items-center">
           {galleryItems.map((item) => (
             <div
               key={item.id}
               onClick={() => openWhatsApp('batch', item.title)}
-              className="group relative cursor-pointer w-full max-w-[210px] aspect-[1/1.5] flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-2"
+              className="group relative cursor-pointer w-full max-w-[155px] xs:max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-[1/1.38] sm:aspect-[1/1.45] md:aspect-[1/1.5] flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-2"
             >
               {/* Geometric Shaped Card Container */}
               <div
-                className={`w-full h-full overflow-hidden border border-white/10 group-hover:border-dispatch-yellow/70 transition-all duration-300 shadow-2xl shadow-black/80 bg-[#0d1620] relative flex flex-col items-center justify-end p-4 pb-6 text-center ${item.shapeClass}`}
+                className={`w-full h-full overflow-hidden border border-white/10 group-hover:border-dispatch-yellow/70 transition-all duration-300 shadow-2xl shadow-black/80 bg-[#0d1620] relative flex flex-col items-center justify-end p-2.5 pb-3.5 sm:p-3.5 sm:pb-5 md:p-4 md:pb-6 text-center ${item.shapeClass}`}
               >
                 {/* Background Skill Artwork with Geometric Clipping */}
                 <img
@@ -87,13 +87,13 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
 
                 {/* Foreground Card Content */}
                 <div className="relative z-20 flex flex-col items-center justify-center w-full">
-                  <div className="w-11 h-11 rounded-full bg-[#081017]/85 border border-dispatch-yellow/40 backdrop-blur-md flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:border-dispatch-yellow group-hover:bg-dispatch-yellow/20 transition-all shadow-lg shadow-black/60">
-                    <item.icon className="w-5 h-5 text-dispatch-yellow" />
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:h-11 rounded-full bg-[#081017]/85 border border-dispatch-yellow/40 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-2 md:mb-2.5 group-hover:scale-110 group-hover:border-dispatch-yellow group-hover:bg-dispatch-yellow/20 transition-all shadow-lg shadow-black/60">
+                    <item.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-dispatch-yellow" />
                   </div>
-                  <h4 className="text-sm font-bold text-white mb-1.5 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                  <h4 className="text-[11.5px] xs:text-xs sm:text-sm font-bold text-white mb-0.5 sm:mb-1.5 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                     {item.title}
                   </h4>
-                  <p className="text-[10px] sm:text-[11px] text-white/80 leading-relaxed font-mono drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] px-1 line-clamp-2">
+                  <p className="text-[8.5px] xs:text-[9.5px] sm:text-[10px] md:text-[11px] text-white/80 leading-snug font-mono drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] px-0.5 line-clamp-2">
                     {item.subtitle}
                   </p>
                 </div>

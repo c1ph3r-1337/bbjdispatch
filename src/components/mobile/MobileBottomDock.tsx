@@ -62,6 +62,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   const currentSection = activeSection || 'hero';
   const isFirstSection = currentSection === 'hero' || scrollY < 200;
   const isSixthSection = currentSection === 'caller-id';
+  const isStepByStep = currentSection === 'step-by-step-course';
   const isHomeActive = ['hero', 'features'].includes(currentSection);
   const isCoursesActive = ['step-by-step-course', 'gallery', 'courses'].includes(currentSection);
   const isHotlineActive = currentSection === 'caller-id';
@@ -86,6 +87,8 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
           ? 'translate-y-28 translate-x-0 opacity-0 pointer-events-none'
           : isSixthSection
           ? '-translate-x-36 translate-y-0 opacity-0 pointer-events-none'
+          : isStepByStep && isCollapsed
+          ? 'translate-x-[calc(100vw-5.5rem)] translate-y-0 opacity-100 pointer-events-auto'
           : 'translate-x-0 translate-y-0 opacity-100 pointer-events-auto'
       } ${
         isCollapsed
