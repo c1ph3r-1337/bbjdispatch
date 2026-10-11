@@ -44,7 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
   };
 
   return (
-    <section id="hero" className="snap-section relative min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 overflow-hidden">
+    <section id="hero" className="snap-section relative min-h-[100dvh] min-h-screen flex flex-col justify-center pt-16 pb-4 sm:pt-20 sm:pb-6 md:pt-28 md:pb-12 overflow-hidden">
       {/* Polar Radar Vector in upper right */}
       <RadarBackground />
 
@@ -87,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
       {/* Central Visual Showcase: 3D Yellow Freight Truck with Entrance Animation */}
       <div
         ref={truckWrapperRef}
-        className="relative z-20 w-full mt-12 sm:mt-14 md:mt-14 lg:mt-16 xl:mt-20 flex flex-col items-center justify-center will-change-transform"
+        className="relative z-20 w-full mt-24 sm:mt-28 md:mt-14 lg:mt-16 xl:mt-20 flex flex-col items-center justify-center will-change-transform"
         style={{
           transform: 'translate3d(0, 0px, 0)',
         }}
