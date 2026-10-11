@@ -234,18 +234,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
 
         {/* Right: Mobile Hamburger on Mobile (<md) & LET'S TALK on Desktop (>=md) */}
         <div className="flex items-center gap-3 z-10">
-          {/* Mobile 2-bar hamburger / close toggle (Pure icon with zero background) */}
+          {/* Mobile 2-bar hamburger / close toggle (Pure, vibrant, unmuted icons) */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex items-center justify-center p-2.5 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent text-white transition-opacity hover:opacity-80 active:opacity-60 focus:outline-none border-0 shadow-none [-webkit-tap-highlight-color:transparent] cursor-pointer"
+            className="md:hidden flex items-center justify-center p-2 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent focus:outline-none border-0 shadow-none [-webkit-tap-highlight-color:transparent] cursor-pointer group"
             aria-label={menuOpen ? 'Close navigation menu' : 'Toggle navigation menu'}
           >
             {menuOpen ? (
-              <X className="w-5 h-5 text-dispatch-yellow" />
+              <X className="w-6 h-6 text-dispatch-yellow stroke-[2.5] drop-shadow-[0_0_8px_rgba(251,194,30,0.55)] transition-transform group-active:scale-90" />
             ) : (
-              <div className="flex flex-col items-center justify-center gap-1.5">
-                <span className="w-6 h-[2px] bg-white transition-all"></span>
-                <span className="w-6 h-[2px] bg-white transition-all"></span>
+              <div className="flex flex-col items-center justify-center gap-1.5 py-1">
+                <span className="w-7 h-[2.5px] bg-white rounded-full transition-all group-hover:bg-dispatch-yellow shadow-[0_0_6px_rgba(255,255,255,0.4)]"></span>
+                <span className="w-7 h-[2.5px] bg-white rounded-full transition-all group-hover:bg-dispatch-yellow shadow-[0_0_6px_rgba(255,255,255,0.4)]"></span>
               </div>
             )}
           </button>
@@ -283,11 +283,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
             {/* Top-Right Quick Close Button */}
             <button
               onClick={() => setMenuOpen(false)}
-              className="absolute top-4 right-4 p-1.5 rounded-full hover:bg-white/10 text-white/60 hover:text-white transition-colors cursor-pointer"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/10 text-white hover:text-dispatch-yellow transition-all cursor-pointer"
               aria-label="Close navigation menu"
               title="Close menu"
             >
-              <X className="w-4 h-4" />
+              <X className="w-5 h-5 stroke-[2.5] text-white hover:text-dispatch-yellow transition-colors" />
             </button>
 
             <div className="grid grid-cols-12 gap-8 items-center">
