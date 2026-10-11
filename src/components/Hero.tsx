@@ -87,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
       {/* Central Visual Showcase: 3D Yellow Freight Truck with Entrance Animation */}
       <div
         ref={truckWrapperRef}
-        className="relative z-20 w-full mt-8 sm:mt-10 md:mt-14 lg:mt-16 xl:mt-20 flex flex-col items-center justify-center will-change-transform"
+        className="relative z-20 w-full mt-12 sm:mt-14 md:mt-14 lg:mt-16 xl:mt-20 flex flex-col items-center justify-center will-change-transform"
         style={{
           transform: 'translate3d(0, 0px, 0)',
         }}
