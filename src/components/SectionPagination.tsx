@@ -39,16 +39,23 @@ export const SectionPagination: React.FC<SectionPaginationProps> = ({
           <button
             key={section.id}
             onClick={() => onSelectSection(section.id)}
-            className="group relative flex items-center justify-center w-6 h-7 focus:outline-none cursor-pointer"
+            className="group relative flex items-center justify-center w-6 h-7 focus:outline-none focus:ring-0 cursor-pointer"
             aria-label={`Jump to ${section.label}`}
             aria-current={isActive ? 'true' : undefined}
           >
-            {/* Original Morphing Indicator Dot (Smooth Height Expansion from Center) */}
+            {/* Base Inactive Dot (Clean, Stable, Zero Flicker) */}
             <span
-              className={`rounded-full transition-[height,background-color,opacity,transform] duration-300 ease-out ${
+              className={`absolute w-2 h-2 rounded-full bg-white/30 transition-opacity duration-300 ease-out ${
+                isActive ? 'opacity-0 pointer-events-none' : 'opacity-100 group-hover:bg-white/70'
+              }`}
+            />
+
+            {/* Active Morphing Yellow Pill (Pure Smooth Expansion & Fade) */}
+            <span
+              className={`w-2 rounded-full bg-dispatch-yellow transition-[height,opacity,transform] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                 isActive
-                  ? 'w-2 h-6 bg-dispatch-yellow'
-                  : 'w-2 h-2 bg-white/30 group-hover:bg-white/80 group-hover:scale-125'
+                  ? 'h-6 opacity-100 scale-100 shadow-[0_0_8px_rgba(251,194,30,0.4)]'
+                  : 'h-2 opacity-0 scale-75 pointer-events-none'
               }`}
             />
           </button>

@@ -33,6 +33,8 @@ export const App: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState('45-Day Truck Dispatch Course');
   const [isSyllabusMode, setIsSyllabusMode] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('hero');
+  const isAnimatingRef = useRef(false);
+
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -55,6 +57,9 @@ export const App: React.FC = () => {
     };
 
     const handleIntersect: IntersectionObserverCallback = (entries) => {
+      // Disregard observer updates while programmatic section transitions are in flight
+      if (isAnimatingRef.current) return;
+
       let maxRatio = 0;
       let mostVisibleId = '';
 
@@ -83,7 +88,6 @@ export const App: React.FC = () => {
   useEffect(() => {
     if (currentRoute !== 'home' || modalOpen) return;
 
-    const isAnimatingRef = { current: false };
     const lastScrollTimeRef = { current: 0 };
     const touchStartYRef = { current: 0 };
     const touchStartTimeRef = { current: 0 };
