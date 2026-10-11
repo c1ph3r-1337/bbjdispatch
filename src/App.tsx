@@ -149,7 +149,37 @@ export const App: React.FC = () => {
       }
     };
 
-    // 2. Keyboard Controller
+    // 2. Mobile Touch Swipe Controller (1 Swipe = 1 Section)
+    const touchStartYRef = { current: 0 };
+    const touchStartTimeRef = { current: 0 };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (modalOpen || isAnimatingRef.current) return;
+      touchStartYRef.current = e.touches[0].clientY;
+      touchStartTimeRef.current = Date.now();
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (modalOpen || isAnimatingRef.current) return;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartYRef.current - touchEndY;
+      const duration = Date.now() - touchStartTimeRef.current;
+
+      // Deliberate swipe: displacement > 45px or quick flick
+      const isQuickFlick = duration < 320 && Math.abs(deltaY) > 28;
+      const isDeliberateSwipe = Math.abs(deltaY) > 48 && duration < 700;
+
+      if (isQuickFlick || isDeliberateSwipe) {
+        const currentIndex = getClosestSectionIndex();
+        if (deltaY > 0 && currentIndex < SECTIONS.length - 1) {
+          triggerSectionTransition(currentIndex + 1);
+        } else if (deltaY < 0 && currentIndex > 0) {
+          triggerSectionTransition(currentIndex - 1);
+        }
+      }
+    };
+
+    // 3. Keyboard Controller
     const handleKeyDown = (e: KeyboardEvent) => {
       if (modalOpen) return;
       const target = e.target as HTMLElement;
@@ -177,10 +207,14 @@ export const App: React.FC = () => {
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [currentRoute, modalOpen]);
