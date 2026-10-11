@@ -1,5 +1,4 @@
 import React from 'react';
-import { Search, PhoneCall, FileCheck, Briefcase } from 'lucide-react';
 import { openWhatsApp } from '../utils/whatsapp';
 
 interface GeometricGalleryProps {
@@ -10,7 +9,6 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
   const galleryItems = [
     {
       id: 1,
-      icon: Search,
       title: 'Load Board Sourcing',
       subtitle: 'DAT One & Truckstop search, filtering & load selection',
       image: './assets/skill-load-board.png',
@@ -18,7 +16,6 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
     },
     {
       id: 2,
-      icon: PhoneCall,
       title: 'Broker Negotiation',
       subtitle: 'Live broker calls, scripts & rate per mile calculations',
       image: './assets/skill-broker-negotiation.png',
@@ -26,7 +23,6 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
     },
     {
       id: 3,
-      icon: FileCheck,
       title: 'Booking & Papers',
       subtitle: 'Rate confirmations, BOLs, PODs & driver load coordination',
       image: './assets/skill-booking-papers.png',
@@ -34,7 +30,6 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
     },
     {
       id: 4,
-      icon: Briefcase,
       title: 'Job & Interview Prep',
       subtitle: 'Resume building, mock interviews & placement guidance',
       image: './assets/skill-interview-prep.png',
@@ -72,7 +67,7 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
             >
               {/* Geometric Shaped Card Container */}
               <div
-                className={`w-full h-full overflow-hidden border border-white/10 group-hover:border-dispatch-yellow/70 transition-all duration-300 shadow-2xl shadow-black/80 bg-[#0d1620] relative flex flex-col items-center justify-end p-2.5 pb-3.5 sm:p-3.5 sm:pb-5 md:p-4 md:pb-6 text-center ${item.shapeClass}`}
+                className={`w-full h-full overflow-hidden border border-white/10 group-hover:border-dispatch-yellow/70 transition-all duration-300 shadow-2xl shadow-black/80 bg-[#0d1620] relative flex flex-col items-center justify-center p-3 sm:p-4 md:p-5 text-center ${item.shapeClass}`}
               >
                 {/* Background Skill Artwork with Geometric Clipping */}
                 <img
@@ -83,27 +78,17 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
                 />
 
                 {/* Dark Gradient Scrim Overlay for Contrast & Text Legibility */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#081017]/95 via-[#081017]/65 to-[#081017]/30 z-10 transition-opacity duration-300 group-hover:via-[#081017]/50" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#081017]/95 via-[#081017]/80 to-[#081017]/50 z-10 transition-opacity duration-300 group-hover:via-[#081017]/65" />
 
-                {/* Foreground Card Content */}
-                <div className="relative z-20 flex flex-col items-center justify-center w-full">
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:h-11 rounded-full bg-[#081017]/85 border border-dispatch-yellow/40 backdrop-blur-md flex items-center justify-center mb-1.5 sm:mb-2 md:mb-2.5 group-hover:scale-110 group-hover:border-dispatch-yellow group-hover:bg-dispatch-yellow/20 transition-all shadow-lg shadow-black/60">
-                    <item.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-dispatch-yellow" />
-                  </div>
-                  <h4 className="text-[11.5px] xs:text-xs sm:text-sm font-bold text-white mb-0.5 sm:mb-1.5 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                {/* Foreground Card Content — Centered */}
+                <div className="relative z-20 flex flex-col items-center justify-center w-full px-1 sm:px-2">
+                  <h4 className="text-xs xs:text-[13px] sm:text-sm md:text-base font-bold text-white mb-1 sm:mb-1.5 leading-snug drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                     {item.title}
                   </h4>
-                  <p className="text-[8.5px] xs:text-[9.5px] sm:text-[10px] md:text-[11px] text-white/80 leading-snug font-mono drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] px-0.5 line-clamp-2">
+                  <p className="text-[8.5px] xs:text-[9.5px] sm:text-[10px] md:text-[11px] text-white/85 leading-relaxed font-mono drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] line-clamp-3">
                     {item.subtitle}
                   </p>
                 </div>
-              </div>
-
-              {/* Hover Badge Description */}
-              <div className="absolute -bottom-10 opacity-0 group-hover:opacity-100 group-hover:-bottom-6 transition-all duration-300 pointer-events-none text-center w-full px-2 z-30">
-                <span className="inline-block bg-[#0d1620]/95 backdrop-blur-md border border-dispatch-yellow/60 px-3 py-1 rounded-full text-[11px] font-bold text-dispatch-yellow shadow-lg shadow-black/80">
-                  {item.title}
-                </span>
               </div>
             </div>
           ))}
