@@ -21,7 +21,7 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
           <img
             src="./assets/crane-lifting-container-route.svg"
             alt="Industrial Crane Lifting Container with Freight Route"
-            className="w-full h-auto object-contain select-none drop-shadow-[0_25px_40px_rgba(0,0,0,0.85)]"
+            className="w-full h-auto object-contain select-none transform-gpu"
           />
         </div>
       </div>

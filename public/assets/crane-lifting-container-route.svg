@@ -1,25 +1,25 @@
 <svg id="svg" version="1.1" viewBox="0 0 300 133.16666666666669" width="300" height="133.16666666666669" xmlns="http://www.w3.org/2000/svg"><svg xmlns="http://www.w3.org/2000/svg"><style>
   @keyframes cranePendulum {
     0% {
-      transform: rotate(-2.8deg);
+      transform: translate3d(0, 0, 0) rotate(-2.8deg);
     }
     50% {
-      transform: rotate(2.8deg);
+      transform: translate3d(0, 0, 0) rotate(2.8deg);
     }
     100% {
-      transform: rotate(-2.8deg);
+      transform: translate3d(0, 0, 0) rotate(-2.8deg);
     }
   }
 
   @-webkit-keyframes cranePendulum {
     0% {
-      -webkit-transform: rotate(-2.8deg);
+      -webkit-transform: translate3d(0, 0, 0) rotate(-2.8deg);
     }
     50% {
-      -webkit-transform: rotate(2.8deg);
+      -webkit-transform: translate3d(0, 0, 0) rotate(2.8deg);
     }
     100% {
-      -webkit-transform: rotate(-2.8deg);
+      -webkit-transform: translate3d(0, 0, 0) rotate(-2.8deg);
     }
   }
 
@@ -30,6 +30,7 @@
     animation: cranePendulum 4.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     -webkit-animation: cranePendulum 4.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     will-change: transform;
+    transform: translate3d(0, 0, 0);
   }
 </style>
 <defs><clipPath id="clip-1"><rect x="0" y="0" transform="scale(0.14648,0.1465)" width="2048" height="909" fill="none"/></clipPath><linearGradient x1="81.21841" y1="113.46576" x2="80.06089" y2="113.16662" gradientUnits="userSpaceOnUse" id="color-1"><stop offset="0" stop-color="#b08600"/><stop offset="1" stop-color="#846604"/></linearGradient><linearGradient x1="80.37451" y1="116.41814" x2="80.94214" y2="116.48392" gradientUnits="userSpaceOnUse" id="color-2"><stop offset="0" stop-color="#8d6b06"/><stop offset="1" stop-color="#a97e00"/></linearGradient><linearGradient x1="82.01221" y1="123.2949" x2="81.42964" y2="123.24612" gradientUnits="userSpaceOnUse" id="color-3"><stop offset="0" stop-color="#b38400"/><stop offset="1" stop-color="#936b01"/></linearGradient><linearGradient x1="252.50684" y1="65.97756" x2="252.91992" y2="67.08963" gradientUnits="userSpaceOnUse" id="color-4"><stop offset="0" stop-color="#5a3b00"/><stop offset="1" stop-color="#745101"/></linearGradient></defs><g clip-path="url(#clip-1)" fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">

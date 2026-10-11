@@ -47,16 +47,16 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
         </div>
 
         {/* 2. Industrial Crane Lifting 3D Yellow Container Graphic */}
-        <div className="relative w-[118%] max-w-none -ml-[12%] my-1 pointer-events-none overflow-visible">
+        <div className="relative w-[114%] max-w-none -ml-[10%] my-0.5 pointer-events-none overflow-visible">
           <img
             src="./assets/crane-lifting-container-route.svg"
             alt="Industrial Crane Lifting Container with Freight Route"
-            className="w-full h-auto object-contain select-none drop-shadow-[0_15px_30px_rgba(0,0,0,0.85)]"
+            className="w-full h-auto object-contain select-none transform-gpu"
           />
         </div>
 
         {/* 3. Campus Location (Centered directly beneath crane) */}
-        <div className="text-center w-full mt-2 mb-2.5 px-2">
+        <div className="text-center w-full mt-1 mb-1.5 px-2">
           <h3 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug">
             Mallawala Road, Zira Campus
           </h3>
