@@ -15,7 +15,8 @@
 
   html.scroll-snap-active {
     scroll-snap-type: y mandatory;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 4rem;
+    scroll-padding-bottom: 4rem;
   }
 
   body {
@@ -25,16 +26,10 @@
   }
 }
 
-/* Section Snap Alignment for Full-Height Presentation Stages */
+/* Universal Section Snap Alignment for Full-Height Presentation Stages */
 .snap-section {
-  scroll-snap-align: start;
+  scroll-snap-align: center;
   scroll-snap-stop: always;
-}
-
-@media (min-width: 768px) {
-  .snap-section {
-    scroll-snap-align: center;
-  }
 }
 
 /* Explicit text and background accent overrides ensuring #fbc21e priority */

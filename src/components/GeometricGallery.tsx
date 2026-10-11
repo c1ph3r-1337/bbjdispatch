@@ -39,7 +39,7 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
   ];
 
   return (
-    <section id="gallery" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 bg-[#081017] overflow-hidden">
+    <section id="gallery" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-10 sm:py-14 md:py-28 bg-[#081017] overflow-hidden">
       {/* Giant Hollow Outlined Display Typography behind the cards */}
       <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-center pointer-events-none select-none z-0">
         <span className="text-[17vw] font-black uppercase tracking-wider text-stroke-dispatch opacity-70 whitespace-nowrap">
@@ -47,9 +47,9 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
         </span>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+      <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 md:px-12 lg:px-16">
         {/* Section Header */}
-        <div className="mb-14 text-center">
+        <div className="mb-6 sm:mb-8 md:mb-14 text-center">
           <p className="text-dispatch-yellow text-xs font-mono tracking-widest uppercase mb-2">
             // What You'll Learn • 45-Day Syllabus
           </p>

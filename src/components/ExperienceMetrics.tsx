@@ -7,7 +7,7 @@ interface ExperienceMetricsProps {
 
 export const ExperienceMetrics: React.FC<ExperienceMetricsProps> = ({ onOpenEnrollModal }) => {
   return (
-    <section id="step-by-step-course" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-[#081017] overflow-hidden">
+    <section id="step-by-step-course" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-10 sm:py-14 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-[#081017] overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Unified 45 Days Stat & 3/4 Rotated Rear Truck Grid (Mobile & Desktop) */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-10 items-center">
@@ -38,7 +38,7 @@ export const ExperienceMetrics: React.FC<ExperienceMetricsProps> = ({ onOpenEnro
         </div>
 
         {/* Narrative & Learn More pill button */}
-        <div className="mt-10 md:mt-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 md:gap-8 pt-8 border-t border-white/5">
+        <div className="mt-6 md:mt-16 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-8 pt-4 md:pt-8 border-t border-white/5">
           <p className="max-w-xl text-xs sm:text-sm md:text-base text-dispatch-muted font-normal leading-relaxed">
             A dispatcher finds loads for trucks in the USA, talks to brokers, fixes the rate, and keeps all paperwork ready. It is a high-growth desk job, and many dispatchers work from India during U.S. evening or night shifts. We teach you from the absolute basics, step by step.
           </p>

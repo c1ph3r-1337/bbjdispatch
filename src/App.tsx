@@ -39,10 +39,9 @@ export const App: React.FC = () => {
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
       el.scrollIntoView({
         behavior: 'smooth',
-        block: isMobile ? 'start' : 'center',
+        block: 'center',
       });
       setActiveSection(id);
     }
