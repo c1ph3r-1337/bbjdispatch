@@ -64,6 +64,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   const currentSection = activeSection || 'hero';
   const isFirstSection = currentSection === 'hero' && !isPastHero;
   const isStepByStep = currentSection === 'step-by-step-course';
+  const shouldShiftRight = ['step-by-step-course', 'caller-id'].includes(currentSection);
   const isHomeActive = ['hero', 'features'].includes(currentSection);
   const isCoursesActive = ['step-by-step-course', 'gallery', 'courses'].includes(currentSection);
   const isHotlineActive = currentSection === 'caller-id';
@@ -84,7 +85,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
       className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transform-gpu will-change-[transform,opacity,width] transition-[transform,opacity,width] duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
         isFirstSection
           ? 'translate-y-28 translate-x-0 opacity-0 pointer-events-none'
-          : isStepByStep && isCollapsed
+          : shouldShiftRight && isCollapsed
           ? 'translate-x-[calc(100vw-5.5rem)] translate-y-0 opacity-100 pointer-events-auto'
           : 'translate-x-0 translate-y-0 opacity-100 pointer-events-auto'
       } ${
