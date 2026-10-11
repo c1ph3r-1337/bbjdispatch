@@ -44,16 +44,16 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
   };
 
   return (
-    <section id="hero" className="snap-section relative min-h-[100dvh] flex flex-col justify-between pt-16 sm:pt-20 md:pt-24 pb-6 sm:pb-10 md:pb-24 overflow-hidden">
+    <section id="hero" className="snap-section relative min-h-[100dvh] min-h-screen flex flex-col justify-center pt-16 sm:pt-20 md:pt-24 pb-14 sm:pb-16 md:pb-20 lg:pb-24 overflow-hidden">
       {/* Polar Radar Vector in upper right */}
       <RadarBackground />
 
       {/* Hero Content Grid */}
-      <div className="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 md:px-12 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 md:gap-10 lg:gap-14 items-start">
+      <div className="relative z-20 max-w-7xl mx-auto w-full px-6 md:px-12 lg:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 md:gap-10 lg:gap-14 items-start">
           {/* Main Headline with Staggered Slide-In */}
           <div key={`headline-${animKey}`} className="lg:col-span-8">
-            <h1 className="text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold tracking-tightest leading-[1.06] text-white">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tightest leading-[1.04] text-white">
               <span className="inline-block animate-headline-1">
                 Dispatch <span className="text-dispatch-yellow">solutions</span>
               </span>
@@ -87,7 +87,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
       {/* Central Visual Showcase: 3D Yellow Freight Truck with Entrance Animation */}
       <div
         ref={truckWrapperRef}
-        className="relative z-20 w-full mt-3 sm:mt-6 md:mt-14 lg:mt-16 xl:mt-20 flex flex-col items-center justify-center will-change-transform my-auto"
+        className="relative z-20 w-full mt-8 sm:mt-10 md:mt-14 lg:mt-16 xl:mt-20 flex flex-col items-center justify-center will-change-transform"
         style={{
           transform: 'translate3d(0, 0px, 0)',
         }}
@@ -108,7 +108,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
             <img
               src="./assets/truck-side.svg"
               alt="BBJ Dispatch Commercial Freight Fleet Truck Driving In"
-              className="w-full h-auto max-w-[270px] sm:max-w-[400px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-transform duration-500 cursor-pointer"
+              className="w-full h-auto max-w-[340px] sm:max-w-[480px] md:max-w-[640px] lg:max-w-[700px] xl:max-w-[740px] object-contain drop-shadow-[0_20px_35px_rgba(0,0,0,0.7)] hover:scale-[1.01] transition-transform duration-500 cursor-pointer"
               onClick={handleReplay}
               title="Click to replay drive-in animation"
             />
@@ -127,7 +127,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
         </div>
 
         {/* Mobile Tactile "Slide to Get Started >>>" Button (Mirroring User Reference Screen 1) */}
-        <div className="w-full max-w-sm px-4 mt-3 sm:mt-6 mb-1 md:mb-0 md:hidden relative z-30">
+        <div className="w-full max-w-sm px-6 mt-6 sm:mt-8 mb-2 md:mb-0 md:hidden relative z-30">
           <SlideToActionButton
             label="Slide to Get Started"
             icon={<Truck className="w-5 h-5 text-dispatch-bg fill-dispatch-bg" />}

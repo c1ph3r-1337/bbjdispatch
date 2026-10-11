@@ -19,7 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer id="footer" className="snap-section relative z-20 min-h-screen flex flex-col justify-center bg-[#081017] border-t border-white/10 pt-10 pb-24 sm:pb-20 md:pt-20 md:pb-16 text-sm text-dispatch-muted">
+    <footer id="footer" className="snap-section relative z-20 min-h-screen flex flex-col justify-center bg-[#081017] border-t border-white/10 pt-20 pb-28 sm:pb-24 md:pb-16 text-sm text-dispatch-muted">
       <div className="w-full max-w-7xl lg:max-w-[90rem] xl:max-w-[96rem] mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
         {/* Brand Header - Centered */}
         <div className="space-y-3 pb-8 text-center">
