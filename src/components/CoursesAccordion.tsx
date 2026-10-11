@@ -41,8 +41,8 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
         {/* Tilted Yellow Circular Badge */}
         <div className="flex justify-center mb-4 sm:mb-6 md:mb-8 lg:mb-8">
           <div className="relative group cursor-pointer">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 transform group-hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20">
-              <span className="text-dispatch-bg font-extrabold text-[10px] sm:text-[11px] md:text-xs lg:text-sm tracking-wider uppercase">
+            <div className="w-[70px] h-[70px] xs:w-[76px] xs:h-[76px] sm:w-20 sm:h-20 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 transform group-hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20">
+              <span className="text-dispatch-bg font-extrabold text-[11.5px] xs:text-xs sm:text-xs md:text-xs lg:text-sm tracking-wider uppercase">
                 Courses
               </span>
             </div>
