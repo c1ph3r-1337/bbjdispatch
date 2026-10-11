@@ -134,7 +134,7 @@ export const App: React.FC = () => {
       if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
       scrollTimeoutRef.current = window.setTimeout(() => {
         isScrollingRef.current = false;
-      }, 800);
+      }, 450);
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -163,12 +163,22 @@ export const App: React.FC = () => {
       }
     };
 
+    const handleScrollEnd = () => {
+      isScrollingRef.current = false;
+      if (scrollTimeoutRef.current) {
+        window.clearTimeout(scrollTimeoutRef.current);
+        scrollTimeoutRef.current = null;
+      }
+    };
+
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('scrollend', handleScrollEnd, { passive: true });
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('scrollend', handleScrollEnd);
       if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
     };
   }, [currentRoute, modalOpen]);

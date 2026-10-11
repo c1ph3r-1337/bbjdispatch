@@ -10,54 +10,68 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContactModal }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
+  const dragHandleRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
   const startYRef = useRef<number>(0);
+  const currentDragOffsetRef = useRef<number>(0);
 
-  // Desktop pull-down drag interactions
+  // Desktop pull-down drag interactions with direct GPU transform (zero React re-render thrashing)
   const handleDragStart = (e: React.MouseEvent) => {
-    setIsDragging(true);
+    isDraggingRef.current = true;
     startYRef.current = e.clientY;
+    currentDragOffsetRef.current = 0;
+    if (dragHandleRef.current) {
+      dragHandleRef.current.style.transition = 'none';
+    }
   };
 
   const handleClick = () => {
-    if (dragOffset < 10) {
+    if (currentDragOffsetRef.current < 10) {
       setMenuOpen(true);
     }
   };
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
+      if (!isDraggingRef.current) return;
       const deltaY = Math.max(0, Math.min(e.clientY - startYRef.current, 90));
-      setDragOffset(deltaY);
+      currentDragOffsetRef.current = deltaY;
+
+      if (dragHandleRef.current) {
+        dragHandleRef.current.style.transform = `translate3d(0, ${deltaY}px, 0)`;
+      }
 
       if (deltaY >= 55) {
         setMenuOpen(true);
-        setIsDragging(false);
-        setDragOffset(0);
+        isDraggingRef.current = false;
+        if (dragHandleRef.current) {
+          dragHandleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+          dragHandleRef.current.style.transform = 'translate3d(0, 0px, 0)';
+        }
       }
     };
 
     const handleMouseUp = () => {
-      if (!isDragging) return;
-      setIsDragging(false);
-      if (dragOffset >= 50) {
+      if (!isDraggingRef.current) return;
+      isDraggingRef.current = false;
+      if (currentDragOffsetRef.current >= 50) {
         setMenuOpen(true);
       }
-      setDragOffset(0);
+      if (dragHandleRef.current) {
+        dragHandleRef.current.style.transition = 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        dragHandleRef.current.style.transform = 'translate3d(0, 0px, 0)';
+      }
+      currentDragOffsetRef.current = 0;
     };
 
-    if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
-    }
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    window.addEventListener('mouseup', handleMouseUp, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, dragOffset]);
+  }, []);
 
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -114,13 +128,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
         {/* Center: Desktop Pull-Down '=' Handle with Bouncing Arrows (Desktop Only) */}
         <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 flex-col items-center z-10 select-none">
           <div
+            ref={dragHandleRef}
             onMouseDown={handleDragStart}
             onClick={handleClick}
             style={{
-              transform: `translateY(${dragOffset}px)`,
-              transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
+              transform: 'translate3d(0, 0px, 0)',
+              transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
             }}
-            className="group flex flex-col items-center justify-center p-2 cursor-grab active:cursor-grabbing select-none transition-transform hover:opacity-90"
+            className="group flex flex-col items-center justify-center p-2 cursor-grab active:cursor-grabbing select-none transition-transform hover:opacity-90 transform-gpu will-change-transform"
             title="Pull down to open navigation menu"
             role="button"
             tabIndex={0}
@@ -163,7 +178,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
 
       {/* Navigation Drawer / Modal (Mobile: Quick Left-to-Right Slide | Desktop: Top-Down Slide) */}
       <div
-        className={`fixed inset-0 z-50 bg-[#081017] flex flex-col transition-transform duration-200 md:duration-300 ease-out overflow-hidden ${
+        className={`fixed inset-0 z-50 bg-[#081017] flex flex-col transform-gpu will-change-transform transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden ${
           menuOpen
             ? 'translate-x-0 md:translate-y-0 pointer-events-auto'
             : '-translate-x-full md:-translate-y-full md:translate-x-0 pointer-events-none'

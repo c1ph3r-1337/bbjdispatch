@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Home, Package, PhoneCall, UserCheck, Compass } from 'lucide-react';
+import { Home, Package, PhoneCall, UserCheck } from 'lucide-react';
+import homeIcon from '../../assets/home.png';
 import { openWhatsApp } from '../../utils/whatsapp';
 
 interface MobileBottomDockProps {
@@ -82,7 +83,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
 
   return (
     <div
-      className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transform-gpu will-change-[transform,opacity,width] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
+      className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transform-gpu will-change-[transform,opacity,width] transition-[transform,opacity,width] duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
         isFirstSection
           ? 'translate-y-28 translate-x-0 opacity-0 pointer-events-none'
           : isSixthSection
@@ -99,7 +100,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
       role={isCollapsed ? 'button' : 'navigation'}
       aria-label={isCollapsed ? 'Open Navigation Menu' : 'Mobile Navigation Menu'}
     >
-      {/* Collapsed State: Fixed Discover / Compass Icon View */}
+      {/* Collapsed State: Custom Home Image Icon View */}
       <div
         className={`absolute left-0 top-0 w-14 h-14 flex items-center justify-center pointer-events-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isCollapsed
@@ -107,12 +108,26 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
             : 'opacity-0 scale-75 -rotate-45'
         }`}
       >
-        <Compass className="w-6 h-6 text-dispatch-yellow stroke-[2.2] drop-shadow-[0_0_8px_rgba(251,194,30,0.45)]" />
+        <div
+          role="img"
+          aria-label="Home Navigation"
+          className="w-6 h-6 bg-dispatch-yellow drop-shadow-[0_0_8px_rgba(251,194,30,0.55)] transition-transform"
+          style={{
+            maskImage: `url(${homeIcon})`,
+            WebkitMaskImage: `url(${homeIcon})`,
+            maskSize: 'contain',
+            WebkitMaskSize: 'contain',
+            maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
+            maskPosition: 'center',
+            WebkitMaskPosition: 'center',
+          }}
+        />
       </div>
 
       {/* Expanded State: Full Nav Items Row (No Close Button, 4 Evenly Spaced Items) */}
       <div
-        className={`w-full h-full px-3.5 flex items-center justify-around transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`w-full h-full px-3.5 flex items-center justify-around transform-gpu will-change-[transform,opacity] transition-[opacity,transform] duration-250 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isCollapsed
             ? 'opacity-0 pointer-events-none -translate-x-4 scale-95'
             : 'opacity-100 pointer-events-auto translate-x-0 scale-100'
