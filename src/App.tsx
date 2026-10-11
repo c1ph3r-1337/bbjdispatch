@@ -149,33 +149,53 @@ export const App: React.FC = () => {
       }
     };
 
-    // 2. Mobile Touch Swipe Controller (1 Swipe = 1 Section)
+    // 2. Mobile Touch Swipe Controller (1 Swipe = 1 Section, Zero Free Scrolling)
     const touchStartYRef = { current: 0 };
     const touchStartTimeRef = { current: 0 };
+    const hasMovedRef = { current: false };
 
     const handleTouchStart = (e: TouchEvent) => {
-      if (modalOpen || isAnimatingRef.current) return;
+      if (modalOpen) return;
       touchStartYRef.current = e.touches[0].clientY;
       touchStartTimeRef.current = Date.now();
+      hasMovedRef.current = false;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (modalOpen) return;
+      // Prevent browser default free-scrolling / momentum drift
+      if (e.cancelable) {
+        e.preventDefault();
+      }
+      hasMovedRef.current = true;
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
       if (modalOpen || isAnimatingRef.current) return;
+      if (!hasMovedRef.current) return;
+
       const touchEndY = e.changedTouches[0].clientY;
       const deltaY = touchStartYRef.current - touchEndY;
       const duration = Date.now() - touchStartTimeRef.current;
 
-      // Deliberate swipe: displacement > 45px or quick flick
-      const isQuickFlick = duration < 320 && Math.abs(deltaY) > 28;
-      const isDeliberateSwipe = Math.abs(deltaY) > 48 && duration < 700;
+      // Deliberate swipe: displacement > 35px or quick flick
+      const isQuickFlick = duration < 320 && Math.abs(deltaY) > 22;
+      const isDeliberateSwipe = Math.abs(deltaY) > 35 && duration < 700;
+
+      const currentIndex = getClosestSectionIndex();
 
       if (isQuickFlick || isDeliberateSwipe) {
-        const currentIndex = getClosestSectionIndex();
         if (deltaY > 0 && currentIndex < SECTIONS.length - 1) {
           triggerSectionTransition(currentIndex + 1);
         } else if (deltaY < 0 && currentIndex > 0) {
           triggerSectionTransition(currentIndex - 1);
+        } else {
+          // At edge: re-center current section
+          triggerSectionTransition(currentIndex);
         }
+      } else {
+        // Micro-drift: snap cleanly back to current section to eliminate partial scroll states
+        triggerSectionTransition(currentIndex);
       }
     };
 
@@ -208,12 +228,14 @@ export const App: React.FC = () => {
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: false });
     window.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('keydown', handleKeyDown);
     };
