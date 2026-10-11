@@ -97,6 +97,34 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
     };
   }, [menuOpen]);
 
+  // Escape key to dismiss dropdown menu
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [menuOpen]);
+
+  const navLinks = [
+    { number: '01', title: 'Overview & Training', href: 'hero', subtitle: '45-Day US dispatch foundation' },
+    { number: '02', title: '45-Day Program', href: 'step-by-step-course', subtitle: 'Step-by-step dispatch workflow' },
+    { number: '03', title: 'What You’ll Learn', href: 'gallery', subtitle: 'Load boards, negotiation & paperwork' },
+    { number: '04', title: 'Course Modules', href: 'courses', subtitle: 'Curriculum, live calls & tools' },
+    { number: '05', title: 'Trainer Hotline & Map', href: 'caller-id', subtitle: 'Direct lines to Harry & Jazz Dhillon' },
+    { number: '06', title: 'Student Reviews', href: 'reviews', subtitle: 'Verified student feedback' },
+  ];
+
+  const handleNavClick = (id: string) => {
+    setMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
     <>
       <header
@@ -136,34 +164,40 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
               transition: 'transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1)',
             }}
             className="group flex flex-col items-center justify-center p-2 cursor-grab active:cursor-grabbing select-none transition-transform hover:opacity-90 transform-gpu will-change-transform"
-            title="Pull down to open navigation menu"
+            title={menuOpen ? 'Close navigation menu' : 'Pull down to open navigation menu'}
             role="button"
             tabIndex={0}
-            aria-label="Pull down to open navigation menu"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Pull down to open navigation menu'}
           >
             {/* 2 horizontal bars representing '=' */}
             <div className="flex flex-col items-center justify-center gap-1.5 py-1">
-              <span className="w-7 h-[2px] bg-white group-hover:bg-dispatch-yellow transition-colors rounded-full" />
-              <span className="w-7 h-[2px] bg-white group-hover:bg-dispatch-yellow transition-colors rounded-full" />
+              <span className={`w-7 h-[2px] transition-colors rounded-full ${menuOpen ? 'bg-dispatch-yellow' : 'bg-white group-hover:bg-dispatch-yellow'}`} />
+              <span className={`w-7 h-[2px] transition-colors rounded-full ${menuOpen ? 'bg-dispatch-yellow' : 'bg-white group-hover:bg-dispatch-yellow'}`} />
             </div>
 
-            {/* Bouncing downward arrow indicator */}
-            <div className="flex flex-col items-center -mt-0.5 text-dispatch-yellow group-hover:scale-110 transition-transform">
-              <ChevronDown className="w-3.5 h-3.5 animate-bounce" />
+            {/* Downward / Upward arrow indicator */}
+            <div className={`flex flex-col items-center -mt-0.5 text-dispatch-yellow group-hover:scale-110 transition-transform duration-300 ${menuOpen ? 'rotate-180' : ''}`}>
+              <ChevronDown className="w-3.5 h-3.5" />
             </div>
           </div>
         </div>
 
         {/* Right: Mobile Hamburger on Mobile (<md) & LET'S TALK on Desktop (>=md) */}
         <div className="flex items-center gap-3 z-10">
-          {/* Mobile 2-bar hamburger menu button */}
+          {/* Mobile 2-bar hamburger / close toggle */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex flex-col items-center justify-center gap-1.5 p-2.5 rounded-full hover:bg-white/5 transition-colors focus:outline-none"
-            aria-label="Toggle navigation menu"
+            className="md:hidden flex items-center justify-center p-2.5 rounded-full hover:bg-white/10 text-white transition-colors focus:outline-none"
+            aria-label={menuOpen ? 'Close navigation menu' : 'Toggle navigation menu'}
           >
-            <span className="w-6 h-[2px] bg-white transition-all"></span>
-            <span className="w-6 h-[2px] bg-white transition-all"></span>
+            {menuOpen ? (
+              <X className="w-5 h-5 text-dispatch-yellow" />
+            ) : (
+              <div className="flex flex-col items-center justify-center gap-1.5">
+                <span className="w-6 h-[2px] bg-white transition-all"></span>
+                <span className="w-6 h-[2px] bg-white transition-all"></span>
+              </div>
+            )}
           </button>
 
           {/* Desktop Action Button: LET'S TALK */}
@@ -176,124 +210,138 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
         </div>
       </header>
 
-      {/* Navigation Drawer / Modal (Mobile: Quick Left-to-Right Slide | Desktop: Top-Down Slide) */}
+      {/* Backdrop overlay for outside-click dismissal */}
       <div
-        className={`fixed inset-0 z-50 bg-[#081017] flex flex-col transform-gpu will-change-transform transition-transform duration-250 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden ${
+        onClick={() => setMenuOpen(false)}
+        className={`fixed inset-0 top-[60px] md:top-[68px] z-30 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+        aria-hidden="true"
+      />
+
+      {/* Minimalist Dropdown Navigation Menu */}
+      <div
+        className={`fixed top-[60px] md:top-[68px] inset-x-0 z-40 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu will-change-[transform,opacity] ${
           menuOpen
-            ? 'translate-x-0 md:translate-y-0 pointer-events-auto'
-            : '-translate-x-full md:-translate-y-full md:translate-x-0 pointer-events-none'
+            ? 'translate-y-0 opacity-100 pointer-events-auto'
+            : '-translate-y-4 opacity-0 pointer-events-none'
         }`}
       >
-        {/* Pinned Top Bar inside drawer */}
-        <div className="flex-shrink-0 flex items-center justify-between w-full border-b border-white/10 px-5 sm:px-8 md:px-14 py-4 md:py-5 bg-[#081017]">
-          <div className="flex items-center gap-1.5">
-            <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-white">bbj</span>
-            <span className="w-2.5 h-2.5 rounded-full bg-dispatch-yellow inline-block" />
-            <span className="text-xl sm:text-2xl font-bold tracking-tight text-white/90">dispatch</span>
-          </div>
-
-          <button
-            onClick={() => setMenuOpen(false)}
-            className="p-2 sm:p-2.5 rounded-full hover:bg-white/10 text-white transition-colors"
-            aria-label="Close menu"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-
-        {/* Scrollable Content Body with smooth touch scrolling */}
-        <div className="flex-1 overflow-y-auto overscroll-contain px-5 sm:px-8 md:px-14 py-6 md:py-10 flex flex-col justify-between">
-          {/* Main Grid: Navigation Links & Admissions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto w-full my-auto">
-            {/* Syllabus Navigation Links */}
-            <div className="space-y-4 sm:space-y-6">
-              <p className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
-                // 45-Day Course Syllabus
-              </p>
-              <ul className="space-y-3 sm:space-y-4">
-                {[
-                  { name: 'Days 1–10: Trucking & Equipment Basics', href: '#courses' },
-                  { name: 'Days 11–22: Load Boards & Broker Calls', href: '#courses' },
-                  { name: 'Days 23–35: Rate Negotiation & Papers', href: '#courses' },
-                  { name: 'Days 36–45: Practice & Mock Interviews', href: '#courses' },
-                  { name: 'Online & Offline Classroom Options', href: '#features' },
-                ].map((item, idx) => (
-                  <li key={idx}>
-                    <a
-                      href={item.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="group flex items-center justify-between text-base sm:text-xl md:text-2xl font-bold text-white hover:text-dispatch-yellow transition-colors py-1"
-                    >
-                      <span>{item.name}</span>
-                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-dispatch-yellow flex-shrink-0 ml-2" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Direct Admissions & Demo Action */}
-            <div className="space-y-6 md:border-l md:border-white/10 md:pl-10 lg:pl-12 flex flex-col justify-between">
-              <div>
-                <p className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest mb-3 sm:mb-4">
-                  // Direct Admissions &amp; Demo Class
+        {/* Desktop Container (Glassmorphic floating panel centered under header) */}
+        <div className="hidden md:block max-w-4xl mx-auto px-4">
+          <div className="bg-[#081017]/95 backdrop-blur-2xl border-x border-b border-white/10 rounded-b-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] p-6 lg:p-8">
+            <div className="grid grid-cols-12 gap-8 items-center">
+              {/* Left Column: 6 Section Links in a 2-column minimalist sub-grid */}
+              <div className="col-span-7">
+                <p className="text-dispatch-yellow text-[11px] font-mono uppercase tracking-widest mb-3">
+                  // Quick Navigation
                 </p>
-                <div className="space-y-3 text-dispatch-muted text-sm sm:text-base">
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-dispatch-yellow flex-shrink-0" />
-                    <div>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-2.5">
+                  {navLinks.map((item) => (
+                    <button
+                      key={item.href}
+                      onClick={() => handleNavClick(item.href)}
+                      className="group flex flex-col items-start p-2 rounded-xl hover:bg-white/[0.04] transition-colors text-left cursor-pointer"
+                    >
                       <div className="flex items-center gap-2">
-                        <span className="text-[11px] sm:text-xs text-white/60 block">India (Harry Dhillon)</span>
-                        <span className="flex items-center gap-1 text-[10px] text-[#25D366] font-semibold">
-                          <WhatsAppIcon className="w-2.5 h-2.5 fill-[#25D366]" />
-                          WhatsApp
+                        <span className="text-[10px] font-mono text-dispatch-yellow/70 font-semibold">
+                          {item.number}
+                        </span>
+                        <span className="text-sm font-bold text-white group-hover:text-dispatch-yellow transition-colors">
+                          {item.title}
                         </span>
                       </div>
-                      <a href="tel:+917888825122" className="hover:text-white font-semibold text-white transition-colors text-sm sm:text-base">
+                      <span className="text-[11px] text-dispatch-muted group-hover:text-white/70 transition-colors pl-5 line-clamp-1">
+                        {item.subtitle}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right Column: Direct Admissions & Action */}
+              <div className="col-span-5 border-l border-white/10 pl-6 space-y-4">
+                <div>
+                  <p className="text-dispatch-yellow text-[11px] font-mono uppercase tracking-widest mb-2">
+                    // Direct Admissions
+                  </p>
+                  <div className="space-y-2 text-xs">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/70">Harry Dhillon (Trainer)</span>
+                      <a
+                        href="tel:+917888825122"
+                        className="text-white hover:text-dispatch-yellow font-bold transition-colors"
+                      >
                         +91 78888 25122
                       </a>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-dispatch-yellow flex-shrink-0" />
-                    <div>
-                      <span className="text-[11px] sm:text-xs text-white/60 block">India (Jazz Dhillon)</span>
-                      <a href="tel:+919814379035" className="hover:text-white font-semibold text-white transition-colors text-sm sm:text-base">
-                        +91 98143 79035
-                      </a>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-4 h-4 text-dispatch-yellow flex-shrink-0" />
-                    <div>
-                      <span className="text-[11px] sm:text-xs text-white/60 block">USA (Course Enquiry)</span>
-                      <a href="tel:+15593852018" className="hover:text-white font-semibold text-white transition-colors text-sm sm:text-base">
+                    <div className="flex items-center justify-between">
+                      <span className="text-white/70">USA Admissions</span>
+                      <a
+                        href="tel:+15593852018"
+                        className="text-white hover:text-dispatch-yellow font-bold transition-colors"
+                      >
                         +1 (559) 385-2018
                       </a>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="pt-4 sm:pt-6">
                 <button
                   onClick={() => {
                     setMenuOpen(false);
                     openWhatsApp('demo');
                   }}
-                  className="w-full py-3.5 sm:py-4 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs sm:text-sm tracking-wider uppercase transition-all shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center gap-2"
+                  className="w-full py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs tracking-wider uppercase transition-all shadow-lg shadow-dispatch-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <WhatsAppIcon className="w-4 h-4 fill-dispatch-bg" />
+                  <WhatsAppIcon className="w-3.5 h-3.5 fill-dispatch-bg" />
                   <span>BOOK FREE DEMO CLASS</span>
                 </button>
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Drawer footer */}
-          <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs text-dispatch-textMuted border-t border-white/10 pt-5 mt-8 sm:mt-12 text-center sm:text-left gap-2 flex-shrink-0">
-            <span>© 2026 BBJ Dispatch Academy. All rights reserved.</span>
-            <span>Empowering Independent Dispatchers Worldwide</span>
+        {/* Mobile Container (Sleek full-width dropdown below header) */}
+        <div className="block md:hidden w-full bg-[#081017]/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl px-5 py-4 space-y-4 max-h-[calc(100dvh-70px)] overflow-y-auto">
+          <div className="space-y-1">
+            {navLinks.map((item) => (
+              <button
+                key={item.href}
+                onClick={() => handleNavClick(item.href)}
+                className="w-full flex items-center justify-between py-2.5 px-3 rounded-xl hover:bg-white/5 active:bg-white/10 transition-colors text-left cursor-pointer"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-xs font-mono text-dispatch-yellow font-semibold">
+                    {item.number}
+                  </span>
+                  <span className="text-sm font-bold text-white">
+                    {item.title}
+                  </span>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-white/40" />
+              </button>
+            ))}
+          </div>
+
+          <div className="pt-2 border-t border-white/10 space-y-3">
+            <div className="flex items-center justify-between text-xs px-2">
+              <span className="text-white/60">Senior Trainer Line</span>
+              <a href="tel:+917888825122" className="text-dispatch-yellow font-bold">
+                +91 78888 25122
+              </a>
+            </div>
+
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                openWhatsApp('demo');
+              }}
+              className="w-full py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs tracking-wider uppercase transition-all shadow-md shadow-dispatch-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <WhatsAppIcon className="w-4 h-4 fill-dispatch-bg" />
+              <span>BOOK FREE DEMO CLASS</span>
+            </button>
           </div>
         </div>
       </div>
