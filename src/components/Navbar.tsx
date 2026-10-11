@@ -234,10 +234,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
 
         {/* Right: Mobile Hamburger on Mobile (<md) & LET'S TALK on Desktop (>=md) */}
         <div className="flex items-center gap-3 z-10">
-          {/* Mobile 2-bar hamburger / close toggle */}
+          {/* Mobile 2-bar hamburger / close toggle (Pure icon with zero background) */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex items-center justify-center p-2.5 rounded-full hover:bg-white/10 text-white transition-colors focus:outline-none"
+            className="md:hidden flex items-center justify-center p-2.5 bg-transparent hover:bg-transparent active:bg-transparent focus:bg-transparent text-white transition-opacity hover:opacity-80 active:opacity-60 focus:outline-none border-0 shadow-none [-webkit-tap-highlight-color:transparent] cursor-pointer"
             aria-label={menuOpen ? 'Close navigation menu' : 'Toggle navigation menu'}
           >
             {menuOpen ? (
