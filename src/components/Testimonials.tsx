@@ -35,10 +35,10 @@ export const Testimonials: React.FC = () => {
   const current = reviews[currentIdx];
 
   return (
-    <section id="reviews" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-20 md:py-28 px-6 md:px-12 lg:px-16 bg-[#081017] border-t border-white/5">
+    <section id="reviews" className="snap-section relative z-20 min-h-screen flex flex-col justify-center py-8 sm:py-12 md:py-28 px-4 sm:px-6 md:px-12 lg:px-16 bg-[#081017] border-t border-white/5">
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
         {/* Tilted Yellow Circular Badge */}
-        <div className="mb-12">
+        <div className="mb-6 sm:mb-8 md:mb-12">
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 shadow-xl shadow-dispatch-yellow/20">
             <span className="text-dispatch-bg font-extrabold text-[11px] md:text-xs tracking-wider uppercase text-center leading-tight px-1">
               Student<br />Feedback

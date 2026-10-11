@@ -18,6 +18,13 @@
     scroll-padding-top: 5rem;
   }
 
+  @media (max-width: 767px) {
+    html.scroll-snap-active {
+      scroll-snap-type: y proximity;
+      scroll-padding-top: 4rem;
+    }
+  }
+
   body {
     background-color: #081017;
     color: #ffffff;
@@ -28,12 +35,13 @@
 /* Section Snap Alignment for Full-Height Presentation Stages */
 .snap-section {
   scroll-snap-align: start;
-  scroll-snap-stop: always;
+  scroll-snap-stop: normal;
 }
 
 @media (min-width: 768px) {
   .snap-section {
     scroll-snap-align: center;
+    scroll-snap-stop: always;
   }
 }
 
