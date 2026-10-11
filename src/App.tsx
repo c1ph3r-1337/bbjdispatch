@@ -113,6 +113,7 @@ export const App: React.FC = () => {
       if (targetIndex < 0 || targetIndex >= SECTIONS.length) return;
       isAnimatingRef.current = true;
       lastScrollTimeRef.current = Date.now();
+      setActiveSection(SECTIONS[targetIndex].id);
       scrollToSection(SECTIONS[targetIndex].id);
 
       // Inertial decay lockout: 850ms absorbs the decaying trackpad momentum tail

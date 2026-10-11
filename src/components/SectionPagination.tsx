@@ -27,33 +27,52 @@ export const SectionPagination: React.FC<SectionPaginationProps> = ({
   activeSection,
   onSelectSection,
 }) => {
+  const activeIndex = Math.max(0, SECTIONS.findIndex((s) => s.id === activeSection));
+  const DOT_PITCH = 24; // 24px vertical distance between dot centers
+
   return (
     <nav
       aria-label="Section Navigation"
-      className="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center gap-3 pointer-events-auto select-none"
+      className="fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-40 hidden lg:flex flex-col items-center pointer-events-auto select-none"
     >
-      {SECTIONS.map((section) => {
-        const isActive = activeSection === section.id;
+      <div className="relative flex flex-col items-center">
+        {/* Hardware-Accelerated Sliding Indicator Pill */}
+        <div
+          className="absolute left-1/2 w-2 h-6 rounded-full bg-dispatch-yellow pointer-events-none transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-[0_0_12px_rgba(251,194,30,0.45)]"
+          style={{
+            transform: `translate3d(-50%, ${activeIndex * DOT_PITCH - 4}px, 0)`,
+          }}
+        />
 
-        return (
-          <button
-            key={section.id}
-            onClick={() => onSelectSection(section.id)}
-            className="group relative flex items-center justify-center p-1.5 focus:outline-none cursor-pointer"
-            aria-label={`Jump to ${section.label}`}
-            aria-current={isActive ? 'true' : undefined}
-          >
-            {/* Minimalist Indicator Dot Only (No Glow) */}
-            <span
-              className={`rounded-full transition-all duration-300 ${
-                isActive
-                  ? 'w-2 h-6 bg-dispatch-yellow'
-                  : 'w-2 h-2 bg-white/30 group-hover:bg-white/80 group-hover:scale-125'
-              }`}
-            />
-          </button>
-        );
-      })}
+        {/* Static Base Dots & Click Targets */}
+        {SECTIONS.map((section, idx) => {
+          const isActive = activeIndex === idx;
+
+          return (
+            <button
+              key={section.id}
+              onClick={() => onSelectSection(section.id)}
+              className="group relative flex items-center justify-center w-6 h-6 focus:outline-none cursor-pointer"
+              aria-label={`Jump to ${section.label}`}
+              aria-current={isActive ? 'true' : undefined}
+            >
+              {/* Resting Guide Dot */}
+              <span
+                className={`w-2 h-2 rounded-full transition-opacity duration-300 ${
+                  isActive
+                    ? 'opacity-0'
+                    : 'bg-white/25 group-hover:bg-white/80 group-hover:scale-125'
+                }`}
+              />
+
+              {/* Minimalist Hover Tooltip */}
+              <span className="absolute right-7 px-2.5 py-1 rounded bg-[#0b1622]/95 border border-white/10 text-[11px] font-medium text-white tracking-wide whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 shadow-xl backdrop-blur-md">
+                {section.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
     </nav>
   );
 };
