@@ -79,9 +79,14 @@ export const App: React.FC = () => {
     return () => observer.disconnect();
   }, [currentRoute]);
 
-  // Keyboard Section Navigation Controller (Arrow keys, PageUp/Down, Home, End)
+  // True Section-by-Section Presentation Controller (Wheel, Touch, Keyboard)
   useEffect(() => {
     if (currentRoute !== 'home' || modalOpen) return;
+
+    const isAnimatingRef = { current: false };
+    const lastScrollTimeRef = { current: 0 };
+    const touchStartYRef = { current: 0 };
+    const touchStartTimeRef = { current: 0 };
 
     const getClosestSectionIndex = (): number => {
       const windowCenter = window.scrollY + window.innerHeight / 2;
@@ -104,6 +109,68 @@ export const App: React.FC = () => {
       return closestIdx;
     };
 
+    const triggerSectionTransition = (targetIndex: number) => {
+      if (targetIndex < 0 || targetIndex >= SECTIONS.length) return;
+      isAnimatingRef.current = true;
+      lastScrollTimeRef.current = Date.now();
+      scrollToSection(SECTIONS[targetIndex].id);
+
+      // Inertial decay lockout: 850ms absorbs the decaying trackpad momentum tail
+      window.setTimeout(() => {
+        isAnimatingRef.current = false;
+      }, 850);
+    };
+
+    // 1. Wheel & Trackpad Interceptor
+    const handleWheel = (e: WheelEvent) => {
+      if (modalOpen) return;
+      
+      // Stop native free-scroll
+      e.preventDefault();
+
+      const now = Date.now();
+      if (isAnimatingRef.current || now - lastScrollTimeRef.current < 850) {
+        return;
+      }
+
+      // Normalize delta across mice lines and trackpad pixels
+      const delta = e.deltaMode === 1 ? e.deltaY * 35 : e.deltaY;
+      if (Math.abs(delta) < 30) return; // Disregard micro-drift
+
+      const currentIndex = getClosestSectionIndex();
+
+      if (delta > 0 && currentIndex < SECTIONS.length - 1) {
+        triggerSectionTransition(currentIndex + 1);
+      } else if (delta < 0 && currentIndex > 0) {
+        triggerSectionTransition(currentIndex - 1);
+      }
+    };
+
+    // 2. Touch Swipe Controller (Mobile & Tablets)
+    const handleTouchStart = (e: TouchEvent) => {
+      if (modalOpen) return;
+      touchStartYRef.current = e.touches[0].clientY;
+      touchStartTimeRef.current = Date.now();
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (modalOpen || isAnimatingRef.current) return;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartYRef.current - touchEndY;
+      const duration = Date.now() - touchStartTimeRef.current;
+
+      // Detect deliberate swipe (minimum 50px delta within 600ms)
+      if (Math.abs(deltaY) > 50 && duration < 600) {
+        const currentIndex = getClosestSectionIndex();
+        if (deltaY > 0 && currentIndex < SECTIONS.length - 1) {
+          triggerSectionTransition(currentIndex + 1);
+        } else if (deltaY < 0 && currentIndex > 0) {
+          triggerSectionTransition(currentIndex - 1);
+        }
+      }
+    };
+
+    // 3. Keyboard Controller
     const handleKeyDown = (e: KeyboardEvent) => {
       if (modalOpen) return;
       const target = e.target as HTMLElement;
@@ -114,24 +181,33 @@ export const App: React.FC = () => {
       if (['ArrowDown', 'PageDown'].includes(e.key)) {
         if (currentIndex < SECTIONS.length - 1) {
           e.preventDefault();
-          scrollToSection(SECTIONS[currentIndex + 1].id);
+          triggerSectionTransition(currentIndex + 1);
         }
       } else if (['ArrowUp', 'PageUp'].includes(e.key)) {
         if (currentIndex > 0) {
           e.preventDefault();
-          scrollToSection(SECTIONS[currentIndex - 1].id);
+          triggerSectionTransition(currentIndex - 1);
         }
       } else if (e.key === 'Home') {
         e.preventDefault();
-        scrollToSection(SECTIONS[0].id);
+        triggerSectionTransition(0);
       } else if (e.key === 'End') {
         e.preventDefault();
-        scrollToSection(SECTIONS[SECTIONS.length - 1].id);
+        triggerSectionTransition(SECTIONS.length - 1);
       }
     };
 
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [currentRoute, modalOpen]);
 
   useEffect(() => {
