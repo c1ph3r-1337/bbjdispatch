@@ -58,11 +58,19 @@ export const App: React.FC = () => {
     };
 
     const handleIntersect: IntersectionObserverCallback = (entries) => {
+      let maxRatio = 0;
+      let mostVisibleId = '';
+
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
+        if (entry.isIntersecting && entry.intersectionRatio > maxRatio) {
+          maxRatio = entry.intersectionRatio;
+          mostVisibleId = entry.target.id;
         }
       });
+
+      if (mostVisibleId) {
+        setActiveSection(mostVisibleId);
+      }
     };
 
     const observer = new IntersectionObserver(handleIntersect, options);

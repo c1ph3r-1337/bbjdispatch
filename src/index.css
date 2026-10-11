@@ -13,10 +13,19 @@
     scroll-behavior: smooth;
   }
 
-  html.scroll-snap-active {
-    scroll-snap-type: y mandatory;
-    scroll-padding-top: 0px;
-    scroll-padding-bottom: 0px;
+  @media (min-width: 768px) {
+    html.scroll-snap-active {
+      scroll-snap-type: y mandatory;
+      scroll-padding-top: 0px;
+      scroll-padding-bottom: 0px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    html {
+      scroll-snap-type: none !important;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   body {
@@ -26,11 +35,21 @@
   }
 }
 
-/* Universal Section Snap Alignment for Full-Height Presentation Stages */
-.snap-section {
-  scroll-snap-align: center;
-  scroll-snap-stop: normal;
-  min-height: 100dvh;
+/* Universal Section Snap Alignment for Desktop Presentation Stages */
+@media (min-width: 768px) {
+  .snap-section {
+    scroll-snap-align: center;
+    scroll-snap-stop: normal;
+    min-height: 100dvh;
+  }
+}
+
+/* Fluid, Stutter-Free Natural Flow on Mobile Viewports (Zero Snapping Collision) */
+@media (max-width: 767px) {
+  .snap-section {
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal;
+  }
 }
 
 /* Explicit text and background accent overrides ensuring #fbc21e priority */

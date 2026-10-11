@@ -15,7 +15,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   onOpenEnrollModal,
 }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [scrollY, setScrollY] = useState(0);
+  const [isPastHero, setIsPastHero] = useState(false);
   const suppressCollapseUntilRef = useRef<number>(0);
 
   useEffect(() => {
@@ -23,7 +23,8 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      setScrollY(currentScrollY);
+      const past = currentScrollY > 150;
+      setIsPastHero((prev) => (prev !== past ? past : prev));
 
       if (Date.now() < suppressCollapseUntilRef.current) {
         lastScrollY = currentScrollY;
@@ -31,7 +32,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
       }
 
       // Auto-collapse into circle on scroll
-      if (Math.abs(currentScrollY - lastScrollY) > 8) {
+      if (Math.abs(currentScrollY - lastScrollY) > 10) {
         setIsCollapsed(true);
       }
       lastScrollY = currentScrollY;
@@ -61,8 +62,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   };
 
   const currentSection = activeSection || 'hero';
-  const isFirstSection = currentSection === 'hero' || scrollY < 200;
-  const isSixthSection = currentSection === 'caller-id';
+  const isFirstSection = currentSection === 'hero' && !isPastHero;
   const isStepByStep = currentSection === 'step-by-step-course';
   const isHomeActive = ['hero', 'features'].includes(currentSection);
   const isCoursesActive = ['step-by-step-course', 'gallery', 'courses'].includes(currentSection);
@@ -76,8 +76,6 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
     } else if (activeSection === 'features') {
       setIsCollapsed(false);
       suppressCollapseUntilRef.current = Date.now() + 1000;
-    } else if (activeSection === 'caller-id') {
-      setIsCollapsed(true);
     }
   }, [activeSection]);
 
@@ -86,8 +84,6 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
       className={`fixed bottom-4 left-4 z-40 md:hidden overflow-hidden transform-gpu will-change-[transform,opacity,width] transition-[transform,opacity,width] duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] select-none bg-[#0f1722]/95 backdrop-blur-2xl border border-white/20 shadow-[0_12px_32px_rgba(0,0,0,0.9)] rounded-full ${
         isFirstSection
           ? 'translate-y-28 translate-x-0 opacity-0 pointer-events-none'
-          : isSixthSection
-          ? '-translate-x-36 translate-y-0 opacity-0 pointer-events-none'
           : isStepByStep && isCollapsed
           ? 'translate-x-[calc(100vw-5.5rem)] translate-y-0 opacity-100 pointer-events-auto'
           : 'translate-x-0 translate-y-0 opacity-100 pointer-events-auto'
@@ -96,7 +92,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
           ? 'w-14 h-14 cursor-pointer active:scale-95'
           : 'w-[calc(100vw-2rem)] max-w-[360px] h-14'
       }`}
-      onClick={!isFirstSection && !isSixthSection && isCollapsed ? () => setIsCollapsed(false) : undefined}
+      onClick={!isFirstSection && isCollapsed ? () => setIsCollapsed(false) : undefined}
       role={isCollapsed ? 'button' : 'navigation'}
       aria-label={isCollapsed ? 'Open Navigation Menu' : 'Mobile Navigation Menu'}
     >

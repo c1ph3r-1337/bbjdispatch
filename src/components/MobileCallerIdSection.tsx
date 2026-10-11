@@ -69,7 +69,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
             rel="noopener noreferrer"
             className="inline-block text-[11px] font-mono text-dispatch-yellow font-semibold mt-1 hover:underline cursor-pointer"
           >
-            ~{distanceInfo.roadDistanceKm} km • {distanceInfo.drivingTime} drive from {distanceInfo.city}
+            ~{distanceInfo.roadDistanceKm} km • {distanceInfo.drivingTime} from {distanceInfo.city}
           </a>
         </div>
 
