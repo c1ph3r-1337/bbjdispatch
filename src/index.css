@@ -28,8 +28,9 @@
 
 /* Universal Section Snap Alignment for Full-Height Presentation Stages */
 .snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
+  scroll-snap-align: center;
+  scroll-snap-stop: normal;
+  min-height: 100dvh;
 }
 
 /* Explicit text and background accent overrides ensuring #fbc21e priority */

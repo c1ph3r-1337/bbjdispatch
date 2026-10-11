@@ -41,7 +41,7 @@ export const App: React.FC = () => {
     if (el) {
       el.scrollIntoView({
         behavior: 'smooth',
-        block: 'start',
+        block: 'center',
       });
       setActiveSection(id);
     }
@@ -110,9 +110,10 @@ export const App: React.FC = () => {
           ? e.deltaY * window.innerHeight
           : e.deltaY;
 
-      // Ignore minuscule jitter/drift
-      if (Math.abs(normalizedDelta) < 12) return;
+      // Ignore minuscule jitter/drift and trackpad release oscillation (< 30px)
+      if (Math.abs(normalizedDelta) < 30) return;
 
+      // Absorb and block any wheel input during active smooth scrolling to prevent rubberband snap-back
       if (isScrollingRef.current) {
         e.preventDefault();
         return;
@@ -133,7 +134,7 @@ export const App: React.FC = () => {
       if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
       scrollTimeoutRef.current = window.setTimeout(() => {
         isScrollingRef.current = false;
-      }, 450);
+      }, 800);
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
