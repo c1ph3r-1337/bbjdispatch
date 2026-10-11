@@ -38,7 +38,7 @@ export const App: React.FC = () => {
     if (el) {
       el.scrollIntoView({
         behavior: 'smooth',
-        block: 'center',
+        block: 'start',
       });
       setActiveSection(id);
     }

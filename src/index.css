@@ -14,6 +14,19 @@
     scroll-padding-top: 80px;
   }
 
+  @media (min-width: 768px) {
+    html {
+      scroll-snap-type: y proximity;
+    }
+  }
+
+  @media (max-width: 767px) {
+    html {
+      scroll-snap-type: none !important;
+      -webkit-overflow-scrolling: touch;
+    }
+  }
+
   body {
     background-color: #081017;
     color: #ffffff;
@@ -26,6 +39,19 @@
 /* Universal Section Presentation Stages */
 .snap-section {
   min-height: 100dvh;
+}
+
+@media (min-width: 768px) {
+  .snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+}
+
+@media (max-width: 767px) {
+  .snap-section {
+    scroll-snap-align: none !important;
+  }
 }
 
 /* Explicit text and background accent overrides ensuring #fbc21e priority */

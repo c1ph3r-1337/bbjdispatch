@@ -121,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
     setMenuOpen(false);
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
