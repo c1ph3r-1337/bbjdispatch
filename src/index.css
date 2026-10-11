@@ -11,45 +11,21 @@
 
   html {
     scroll-behavior: smooth;
-  }
-
-  @media (min-width: 768px) {
-    html.scroll-snap-active {
-      scroll-snap-type: y mandatory;
-      scroll-padding-top: 0px;
-      scroll-padding-bottom: 0px;
-    }
-  }
-
-  @media (max-width: 767px) {
-    html {
-      scroll-snap-type: none !important;
-      -webkit-overflow-scrolling: touch;
-    }
+    scroll-padding-top: 80px;
   }
 
   body {
     background-color: #081017;
     color: #ffffff;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Universal Section Snap Alignment for Desktop Presentation Stages */
-@media (min-width: 768px) {
-  .snap-section {
-    scroll-snap-align: center;
-    scroll-snap-stop: normal;
-    min-height: 100dvh;
-  }
-}
-
-/* Fluid, Stutter-Free Natural Flow on Mobile Viewports (Zero Snapping Collision) */
-@media (max-width: 767px) {
-  .snap-section {
-    scroll-snap-align: none !important;
-    scroll-snap-stop: normal;
-  }
+/* Universal Section Presentation Stages */
+.snap-section {
+  min-height: 100dvh;
 }
 
 /* Explicit text and background accent overrides ensuring #fbc21e priority */

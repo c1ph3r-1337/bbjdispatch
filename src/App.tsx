@@ -33,9 +33,6 @@ export const App: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState('45-Day Truck Dispatch Course');
   const [isSyllabusMode, setIsSyllabusMode] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('hero');
-  const isScrollingRef = useRef(false);
-  const scrollTimeoutRef = useRef<number | null>(null);
-
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -82,7 +79,7 @@ export const App: React.FC = () => {
     return () => observer.disconnect();
   }, [currentRoute]);
 
-  // Discrete Wheel & Keyboard Section Snapping Controller
+  // Keyboard Section Navigation Controller (Arrow keys, PageUp/Down, Home, End)
   useEffect(() => {
     if (currentRoute !== 'home' || modalOpen) return;
 
@@ -105,44 +102,6 @@ export const App: React.FC = () => {
       });
 
       return closestIdx;
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      if (modalOpen) return;
-
-      // Normalize wheel delta across physical mice (deltaMode === 1 lines) and trackpads (deltaMode === 0 pixels)
-      const normalizedDelta =
-        e.deltaMode === 1
-          ? e.deltaY * 40
-          : e.deltaMode === 2
-          ? e.deltaY * window.innerHeight
-          : e.deltaY;
-
-      // Ignore minuscule jitter/drift and trackpad release oscillation (< 30px)
-      if (Math.abs(normalizedDelta) < 30) return;
-
-      // Absorb and block any wheel input during active smooth scrolling to prevent rubberband snap-back
-      if (isScrollingRef.current) {
-        e.preventDefault();
-        return;
-      }
-
-      const currentIndex = getClosestSectionIndex();
-
-      if (normalizedDelta > 0 && currentIndex < SECTIONS.length - 1) {
-        e.preventDefault();
-        isScrollingRef.current = true;
-        scrollToSection(SECTIONS[currentIndex + 1].id);
-      } else if (normalizedDelta < 0 && currentIndex > 0) {
-        e.preventDefault();
-        isScrollingRef.current = true;
-        scrollToSection(SECTIONS[currentIndex - 1].id);
-      }
-
-      if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
-      scrollTimeoutRef.current = window.setTimeout(() => {
-        isScrollingRef.current = false;
-      }, 450);
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -171,37 +130,8 @@ export const App: React.FC = () => {
       }
     };
 
-    const handleScrollEnd = () => {
-      isScrollingRef.current = false;
-      if (scrollTimeoutRef.current) {
-        window.clearTimeout(scrollTimeoutRef.current);
-        scrollTimeoutRef.current = null;
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('keydown', handleKeyDown);
-    window.addEventListener('scrollend', handleScrollEnd, { passive: true });
-
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('keydown', handleKeyDown);
-      window.removeEventListener('scrollend', handleScrollEnd);
-      if (scrollTimeoutRef.current) window.clearTimeout(scrollTimeoutRef.current);
-    };
-  }, [currentRoute, modalOpen]);
-
-  // Dynamically activate CSS scroll snap only on home view when modals are closed
-  useEffect(() => {
-    if (typeof document === 'undefined') return;
-    if (currentRoute === 'home' && !modalOpen) {
-      document.documentElement.classList.add('scroll-snap-active');
-    } else {
-      document.documentElement.classList.remove('scroll-snap-active');
-    }
-    return () => {
-      document.documentElement.classList.remove('scroll-snap-active');
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentRoute, modalOpen]);
 
   useEffect(() => {
