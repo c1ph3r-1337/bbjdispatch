@@ -119,11 +119,11 @@ export async function fetchVisitorDistance(forceRefresh: boolean = false): Promi
     let region = 'Punjab';
     let country = 'India';
 
-    // Provider 1: ipapi.co (Fast 1500ms timeout)
+    // Provider 1: ipapi.co (2500ms timeout)
     try {
       const res = await fetch('https://ipapi.co/json/', {
         headers: { Accept: 'application/json' },
-        signal: AbortSignal.timeout(1500),
+        signal: AbortSignal.timeout(2500),
       });
       if (res.ok) {
         const data = await res.json();
@@ -139,11 +139,11 @@ export async function fetchVisitorDistance(forceRefresh: boolean = false): Promi
       // Fallback to Provider 2
     }
 
-    // Provider 2 Fallback: ipwho.is (Fast 1500ms timeout)
+    // Provider 2 Fallback: ipwho.is (2500ms timeout)
     if (lat === null || lon === null) {
       try {
         const res = await fetch('https://ipwho.is/', {
-          signal: AbortSignal.timeout(1500),
+          signal: AbortSignal.timeout(2500),
         });
         if (res.ok) {
           const data = await res.json();
@@ -164,11 +164,35 @@ export async function fetchVisitorDistance(forceRefresh: boolean = false): Promi
       }
     }
 
-    // Provider 3 Fallback: freeipapi.com (Fast 1500ms timeout)
+    // Provider 3 Fallback: ipinfo.io (2500ms timeout)
+    if (lat === null || lon === null) {
+      try {
+        const res = await fetch('https://ipinfo.io/json', {
+          signal: AbortSignal.timeout(2500),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.loc) {
+            const [parsedLat, parsedLon] = data.loc.split(',').map(Number);
+            if (!isNaN(parsedLat) && !isNaN(parsedLon)) {
+              lat = parsedLat;
+              lon = parsedLon;
+              city = data.city || city;
+              region = data.region || region;
+              country = data.country || country;
+            }
+          }
+        }
+      } catch {
+        // Fallback to Provider 4
+      }
+    }
+
+    // Provider 4 Fallback: freeipapi.com (2500ms timeout)
     if (lat === null || lon === null) {
       try {
         const res = await fetch('https://freeipapi.com/api/json', {
-          signal: AbortSignal.timeout(1500),
+          signal: AbortSignal.timeout(2500),
         });
         if (res.ok) {
           const data = await res.json();

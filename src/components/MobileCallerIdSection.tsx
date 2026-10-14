@@ -5,6 +5,7 @@ import { SlideToActionButton } from './mobile/SlideToActionButton';
 import { openDialer, openWhatsApp } from '../utils/whatsapp';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
 import { useVisitorDistance } from '../utils/geolocation';
+import { useDynamicCraneSvg } from '../hooks/useDynamicCraneSvg';
 
 interface MobileCallerIdSectionProps {
   isActive?: boolean;
@@ -16,6 +17,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
   onOpenConsultation,
 }) => {
   const distanceInfo = useVisitorDistance();
+  const craneSvgUrl = useDynamicCraneSvg(distanceInfo.city);
 
   return (
     <section id="caller-id" className={`snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center items-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:py-14 lg:p-0 lg:px-0 lg:py-0 bg-[#081017] border-t border-white/5 overflow-hidden ${isActive ? 'section-active' : ''}`}>
@@ -51,8 +53,8 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
         {/* 2. Industrial Crane Lifting 3D Yellow Container Graphic */}
         <div className="reveal-item delay-2 relative w-[114%] max-w-none -ml-[10%] my-0.5 pointer-events-none overflow-visible">
           <img
-            src="./assets/crane-lifting-container-route.svg"
-            alt="Industrial Crane Lifting Container with Freight Route"
+            src={craneSvgUrl}
+            alt={`Industrial Crane Lifting Container with Freight Route from ${distanceInfo.city} to Zira Campus`}
             className="w-full h-auto object-contain select-none transform-gpu"
           />
         </div>
