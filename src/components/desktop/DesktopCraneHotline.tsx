@@ -3,6 +3,7 @@ import { MapPin, Phone, User } from 'lucide-react';
 import { useVisitorDistance } from '../../utils/geolocation';
 import { openWhatsApp } from '../../utils/whatsapp';
 import { WhatsAppIcon } from '../icons/WhatsAppIcon';
+import { CraneContainerRoute } from '../illustrations/CraneContainerRoute';
 
 interface DesktopCraneHotlineProps {
   onOpenConsultation?: () => void;
@@ -18,9 +19,8 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
       {/* ========================================================= */}
       <div className="relative w-[70%] xl:w-[72%] 2xl:w-[73%] h-full flex items-start justify-start pt-10 lg:pt-14 xl:pt-16 pointer-events-none overflow-visible">
         <div className="relative w-[108%] lg:w-[112%] xl:w-[115%] max-w-none -ml-[8%] lg:-ml-[9%] xl:-ml-[10%] -mt-2 lg:-mt-4 xl:-mt-6">
-          <img
-            src="./assets/crane-lifting-container-route.svg"
-            alt="Industrial Crane Lifting Container with Freight Route"
+          <CraneContainerRoute
+            originCity={distanceInfo.city}
             className="w-full h-auto object-contain select-none transform-gpu"
           />
         </div>

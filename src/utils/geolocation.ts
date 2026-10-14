@@ -88,40 +88,26 @@ export function calculateDrivingTime(
   return { durationText, roadKm };
 }
 
-const CACHE_KEY = 'bbj_visitor_geo_v3';
+const CACHE_KEY = 'bbj_visitor_geo_v4';
+const CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes TTL
 
 // Module-level in-memory cache to guarantee zero redundant network calls
 let cachedVisitorInfo: VisitorDistanceInfo | null = null;
+let lastFetchTime = 0;
 let activeFetchPromise: Promise<VisitorDistanceInfo> | null = null;
 
 /**
- * Silent IP-based location resolution with singleton promise and multi-storage persistence
+ * Silent IP-based location resolution with stale-while-revalidate support
  */
-export async function fetchVisitorDistance(): Promise<VisitorDistanceInfo> {
-  // 1. In-memory cache hit
-  if (cachedVisitorInfo) {
+export async function fetchVisitorDistance(forceRefresh: boolean = false): Promise<VisitorDistanceInfo> {
+  const now = Date.now();
+
+  // 1. In-memory cache hit (if not force-refreshing and within TTL)
+  if (!forceRefresh && cachedVisitorInfo && now - lastFetchTime < CACHE_TTL_MS) {
     return cachedVisitorInfo;
   }
 
-  // 2. Browser storage cache hit (check localStorage and sessionStorage)
-  if (typeof window !== 'undefined') {
-    try {
-      const stored =
-        localStorage.getItem(CACHE_KEY) || sessionStorage.getItem(CACHE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (parsed && typeof parsed.distanceKm !== 'undefined') {
-          const data: VisitorDistanceInfo = { ...parsed, isLoading: false };
-          cachedVisitorInfo = data;
-          return data;
-        }
-      }
-    } catch {
-      // Ignore storage errors
-    }
-  }
-
-  // 3. Return active in-flight request if already in progress
+  // 2. Return active in-flight request if already in progress
   if (activeFetchPromise) {
     return activeFetchPromise;
   }
@@ -150,7 +136,7 @@ export async function fetchVisitorDistance(): Promise<VisitorDistanceInfo> {
         }
       }
     } catch {
-      // Fallback
+      // Fallback to Provider 2
     }
 
     // Provider 2 Fallback: ipwho.is (Fast 1500ms timeout)
@@ -174,7 +160,28 @@ export async function fetchVisitorDistance(): Promise<VisitorDistanceInfo> {
           }
         }
       } catch {
-        // Both providers failed
+        // Fallback to Provider 3
+      }
+    }
+
+    // Provider 3 Fallback: freeipapi.com (Fast 1500ms timeout)
+    if (lat === null || lon === null) {
+      try {
+        const res = await fetch('https://freeipapi.com/api/json', {
+          signal: AbortSignal.timeout(1500),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (typeof data.latitude === 'number' && typeof data.longitude === 'number') {
+            lat = data.latitude;
+            lon = data.longitude;
+            city = data.cityName || city;
+            region = data.regionName || region;
+            country = data.countryName || country;
+          }
+        }
+      } catch {
+        // All providers failed
       }
     }
 
@@ -218,11 +225,13 @@ export async function fetchVisitorDistance(): Promise<VisitorDistanceInfo> {
     };
 
     cachedVisitorInfo = result;
+    lastFetchTime = Date.now();
 
     if (typeof window !== 'undefined') {
       try {
-        localStorage.setItem(CACHE_KEY, JSON.stringify(result));
-        sessionStorage.setItem(CACHE_KEY, JSON.stringify(result));
+        const payload = JSON.stringify({ data: result, timestamp: lastFetchTime });
+        localStorage.setItem(CACHE_KEY, payload);
+        sessionStorage.setItem(CACHE_KEY, payload);
       } catch {
         // Ignore storage errors
       }
@@ -236,22 +245,26 @@ export async function fetchVisitorDistance(): Promise<VisitorDistanceInfo> {
 }
 
 /**
- * React hook for live visitor distance and travel time calculation
+ * React hook for live visitor distance and travel time calculation.
+ * Implements Stale-While-Revalidate: returns cached location instantly (0ms),
+ * while querying the network in the background on load/refresh to update if location changed.
  */
 export function useVisitorDistance(): VisitorDistanceInfo {
   const [distanceInfo, setDistanceInfo] = useState<VisitorDistanceInfo>(() => {
-    // If cached, initialize synchronously to eliminate any layout shift
+    // 1. If in-memory cache exists, use immediately
     if (cachedVisitorInfo) {
       return cachedVisitorInfo;
     }
+    // 2. Check storage for cached location
     if (typeof window !== 'undefined') {
       try {
         const stored =
           localStorage.getItem(CACHE_KEY) || sessionStorage.getItem(CACHE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (parsed && typeof parsed.distanceKm !== 'undefined') {
-            const data: VisitorDistanceInfo = { ...parsed, isLoading: false };
+          const cachedData = parsed?.data || parsed;
+          if (cachedData && typeof cachedData.distanceKm !== 'undefined') {
+            const data: VisitorDistanceInfo = { ...cachedData, isLoading: false };
             cachedVisitorInfo = data;
             return data;
           }
@@ -278,14 +291,25 @@ export function useVisitorDistance(): VisitorDistanceInfo {
 
   useEffect(() => {
     let isMounted = true;
-    fetchVisitorDistance()
-      .then((info) => {
-        if (isMounted) {
-          setDistanceInfo(info);
-        }
+
+    // Stale-While-Revalidate: Always revalidate on mount so location updates on refresh or location changes
+    fetchVisitorDistance(true)
+      .then((freshInfo) => {
+        if (!isMounted) return;
+        setDistanceInfo((prev) => {
+          // Only trigger state update if location values actually changed
+          if (
+            prev.city !== freshInfo.city ||
+            prev.roadDistanceKm !== freshInfo.roadDistanceKm ||
+            prev.drivingTime !== freshInfo.drivingTime
+          ) {
+            return freshInfo;
+          }
+          return prev;
+        });
       })
       .catch(() => {
-        // Keep current state
+        // Fallback remains active
       });
 
     return () => {

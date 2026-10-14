@@ -27,6 +27,35 @@ function getRouteFromHash(): Route {
   return 'home';
 }
 
+function fastSmoothScrollTo(targetY: number, duration: number = 380, callback?: () => void) {
+  if (typeof window === 'undefined') return;
+  const startY = window.scrollY;
+  const distance = targetY - startY;
+  if (Math.abs(distance) < 2) {
+    if (callback) callback();
+    return;
+  }
+  const startTime = performance.now();
+  // Silky-fast cubic-bezier curve: accelerates immediately, lands softly with 0 stutter
+  const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
+  const step = (currentTime: number) => {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = easeOutCubic(progress);
+    window.scrollTo(0, startY + distance * ease);
+
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      window.scrollTo(0, targetY);
+      if (callback) callback();
+    }
+  };
+
+  requestAnimationFrame(step);
+}
+
 export const App: React.FC = () => {
   const [currentRoute, setCurrentRoute] = useState<Route>(getRouteFromHash());
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,16 +63,34 @@ export const App: React.FC = () => {
   const [isSyllabusMode, setIsSyllabusMode] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('hero');
   const isAnimatingRef = useRef(false);
+  const scrollLockTimeoutRef = useRef<number | null>(null);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-      setActiveSection(id);
+    if (!el) return;
+
+    // Immediately lock out IntersectionObserver so it doesn't flicker intermediate dots!
+    isAnimatingRef.current = true;
+    if (scrollLockTimeoutRef.current) {
+      window.clearTimeout(scrollLockTimeoutRef.current);
     }
+
+    // Immediately reflect active section in sidebar and navbar
+    setActiveSection(id);
+
+    // Calculate exact target position centered inside the viewport
+    const rect = el.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const elementCenterY = window.scrollY + rect.top + (rect.height - windowHeight) / 2;
+    const maxScroll = Math.max(0, document.documentElement.scrollHeight - windowHeight);
+    const targetY = Math.max(0, Math.min(maxScroll, Math.round(elementCenterY)));
+
+    // Fast, crisp 380ms smooth scroll
+    fastSmoothScrollTo(targetY, 380, () => {
+      scrollLockTimeoutRef.current = window.setTimeout(() => {
+        isAnimatingRef.current = false;
+      }, 70);
+    });
   };
 
   // Track currently active section in viewport
@@ -118,10 +165,10 @@ export const App: React.FC = () => {
       setActiveSection(SECTIONS[targetIndex].id);
       scrollToSection(SECTIONS[targetIndex].id);
 
-      // Inertial decay lockout: 850ms absorbs the decaying trackpad momentum tail
+      // Snappy lockout matches the 380ms smooth scroll
       window.setTimeout(() => {
         isAnimatingRef.current = false;
-      }, 850);
+      }, 450);
     };
 
     // 1. Desktop Wheel & Trackpad Interceptor
@@ -132,7 +179,7 @@ export const App: React.FC = () => {
       e.preventDefault();
 
       const now = Date.now();
-      if (isAnimatingRef.current || now - lastScrollTimeRef.current < 850) {
+      if (isAnimatingRef.current || now - lastScrollTimeRef.current < 480) {
         return;
       }
 
@@ -178,9 +225,10 @@ export const App: React.FC = () => {
       const deltaY = touchStartYRef.current - touchEndY;
       const duration = Date.now() - touchStartTimeRef.current;
 
-      // Deliberate swipe: displacement > 35px or quick flick
-      const isQuickFlick = duration < 320 && Math.abs(deltaY) > 22;
-      const isDeliberateSwipe = Math.abs(deltaY) > 35 && duration < 700;
+      // Quick flick: small movement in short duration
+      const isQuickFlick = duration < 350 && Math.abs(deltaY) > 20;
+      // Slower or deliberate drag: displacement >= 30px regardless of drag duration!
+      const isDeliberateSwipe = Math.abs(deltaY) >= 30;
 
       const currentIndex = getClosestSectionIndex();
 

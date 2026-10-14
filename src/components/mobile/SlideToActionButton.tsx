@@ -52,24 +52,24 @@ export const SlideToActionButton: React.FC<SlideToActionButtonProps> = ({
     const progress = Math.max(0, Math.min(1, x / max));
 
     const transitionValue = animate
-      ? 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1)'
+      ? 'transform 0.16s cubic-bezier(0.16, 1, 0.3, 1)'
       : 'none';
     const opacityTransition = animate
-      ? 'opacity 0.2s ease-out'
+      ? 'opacity 0.16s ease-out'
       : 'none';
 
     if (knobRef.current) {
-      knobRef.current.style.transition = transitionValue;
+      if (animate) knobRef.current.style.transition = transitionValue;
       knobRef.current.style.transform = `translate3d(${x}px, 0, 0)`;
     }
 
     if (labelRef.current) {
-      labelRef.current.style.transition = opacityTransition;
+      if (animate) labelRef.current.style.transition = opacityTransition;
       labelRef.current.style.opacity = `${Math.max(0, 1 - progress * 1.8)}`;
     }
 
     if (arrowsRef.current) {
-      arrowsRef.current.style.transition = opacityTransition;
+      if (animate) arrowsRef.current.style.transition = opacityTransition;
       arrowsRef.current.style.opacity = `${Math.max(0, 1 - progress * 2.2)}`;
     }
   }, []);
@@ -82,43 +82,50 @@ export const SlideToActionButton: React.FC<SlideToActionButtonProps> = ({
     // Glide smoothly to 100% end
     applyTransform(maxDistanceRef.current, true);
 
-    try {
-      onComplete();
-    } catch (err) {
-      console.error('Slider action error:', err);
-    }
+    // Wait 140ms for the knob to visually snap to the end before invoking the phone/action
+    setTimeout(() => {
+      try {
+        onComplete();
+      } catch (err) {
+        console.error('Slider action error:', err);
+      }
+    }, 140);
 
     // Reset after action
     setTimeout(() => {
       applyTransform(0, true);
       currentTranslateXRef.current = 0;
       hasCompletedRef.current = false;
-    }, 800);
+    }, 900);
   }, [applyTransform, onComplete]);
 
   // Start dragging on knob or track
   const handlePointerDown = (e: React.PointerEvent) => {
     if (hasCompletedRef.current) return;
+    e.stopPropagation();
     updateTravelDistance();
     isDraggingRef.current = true;
     startClientXRef.current = e.clientX;
     startTranslateXRef.current = currentTranslateXRef.current;
 
-    // Remove any animations while actively dragging
+    // Reset transitions to none once at drag start
     if (knobRef.current) knobRef.current.style.transition = 'none';
     if (labelRef.current) labelRef.current.style.transition = 'none';
     if (arrowsRef.current) arrowsRef.current.style.transition = 'none';
 
-    // Capture pointer if available
-    try {
-      (e.target as HTMLElement).setPointerCapture(e.pointerId);
-    } catch {
-      // Fallback if not supported
+    // Capture pointer on the track element so events are consistently received
+    if (trackRef.current) {
+      try {
+        trackRef.current.setPointerCapture(e.pointerId);
+      } catch {
+        // Fallback
+      }
     }
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
     if (!isDraggingRef.current || hasCompletedRef.current) return;
+    e.stopPropagation();
 
     const deltaX = e.clientX - startClientXRef.current;
     const max = maxDistanceRef.current;
@@ -139,7 +146,8 @@ export const SlideToActionButton: React.FC<SlideToActionButtonProps> = ({
     });
   };
 
-  const handlePointerUp = () => {
+  const handlePointerUp = (e?: React.PointerEvent) => {
+    if (e) e.stopPropagation();
     if (!isDraggingRef.current || hasCompletedRef.current) return;
     isDraggingRef.current = false;
 
@@ -157,6 +165,7 @@ export const SlideToActionButton: React.FC<SlideToActionButtonProps> = ({
 
   // Click track to auto-slide to completion
   const handleTrackClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (isDraggingRef.current || hasCompletedRef.current) return;
     // If user clicked the knob itself, don't trigger click
     if (knobRef.current && knobRef.current.contains(e.target as Node)) return;
@@ -165,7 +174,12 @@ export const SlideToActionButton: React.FC<SlideToActionButtonProps> = ({
   };
 
   return (
-    <div className="w-full flex items-center gap-2 select-none touch-none">
+    <div
+      onTouchStart={(e) => e.stopPropagation()}
+      onTouchMove={(e) => e.stopPropagation()}
+      onTouchEnd={(e) => e.stopPropagation()}
+      className="w-full flex items-center gap-2 select-none touch-none"
+    >
       {/* Optional Back Arrow */}
       {showBackArrow && (
         <button
