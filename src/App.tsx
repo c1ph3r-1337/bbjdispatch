@@ -27,7 +27,7 @@ function getRouteFromHash(): Route {
   return 'home';
 }
 
-function fastSmoothScrollTo(targetY: number, duration: number = 380, callback?: () => void) {
+function fastSmoothScrollTo(targetY: number, duration: number = 260, callback?: () => void) {
   if (typeof window === 'undefined') return;
   const startY = window.scrollY;
   const distance = targetY - startY;
@@ -36,13 +36,13 @@ function fastSmoothScrollTo(targetY: number, duration: number = 380, callback?: 
     return;
   }
   const startTime = performance.now();
-  // Silky-fast cubic-bezier curve: accelerates immediately, lands softly with 0 stutter
-  const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+  // High-velocity quartic ease-out: explosive initial acceleration, silky smooth cushioned landing
+  const easeOutQuart = (t: number) => 1 - Math.pow(1 - t, 4);
 
   const step = (currentTime: number) => {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    const ease = easeOutCubic(progress);
+    const ease = easeOutQuart(progress);
     window.scrollTo(0, startY + distance * ease);
 
     if (progress < 1) {
@@ -85,11 +85,11 @@ export const App: React.FC = () => {
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - windowHeight);
     const targetY = Math.max(0, Math.min(maxScroll, Math.round(elementCenterY)));
 
-    // Fast, crisp 380ms smooth scroll
-    fastSmoothScrollTo(targetY, 380, () => {
+    // Fast, crisp 260ms smooth scroll with quartic easing
+    fastSmoothScrollTo(targetY, 260, () => {
       scrollLockTimeoutRef.current = window.setTimeout(() => {
         isAnimatingRef.current = false;
-      }, 70);
+      }, 50);
     });
   };
 
@@ -165,10 +165,10 @@ export const App: React.FC = () => {
       setActiveSection(SECTIONS[targetIndex].id);
       scrollToSection(SECTIONS[targetIndex].id);
 
-      // Snappy lockout matches the 380ms smooth scroll
+      // Snappy lockout matches the 260ms smooth scroll
       window.setTimeout(() => {
         isAnimatingRef.current = false;
-      }, 450);
+      }, 290);
     };
 
     // 1. Desktop Wheel & Trackpad Interceptor
@@ -179,7 +179,7 @@ export const App: React.FC = () => {
       e.preventDefault();
 
       const now = Date.now();
-      if (isAnimatingRef.current || now - lastScrollTimeRef.current < 480) {
+      if (isAnimatingRef.current || now - lastScrollTimeRef.current < 320) {
         return;
       }
 
@@ -196,16 +196,20 @@ export const App: React.FC = () => {
       }
     };
 
-    // 2. Mobile Touch Swipe Controller (1 Swipe = 1 Section, Zero Free Scrolling)
+    // 2. Mobile Touch Swipe Controller (Instant Mid-Motion Triggering & Micro-Flick Fallback)
+    const touchStartXRef = { current: 0 };
     const touchStartYRef = { current: 0 };
     const touchStartTimeRef = { current: 0 };
     const hasMovedRef = { current: false };
+    const hasTriggeredRef = { current: false };
 
     const handleTouchStart = (e: TouchEvent) => {
       if (modalOpen) return;
+      touchStartXRef.current = e.touches[0].clientX;
       touchStartYRef.current = e.touches[0].clientY;
       touchStartTimeRef.current = Date.now();
       hasMovedRef.current = false;
+      hasTriggeredRef.current = false;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
@@ -215,20 +219,53 @@ export const App: React.FC = () => {
         e.preventDefault();
       }
       hasMovedRef.current = true;
+
+      // If transition is already running or already triggered on this touch gesture, exit
+      if (isAnimatingRef.current || hasTriggeredRef.current) return;
+
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const deltaX = touchStartXRef.current - currentX;
+      const deltaY = touchStartYRef.current - currentY;
+
+      // Instant Trigger: fire as soon as vertical displacement reaches 28px and intent is vertical
+      if (Math.abs(deltaY) >= 28 && Math.abs(deltaY) > Math.abs(deltaX) * 1.2) {
+        const currentIndex = getClosestSectionIndex();
+        if (deltaY > 0 && currentIndex < SECTIONS.length - 1) {
+          hasTriggeredRef.current = true;
+          triggerSectionTransition(currentIndex + 1);
+        } else if (deltaY < 0 && currentIndex > 0) {
+          hasTriggeredRef.current = true;
+          triggerSectionTransition(currentIndex - 1);
+        } else {
+          // Boundary swipe: snap back current section immediately
+          hasTriggeredRef.current = true;
+          triggerSectionTransition(currentIndex);
+        }
+      }
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (modalOpen || isAnimatingRef.current) return;
-      if (!hasMovedRef.current) return;
+      if (modalOpen) return;
+      // If already triggered during touchmove, reset flag and skip
+      if (hasTriggeredRef.current) {
+        hasTriggeredRef.current = false;
+        return;
+      }
+      if (isAnimatingRef.current || !hasMovedRef.current) return;
 
+      const touchEndX = e.changedTouches[0].clientX;
       const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchStartXRef.current - touchEndX;
       const deltaY = touchStartYRef.current - touchEndY;
       const duration = Date.now() - touchStartTimeRef.current;
 
-      // Quick flick: small movement in short duration
-      const isQuickFlick = duration < 350 && Math.abs(deltaY) > 20;
-      // Slower or deliberate drag: displacement >= 30px regardless of drag duration!
-      const isDeliberateSwipe = Math.abs(deltaY) >= 30;
+      // Disregard predominantly horizontal gestures
+      if (Math.abs(deltaY) < Math.abs(deltaX) * 1.1) return;
+
+      // Quick flick fallback: user swiped and lifted finger fast (< 280ms)
+      const isQuickFlick = duration < 280 && Math.abs(deltaY) >= 16;
+      const isDeliberateSwipe = Math.abs(deltaY) >= 28;
 
       const currentIndex = getClosestSectionIndex();
 
@@ -242,7 +279,7 @@ export const App: React.FC = () => {
           triggerSectionTransition(currentIndex);
         }
       } else {
-        // Micro-drift: snap cleanly back to current section to eliminate partial scroll states
+        // Micro-drift: snap cleanly back to current section
         triggerSectionTransition(currentIndex);
       }
     };
