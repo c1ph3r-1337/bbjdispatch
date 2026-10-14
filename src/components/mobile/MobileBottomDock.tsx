@@ -77,6 +77,8 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
     } else if (activeSection === 'features') {
       setIsCollapsed(false);
       suppressCollapseUntilRef.current = Date.now() + 1000;
+    } else {
+      setIsCollapsed(true);
     }
   }, [activeSection]);
 
