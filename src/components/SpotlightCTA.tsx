@@ -2,16 +2,17 @@ import React from 'react';
 import { openWhatsApp } from '../utils/whatsapp';
 
 interface SpotlightCTAProps {
+  isActive?: boolean;
   onOpenEnrollModal?: () => void;
 }
 
-export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ onOpenEnrollModal }) => {
+export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ isActive, onOpenEnrollModal }) => {
   return (
-    <section id="spotlight" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 bg-[#081017] overflow-hidden">
+    <section id="spotlight" className={`snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 bg-[#081017] overflow-hidden ${isActive ? 'section-active' : ''}`}>
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col items-center">
         {/* Top Header with Tilted CTA Badge */}
         <div className="relative text-center mb-8 md:mb-12">
-          <h3 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest leading-tight text-white">
+          <h3 className="reveal-item delay-1 text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest leading-tight text-white">
             Attend A Free Demo <br />
             <span className="text-dispatch-yellow">Class First</span>
           </h3>
@@ -19,7 +20,7 @@ export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ onOpenEnrollModal })
           {/* Tilted Floating 'Free Demo' Circular Badge */}
           <button
             onClick={() => openWhatsApp('demo')}
-            className="absolute -top-3 -right-6 sm:-right-16 md:-right-24 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[11px] sm:text-xs md:text-sm tracking-wider uppercase rotate-12 hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center text-center p-2 leading-tight"
+            className="reveal-scale delay-2 absolute -top-3 -right-6 sm:-right-16 md:-right-24 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[11px] sm:text-xs md:text-sm tracking-wider uppercase rotate-12 hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center text-center p-2 leading-tight"
           >
             Free<br />Demo
           </button>
@@ -27,7 +28,7 @@ export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ onOpenEnrollModal })
 
         {/* 3D Yellow Container Visual with Foreground Typography */}
         <div className="relative w-full max-w-4xl flex flex-col items-center justify-center mt-4">
-          <div className="relative z-10 w-full flex justify-center">
+          <div className="reveal-scale delay-3 relative z-10 w-full flex justify-center">
             <img
               src="./assets/container.svg"
               alt="3D Heavy Yellow Shipping Cargo Container"
@@ -36,7 +37,7 @@ export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ onOpenEnrollModal })
           </div>
 
           {/* Bottom Bold Text Layered Over Container Base */}
-          <div className="relative -mt-16 xs:-mt-20 sm:-mt-20 md:-mt-24 z-20 pointer-events-none select-none text-center w-full px-2">
+          <div className="reveal-item delay-4 relative -mt-16 xs:-mt-20 sm:-mt-20 md:-mt-24 z-20 pointer-events-none select-none text-center w-full px-2">
             <span className="text-[13vw] xs:text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tightest text-white/95 select-none whitespace-nowrap block drop-shadow-md">
               Dispatching
             </span>

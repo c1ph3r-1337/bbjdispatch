@@ -36,9 +36,38 @@ export const RadarBackground: React.FC<{ className?: string }> = React.memo(({ c
           />
         ))}
 
+        {/* Rotating Radar Scanner Sweep */}
+        <g className="animate-radar-sweep">
+          <line
+            x1="900"
+            y1="300"
+            x2="900"
+            y2="-900"
+            stroke="url(#radar-beam-grad)"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 900 300 L 900 -900 A 1200 1200 0 0 1 1500 -740 Z"
+            fill="url(#radar-sector-grad)"
+            opacity="0.25"
+          />
+        </g>
+
         {/* Subtle center marker */}
         <circle cx="900" cy="300" r="16" fill="#fbc21e" fillOpacity="0.15" />
         <circle cx="900" cy="300" r="4" fill="#fbc21e" />
+
+        <defs>
+          <linearGradient id="radar-beam-grad" x1="900" y1="300" x2="900" y2="-900" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#fbc21e" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#fbc21e" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="radar-sector-grad" x1="900" y1="300" x2="1500" y2="-740" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#fbc21e" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#fbc21e" stopOpacity="0" />
+          </linearGradient>
+        </defs>
       </svg>
 
       {/* Subtle curved background hill / elevation silhouette behind hero */}

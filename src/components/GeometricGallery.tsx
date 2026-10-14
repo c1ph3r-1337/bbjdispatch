@@ -2,10 +2,11 @@ import React from 'react';
 import { openWhatsApp } from '../utils/whatsapp';
 
 interface GeometricGalleryProps {
+  isActive?: boolean;
   onOpenEnrollModal?: (topic?: string) => void;
 }
 
-export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
+export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ isActive }) => {
   const galleryItems = [
     {
       id: 1,
@@ -38,9 +39,9 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
   ];
 
   return (
-    <section id="gallery" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 bg-[#081017] overflow-hidden">
+    <section id="gallery" className={`snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 bg-[#081017] overflow-hidden ${isActive ? 'section-active' : ''}`}>
       {/* Giant Hollow Outlined Display Typography behind the cards */}
-      <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-center pointer-events-none select-none z-0">
+      <div className="reveal-item delay-2 absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-center pointer-events-none select-none z-0">
         <span className="text-[17vw] font-black uppercase tracking-wider text-stroke-dispatch opacity-70 whitespace-nowrap">
           TRAINING
         </span>
@@ -49,21 +50,21 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 md:px-12 lg:px-16">
         {/* Section Header */}
         <div className="mb-4 sm:mb-6 md:mb-14 text-center">
-          <p className="text-dispatch-yellow text-xs font-mono tracking-widest uppercase mb-1 sm:mb-2">
+          <p className="reveal-item delay-1 text-dispatch-yellow text-xs font-mono tracking-widest uppercase mb-1 sm:mb-2">
             // What You'll Learn • 45-Day Syllabus
           </p>
-          <h3 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          <h3 className="reveal-item delay-2 text-xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
             Practical Skills Taught Step-By-Step With Live Practice
           </h3>
         </div>
 
         {/* 4 Geometric Cutout Gallery Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 xs:gap-3 sm:gap-5 md:gap-8 items-center justify-items-center">
-          {galleryItems.map((item) => (
+          {galleryItems.map((item, idx) => (
             <div
               key={item.id}
               onClick={() => openWhatsApp('batch', item.title)}
-              className="group relative cursor-pointer w-full max-w-[155px] xs:max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-[1/1.38] sm:aspect-[1/1.45] md:aspect-[1/1.5] flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-2"
+              className={`reveal-scale delay-${idx + 3} group relative cursor-pointer w-full max-w-[155px] xs:max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-[1/1.38] sm:aspect-[1/1.45] md:aspect-[1/1.5] flex flex-col items-center justify-center transition-transform duration-300 hover:-translate-y-2`}
             >
               {/* Geometric Shaped Card Container */}
               <div

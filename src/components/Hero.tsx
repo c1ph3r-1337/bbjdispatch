@@ -5,12 +5,20 @@ import { SlideToActionButton } from './mobile/SlideToActionButton';
 import { openWhatsApp } from '../utils/whatsapp';
 
 interface HeroProps {
+  isActive?: boolean;
   onOpenEnrollModal?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
+export const Hero: React.FC<HeroProps> = ({ isActive = true, onOpenEnrollModal }) => {
   const [animKey, setAnimKey] = useState(0);
   const truckWrapperRef = useRef<HTMLDivElement>(null);
+
+  // Trigger re-animation when section becomes active
+  useEffect(() => {
+    if (isActive) {
+      setAnimKey((prev) => prev + 1);
+    }
+  }, [isActive]);
 
   useEffect(() => {
     let ticking = false;
@@ -44,7 +52,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnrollModal }) => {
   };
 
   return (
-    <section id="hero" className="snap-section relative min-h-[100dvh] min-h-screen flex flex-col justify-center pt-16 pb-4 sm:pt-20 sm:pb-6 md:pt-28 md:pb-12 overflow-hidden">
+    <section id="hero" className={`snap-section relative min-h-[100dvh] min-h-screen flex flex-col justify-center pt-16 pb-4 sm:pt-20 sm:pb-6 md:pt-28 md:pb-12 overflow-hidden ${isActive ? 'section-active' : ''}`}>
       {/* Polar Radar Vector in upper right */}
       <RadarBackground />
 

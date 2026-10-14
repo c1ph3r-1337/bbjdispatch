@@ -3,12 +3,13 @@ import { openWhatsApp } from '../utils/whatsapp';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
 
 interface FooterProps {
+  isActive?: boolean;
   onOpenEnrollModal?: (topic?: string) => void;
   onOpenContactModal?: () => void;
   onNavigate?: (route: 'terms' | 'privacy') => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
+export const Footer: React.FC<FooterProps> = ({ isActive, onNavigate }) => {
   const handleLegalClick = (e: React.MouseEvent, route: 'terms' | 'privacy') => {
     e.preventDefault();
     if (onNavigate) {
@@ -19,10 +20,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer id="footer" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center bg-[#081017] border-t border-white/10 pt-14 pb-8 sm:pt-16 sm:pb-12 md:pt-20 md:pb-16 text-sm text-dispatch-muted">
+    <footer id="footer" className={`snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center bg-[#081017] border-t border-white/10 pt-14 pb-8 sm:pt-16 sm:pb-12 md:pt-20 md:pb-16 text-sm text-dispatch-muted ${isActive ? 'section-active' : ''}`}>
       <div className="w-full max-w-7xl lg:max-w-[90rem] xl:max-w-[96rem] mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20">
         {/* Brand Header - Centered */}
-        <div className="space-y-1.5 sm:space-y-2 pb-3 sm:pb-5 md:pb-8 text-center">
+        <div className="reveal-item delay-1 space-y-1.5 sm:space-y-2 pb-3 sm:pb-5 md:pb-8 text-center">
           <div className="flex items-center justify-center gap-2">
             <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-white">
               bbj dispatch
@@ -38,7 +39,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* 2 Side-by-Side Columns: Direct Contact on Left, 45-Day Curriculum on Right (Centered Grid & Text) */}
-        <div className="max-w-4xl lg:max-w-5xl mx-auto grid grid-cols-2 gap-4 sm:gap-8 md:gap-20 lg:gap-32 py-3.5 sm:py-6 md:py-10 border-t border-white/10 text-center">
+        <div className="reveal-item delay-2 max-w-4xl lg:max-w-5xl mx-auto grid grid-cols-2 gap-4 sm:gap-8 md:gap-20 lg:gap-32 py-3.5 sm:py-6 md:py-10 border-t border-white/10 text-center">
           {/* Left Column: Direct Contact */}
           <div className="space-y-2 sm:space-y-3.5 text-center">
             <h4 className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-dispatch-yellow">
@@ -135,7 +136,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Centered WhatsApp Action Section Underneath */}
-        <div className="py-3.5 sm:py-6 md:py-10 border-t border-white/10 flex flex-col items-center justify-center text-center">
+        <div className="reveal-scale delay-4 py-3.5 sm:py-6 md:py-10 border-t border-white/10 flex flex-col items-center justify-center text-center">
           <button
             onClick={() => openWhatsApp('demo')}
             className="inline-flex items-center gap-2 sm:gap-2.5 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-[#081017] font-bold text-xs sm:text-sm tracking-wide shadow-lg shadow-[#25D366]/20 transition-all hover:scale-105 active:scale-95 group"
@@ -150,7 +151,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         </div>
 
         {/* Bottom Bar: Centered Copyright & Dedicated Legal Links */}
-        <div className="pt-3 sm:pt-5 md:pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-[10px] sm:text-xs text-dispatch-textMuted text-center">
+        <div className="reveal-item delay-5 pt-3 sm:pt-5 md:pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-[10px] sm:text-xs text-dispatch-textMuted text-center">
           <div>
             <span>© 2026 BBJ Dispatch Academy. All rights reserved.</span>
           </div>

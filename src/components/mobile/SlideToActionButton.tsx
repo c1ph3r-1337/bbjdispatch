@@ -216,9 +216,9 @@ export const SlideToActionButton: React.FC<SlideToActionButtonProps> = ({
           ref={arrowsRef}
           className="absolute right-3.5 flex items-center text-white/40 pointer-events-none will-change-[opacity]"
         >
-          <ChevronRight className="w-4 h-4 -mr-2 animate-pulse text-dispatch-yellow/80" />
-          <ChevronRight className="w-4 h-4 -mr-2 animate-pulse delay-100 text-dispatch-yellow/60" />
-          <ChevronRight className="w-4 h-4 animate-pulse delay-200 text-dispatch-yellow/40" />
+          <ChevronRight className="w-4 h-4 -mr-2 animate-chevron-1 text-dispatch-yellow/80" />
+          <ChevronRight className="w-4 h-4 -mr-2 animate-chevron-2 text-dispatch-yellow/60" />
+          <ChevronRight className="w-4 h-4 animate-chevron-3 text-dispatch-yellow/40" />
         </div>
 
         {/* Draggable Knob */}

@@ -7,16 +7,18 @@ import { WhatsAppIcon } from './icons/WhatsAppIcon';
 import { useVisitorDistance } from '../utils/geolocation';
 
 interface MobileCallerIdSectionProps {
+  isActive?: boolean;
   onOpenConsultation?: () => void;
 }
 
 export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
+  isActive,
   onOpenConsultation,
 }) => {
   const distanceInfo = useVisitorDistance();
 
   return (
-    <section id="caller-id" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center items-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:py-14 lg:p-0 lg:px-0 lg:py-0 bg-[#081017] border-t border-white/5 overflow-hidden">
+    <section id="caller-id" className={`snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center items-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:py-14 lg:p-0 lg:px-0 lg:py-0 bg-[#081017] border-t border-white/5 overflow-hidden ${isActive ? 'section-active' : ''}`}>
       {/* Background Subtle Radar & Grid Lines */}
       <div
         className="absolute inset-0 opacity-10 pointer-events-none"
@@ -29,13 +31,13 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
 
       {/* Desktop Presentation: Industrial Crane Lifting 3D Yellow Container & Hotline */}
       <div className="hidden lg:block relative z-10 w-full">
-        <DesktopCraneHotline onOpenConsultation={onOpenConsultation} />
+        <DesktopCraneHotline isActive={isActive} onOpenConsultation={onOpenConsultation} />
       </div>
 
       {/* Mobile Presentation: Industrial Crane Lifting 3D Yellow Container & Mobile Hotline */}
       <div className="block lg:hidden relative z-10 w-full max-w-md mx-auto flex flex-col items-center select-none">
         {/* 1. Mobile Section Header (Centered) */}
-        <div className="text-center w-full px-2 mb-2">
+        <div className="reveal-item delay-1 text-center w-full px-2 mb-2">
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tightest text-white leading-tight">
             Direct Line To Your <br />
             <span className="text-dispatch-yellow">Senior Dispatch Trainer</span>
@@ -47,7 +49,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
         </div>
 
         {/* 2. Industrial Crane Lifting 3D Yellow Container Graphic */}
-        <div className="relative w-[114%] max-w-none -ml-[10%] my-0.5 pointer-events-none overflow-visible">
+        <div className="reveal-item delay-2 relative w-[114%] max-w-none -ml-[10%] my-0.5 pointer-events-none overflow-visible">
           <img
             src="./assets/crane-lifting-container-route.svg"
             alt="Industrial Crane Lifting Container with Freight Route"
@@ -56,7 +58,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
         </div>
 
         {/* 3. Campus Location (Centered directly beneath crane) */}
-        <div className="text-center w-full mt-1 mb-1.5 px-2">
+        <div className="reveal-item delay-3 text-center w-full mt-1 mb-1.5 px-2">
           <h3 className="text-sm sm:text-base font-bold text-white tracking-tight leading-snug">
             Mallawala Road, Zira Campus
           </h3>
@@ -77,7 +79,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
         <div className="w-full border-t border-white/10 my-1" />
 
         {/* 4. Trainer Direct Contact Hotlines */}
-        <div className="w-full space-y-2.5 my-2 px-2">
+        <div className="reveal-item delay-4 w-full space-y-2.5 my-2 px-2">
           {/* Harry Dhillon */}
           <div className="flex items-center justify-between w-full">
             <div>
@@ -128,7 +130,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
         </div>
 
         {/* 5. Interactive Slide to Call Trainer Button */}
-        <div className="w-full pt-3 px-1">
+        <div className="reveal-scale delay-5 w-full pt-3 px-1">
           <SlideToActionButton
             label="Slide to Call Trainer"
             icon={<Phone className="w-5 h-5 text-dispatch-bg fill-dispatch-bg" />}

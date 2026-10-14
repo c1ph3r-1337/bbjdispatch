@@ -5,14 +5,15 @@ import { openWhatsApp } from '../../utils/whatsapp';
 import { WhatsAppIcon } from '../icons/WhatsAppIcon';
 
 interface DesktopCraneHotlineProps {
+  isActive?: boolean;
   onOpenConsultation?: () => void;
 }
 
-export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
+export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = ({ isActive }) => {
   const distanceInfo = useVisitorDistance();
 
   return (
-    <div className="relative w-full min-h-screen flex items-stretch overflow-hidden select-none">
+    <div className={`relative w-full min-h-screen flex items-stretch overflow-hidden select-none ${isActive ? 'section-active' : ''}`}>
       {/* ========================================================= */}
       {/* LEFT COLUMN: Large Industrial Crane Bleeding Left Edge    */}
       {/* ========================================================= */}
@@ -31,19 +32,19 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = () => {
       {/* ========================================================= */}
       <div className="relative w-[30%] xl:w-[28%] 2xl:w-[27%] -translate-x-5 lg:-translate-x-8 xl:-translate-x-10 flex flex-col justify-end pb-12 lg:pb-16 xl:pb-20 pr-6 lg:pr-10 xl:pr-14 pl-2 z-10">
         {/* Header Typography */}
-        <div className="space-y-1 mb-3.5 lg:mb-4 text-left">
+        <div className="reveal-item delay-1 space-y-1 mb-3.5 lg:mb-4 text-left">
           <h2 className="text-lg sm:text-xl xl:text-2xl font-extrabold tracking-tightest text-white leading-[1.15]">
             Direct Line To Your <br />
             <span className="text-dispatch-yellow">Senior Dispatch Trainer</span>
           </h2>
 
-          <p className="text-[10px] sm:text-[11px] xl:text-xs text-dispatch-muted leading-relaxed max-w-xs mt-1">
+          <p className="reveal-item delay-2 text-[10px] sm:text-[11px] xl:text-xs text-dispatch-muted leading-relaxed max-w-xs mt-1">
             Direct telephone lines, WhatsApp consultation, and driving directions to the Zira academy campus.
           </p>
         </div>
 
         {/* Compact Spaced Rows with Outlined Yellow Icons */}
-        <div className="space-y-2.5 lg:space-y-3">
+        <div className="reveal-item delay-3 space-y-2.5 lg:space-y-3">
           {/* 1. Campus Location Row */}
           <div className="flex items-start gap-2.5">
             <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-dispatch-yellow stroke-[2] shrink-0 mt-0.5" />

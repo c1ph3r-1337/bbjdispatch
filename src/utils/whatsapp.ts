@@ -34,21 +34,11 @@ export function getWhatsAppUrl(type: WhatsAppActionType, context?: string): stri
 }
 
 export function openWhatsApp(type: WhatsAppActionType, context?: string): void {
+  if (typeof window === 'undefined') return;
   const url = getWhatsAppUrl(type, context);
-  const isMobile =
-    typeof window !== 'undefined' &&
-    (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
-      window.innerWidth < 768);
 
-  if (isMobile) {
-    window.location.href = url;
-    return;
-  }
-
-  const win = window.open(url, '_blank', 'noopener,noreferrer');
-  if (!win || win.closed || typeof win.closed === 'undefined') {
-    window.location.href = url;
-  }
+  // Open strictly in a new tab/window without modifying the current page
+  window.open(url, '_blank', 'noopener,noreferrer');
 }
 
 export function openDialer(phoneNumber: string = TRAINER_PHONE): void {

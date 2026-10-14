@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { openWhatsApp } from '../utils/whatsapp';
 
 interface CoursesAccordionProps {
+  isActive?: boolean;
   onOpenEnrollModal?: (courseName: string) => void;
 }
 
-export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnrollModal }) => {
+export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ isActive, onOpenEnrollModal }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const courses = [
@@ -36,10 +37,10 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
   ];
 
   return (
-    <section id="courses" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center items-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:py-14 lg:pt-24 lg:pb-8 px-4 sm:px-6 md:px-12 lg:px-16 bg-[#081017]">
+    <section id="courses" className={`snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center items-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:py-14 lg:pt-24 lg:pb-8 px-4 sm:px-6 md:px-12 lg:px-16 bg-[#081017] ${isActive ? 'section-active' : ''}`}>
       <div className="max-w-5xl lg:max-w-6xl mx-auto w-full">
         {/* Tilted Yellow Circular Badge */}
-        <div className="flex justify-center mb-4 sm:mb-6 md:mb-8 lg:mb-8">
+        <div className="reveal-scale delay-1 flex justify-center mb-4 sm:mb-6 md:mb-8 lg:mb-8">
           <div className="relative group cursor-pointer">
             <div className="w-[70px] h-[70px] xs:w-[76px] xs:h-[76px] sm:w-20 sm:h-20 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 transform group-hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20">
               <span className="text-dispatch-bg font-extrabold text-[11.5px] xs:text-xs sm:text-xs md:text-xs lg:text-sm tracking-wider uppercase">
@@ -60,7 +61,7 @@ export const CoursesAccordion: React.FC<CoursesAccordionProps> = ({ onOpenEnroll
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 onClick={() => openWhatsApp('batch', course.title)}
-                className={`group cursor-pointer relative py-3.5 sm:py-4 md:py-6 lg:py-6 border-b transition-colors duration-300 ${
+                className={`reveal-item delay-${index + 2} group cursor-pointer relative py-3.5 sm:py-4 md:py-6 lg:py-6 border-b transition-colors duration-300 ${
                   isHovered ? 'border-dispatch-yellow' : 'border-white/15'
                 }`}
               >

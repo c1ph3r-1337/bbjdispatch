@@ -36,8 +36,8 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({
   const whatsAppUrl = `https://wa.me/917888825122?text=Hello%20BBJ%20Dispatch%2C%20I%20want%20to%20book%20a%20free%20demo%20class.%0AName:%20${encodeURIComponent(name || 'Interested Student')}%0APhone:%20${encodeURIComponent(phone || 'Not provided')}%0AFormat:%20${encodeURIComponent(format)}%0ACity:%20${encodeURIComponent(city || 'General Enquiry')}`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-lg bg-[#0d1620] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl shadow-black/80">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-modal-backdrop">
+      <div className="relative w-full max-w-lg bg-[#0d1620] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl shadow-black/80 animate-modal-card">
         {/* Close Button */}
         <button
           onClick={onClose}

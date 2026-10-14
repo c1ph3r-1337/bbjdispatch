@@ -414,31 +414,55 @@ export const App: React.FC = () => {
       {/* Main Page Flow */}
       <main className="pb-16 md:pb-0">
         {/* 1. Hero Section (Headline, Subtitle, 3D Truck, Concentric Radar, Outlined Typography & Mobile Slide to Get Started) */}
-        <Hero onOpenEnrollModal={() => handleOpenEnroll('Comprehensive Dispatch')} />
+        <Hero
+          isActive={activeSection === 'hero'}
+          onOpenEnrollModal={() => handleOpenEnroll('Comprehensive Dispatch')}
+        />
 
         {/* 2. Feature Callout (Badge highlight [Solve] and narrative) */}
-        <FeatureCallout onOpenEnrollModal={() => handleOpenEnroll('Curriculum Deep Dive')} />
+        <FeatureCallout
+          isActive={activeSection === 'features'}
+          onOpenEnrollModal={() => handleOpenEnroll('Curriculum Deep Dive')}
+        />
 
         {/* 3. Experience Metrics (Desktop: 13+ stat & 3/4 truck rear | Mobile: "Out For Delivery" Transit Card) */}
-        <ExperienceMetrics onOpenEnrollModal={() => handleOpenEnroll('Industry Placement')} />
+        <ExperienceMetrics
+          isActive={activeSection === 'step-by-step-course'}
+          onOpenEnrollModal={() => handleOpenEnroll('Industry Placement')}
+        />
 
         {/* 4. Multi-Shape Geometric Photo Gallery (4 signature cutout frames, outline TRAINING text) */}
-        <GeometricGallery onOpenEnrollModal={(topic) => handleOpenEnroll(topic)} />
+        <GeometricGallery
+          isActive={activeSection === 'gallery'}
+          onOpenEnrollModal={(topic) => handleOpenEnroll(topic)}
+        />
 
         {/* 5. Interactive Courses Accordion with 3D Vehicle Hover reveals */}
-        <CoursesAccordion onOpenEnrollModal={(course) => handleOpenEnroll(course)} />
+        <CoursesAccordion
+          isActive={activeSection === 'courses'}
+          onOpenEnrollModal={(course) => handleOpenEnroll(course)}
+        />
 
         {/* 6. Admissions Hotline & Caller ID Section (Profile Card, Dark GPS Route Map, Make a Call Slider) */}
-        <MobileCallerIdSection onOpenConsultation={() => openDialer('+917888825122')} />
+        <MobileCallerIdSection
+          isActive={activeSection === 'caller-id'}
+          onOpenConsultation={() => openDialer('+917888825122')}
+        />
 
         {/* 7. Testimonials & Student Feedback Carousel with Tilted Badge */}
-        <Testimonials />
+        <Testimonials
+          isActive={activeSection === 'reviews'}
+        />
 
         {/* 8. Spotlight CTA with 3D Yellow Container and Tilted Badge button */}
-        <SpotlightCTA onOpenEnrollModal={() => handleOpenEnroll('Spotlight Certification')} />
+        <SpotlightCTA
+          isActive={activeSection === 'spotlight'}
+          onOpenEnrollModal={() => handleOpenEnroll('Spotlight Certification')}
+        />
 
         {/* 9. Full-Width Interactive Contact & Syllabus Action Banners */}
         <ContactBanners
+          isActive={activeSection === 'contact-banners'}
           onOpenContactModal={handleOpenContact}
           onOpenSyllabusModal={handleOpenSyllabus}
         />
@@ -446,6 +470,7 @@ export const App: React.FC = () => {
 
       {/* 10. Simple, Practical & Elegant Footer */}
       <Footer
+        isActive={activeSection === 'footer'}
         onOpenEnrollModal={handleOpenEnroll}
         onOpenContactModal={handleOpenContact}
         onNavigate={(route) => navigateTo(route)}

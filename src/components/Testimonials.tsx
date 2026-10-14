@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-export const Testimonials: React.FC = () => {
+interface TestimonialsProps {
+  isActive?: boolean;
+}
+
+export const Testimonials: React.FC<TestimonialsProps> = ({ isActive }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
 
   const reviews = [
@@ -35,10 +39,10 @@ export const Testimonials: React.FC = () => {
   const current = reviews[currentIdx];
 
   return (
-    <section id="reviews" className="snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 px-6 md:px-12 lg:px-16 bg-[#081017] border-t border-white/5">
+    <section id="reviews" className={`snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 px-6 md:px-12 lg:px-16 bg-[#081017] border-t border-white/5 ${isActive ? 'section-active' : ''}`}>
       <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
         {/* Tilted Yellow Circular Badge */}
-        <div className="mb-12">
+        <div className="reveal-scale delay-1 mb-12">
           <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow flex items-center justify-center -rotate-12 shadow-xl shadow-dispatch-yellow/20">
             <span className="text-dispatch-bg font-extrabold text-[11px] md:text-xs tracking-wider uppercase text-center leading-tight px-1">
               Student<br />Feedback
@@ -46,15 +50,21 @@ export const Testimonials: React.FC = () => {
           </div>
         </div>
 
-        {/* Testimonial Quote */}
+        {/* Testimonial Quote with Fluid Keyed Transition */}
         <div className="min-h-[140px] flex items-center justify-center">
-          <p className="text-lg sm:text-2xl md:text-3xl font-medium text-white/95 leading-relaxed tracking-tight max-w-3xl">
+          <p
+            key={`quote-${currentIdx}`}
+            className="animate-quote reveal-item delay-2 text-lg sm:text-2xl md:text-3xl font-medium text-white/95 leading-relaxed tracking-tight max-w-3xl"
+          >
             "{current.quote}"
           </p>
         </div>
 
         {/* Author & Rating */}
-        <div className="mt-8 space-y-2">
+        <div
+          key={`author-${currentIdx}`}
+          className="animate-quote reveal-item delay-3 mt-8 space-y-2"
+        >
           <h4 className="text-base md:text-lg font-bold text-white tracking-wide">
             {current.author}
           </h4>
@@ -73,7 +83,7 @@ export const Testimonials: React.FC = () => {
         </div>
 
         {/* Carousel Navigation Arrows */}
-        <div className="mt-10 flex items-center gap-8">
+        <div className="reveal-item delay-4 mt-10 flex items-center gap-8">
           <button
             onClick={handlePrev}
             className="text-2xl sm:text-3xl text-white/80 hover:text-white transition-colors transform hover:-translate-x-1"
