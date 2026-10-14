@@ -5,7 +5,6 @@ import { SlideToActionButton } from './mobile/SlideToActionButton';
 import { openDialer, openWhatsApp } from '../utils/whatsapp';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
 import { useVisitorDistance } from '../utils/geolocation';
-import { CraneContainerRoute } from './illustrations/CraneContainerRoute';
 
 interface MobileCallerIdSectionProps {
   onOpenConsultation?: () => void;
@@ -49,8 +48,9 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
 
         {/* 2. Industrial Crane Lifting 3D Yellow Container Graphic */}
         <div className="relative w-[114%] max-w-none -ml-[10%] my-0.5 pointer-events-none overflow-visible">
-          <CraneContainerRoute
-            originCity={distanceInfo.city}
+          <img
+            src="./assets/crane-lifting-container-route.svg"
+            alt="Industrial Crane Lifting Container with Freight Route"
             className="w-full h-auto object-contain select-none transform-gpu"
           />
         </div>
