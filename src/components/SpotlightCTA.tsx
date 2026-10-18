@@ -16,14 +16,14 @@ export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ isActive, onOpenEnro
             Attend A ₹49 Dem
             <span className="relative inline-block">
               o
-              {/* Tilted Floating 'Book Demo' Circular Badge overlapping the letter 'o' */}
+              {/* Floating 'BOOK DEMO' Circular Badge overlapping right side of letter 'o' matching mockup */}
               <button
                 type="button"
                 onClick={() => openWhatsApp('demo')}
-                className="reveal-scale delay-2 absolute top-1/2 left-1/2 -translate-x-[30%] -translate-y-[55%] w-14 h-14 xs:w-16 xs:h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-wider uppercase rotate-12 hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center text-center p-1.5 sm:p-2 leading-tight cursor-pointer z-30"
+                className="reveal-scale delay-2 absolute left-[45%] top-[25%] sm:left-[48%] sm:top-[28%] w-14 h-14 xs:w-16 xs:h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-wider uppercase transition-transform duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(251,194,30,0.35)] flex items-center justify-center text-center p-1.5 sm:p-2 leading-tight cursor-pointer z-30"
                 aria-label="Book Demo Class"
               >
-                Book<br />Demo
+                BOOK<br />DEMO
               </button>
             </span>
             <br />
