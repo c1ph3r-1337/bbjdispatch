@@ -9,6 +9,7 @@ import { MobileCallerIdSection } from './components/MobileCallerIdSection';
 import { Testimonials } from './components/Testimonials';
 import { SpotlightCTA } from './components/SpotlightCTA';
 import { ContactBanners } from './components/ContactBanners';
+import { CourseQuerySection } from './components/CourseQuerySection';
 import { Footer } from './components/Footer';
 import { EnrollModal } from './components/EnrollModal';
 import { MobileBottomDock } from './components/mobile/MobileBottomDock';
@@ -403,6 +404,7 @@ export const App: React.FC = () => {
       <Navbar
         onOpenEnrollModal={handleOpenEnroll}
         onOpenContactModal={handleOpenContact}
+        onNavigate={scrollToSection}
       />
 
       {/* Desktop Floating Right-Side Section Pagination Dots */}
@@ -466,9 +468,14 @@ export const App: React.FC = () => {
           onOpenContactModal={handleOpenContact}
           onOpenSyllabusModal={handleOpenSyllabus}
         />
+
+        {/* 10. Dedicated Course Query Section (Last Second / Penultimate) */}
+        <CourseQuerySection
+          isActive={activeSection === 'query'}
+        />
       </main>
 
-      {/* 10. Simple, Practical & Elegant Footer */}
+      {/* 11. Simple, Practical & Elegant Footer */}
       <Footer
         isActive={activeSection === 'footer'}
         onOpenEnrollModal={handleOpenEnroll}

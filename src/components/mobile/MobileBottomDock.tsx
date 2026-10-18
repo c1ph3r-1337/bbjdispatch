@@ -68,7 +68,7 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   const isHomeActive = ['hero', 'features'].includes(currentSection);
   const isCoursesActive = ['step-by-step-course', 'gallery', 'courses'].includes(currentSection);
   const isHotlineActive = currentSection === 'caller-id';
-  const isEnrollActive = ['reviews', 'spotlight', 'contact-banners', 'footer'].includes(currentSection);
+  const isEnrollActive = ['reviews', 'spotlight', 'contact-banners', 'query', 'footer'].includes(currentSection);
 
   // Section-based state transitions
   useEffect(() => {

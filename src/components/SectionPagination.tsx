@@ -15,6 +15,7 @@ export const SECTIONS: SectionItem[] = [
   { id: 'reviews', label: 'Student Reviews' },
   { id: 'spotlight', label: '₹49 Demo Class' },
   { id: 'contact-banners', label: 'Admissions & Syllabus' },
+  { id: 'query', label: 'Course Query' },
   { id: 'footer', label: 'Campus & Directory' },
 ];
 

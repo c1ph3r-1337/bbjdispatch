@@ -6,9 +6,10 @@ import { WhatsAppIcon } from './icons/WhatsAppIcon';
 interface NavbarProps {
   onOpenEnrollModal?: (courseName?: string) => void;
   onOpenContactModal?: () => void;
+  onNavigate?: (id: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContactModal }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContactModal, onNavigate }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const dragHandleRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
@@ -165,13 +166,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
     { number: '04', title: 'Course Modules', href: 'courses', subtitle: 'Curriculum, live calls & tools' },
     { number: '05', title: 'Trainer Hotline & Map', href: 'caller-id', subtitle: 'Direct lines to Harry & Jazz Dhillon' },
     { number: '06', title: 'Student Reviews', href: 'reviews', subtitle: 'Verified student feedback' },
+    { number: '07', title: 'Course Query Form', href: 'query', subtitle: 'Submit questions via WhatsApp' },
+    { number: '08', title: '₹49 Demo Class', href: 'spotlight', subtitle: 'Interactive live demo class' },
   ];
 
   const handleNavClick = (id: string) => {
     setMenuOpen(false);
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (onNavigate) {
+      onNavigate(id);
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
   };
 
@@ -349,10 +356,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
 
                 <div className="space-y-2">
                   <button
-                    onClick={() => {
-                      setMenuOpen(false);
-                      onOpenEnrollModal?.('Truck Dispatch');
-                    }}
+                    onClick={() => handleNavClick('query')}
                     className="w-full py-2.5 rounded-full border border-white/20 hover:border-dispatch-yellow text-white hover:text-dispatch-yellow font-bold text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <MessageSquare className="w-3.5 h-3.5" />
@@ -419,10 +423,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
             </div>
 
             <button
-              onClick={() => {
-                setMenuOpen(false);
-                onOpenEnrollModal?.('Truck Dispatch');
-              }}
+              onClick={() => handleNavClick('query')}
               className="w-full py-2.5 rounded-full border border-white/20 hover:border-dispatch-yellow text-white hover:text-dispatch-yellow font-bold text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               <MessageSquare className="w-3.5 h-3.5" />
