@@ -38,7 +38,7 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ isActive }) 
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
-  // Automatically shifts highlight & border from shape to shape until user hovers
+  // Automatically shifts highlight & border from card to card until user hovers
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
@@ -66,15 +66,15 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ isActive }) 
             Practical Skills Taught Step-By-Step With Live Practice
           </h3>
 
-          {/* Prompt: Click any of them to know more with pointing arrow */}
-          <div className="reveal-item delay-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-dispatch-yellow/10 border border-dispatch-yellow/30 text-dispatch-yellow text-xs sm:text-sm font-semibold tracking-wide mt-3 mb-1">
+          {/* Clean Aligned Prompt: Text + Arrow (No outer pill box) */}
+          <div className="reveal-item delay-2 flex items-center justify-center gap-1.5 text-dispatch-yellow text-xs sm:text-sm font-semibold tracking-wide mt-2.5 mb-1 sm:mb-2">
             <span>Click any of them to know more</span>
-            <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] animate-bounce" />
+            <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5] animate-bounce shrink-0" />
           </div>
         </div>
 
-        {/* 4 Geometric Cutout Gallery Cards (All in uniform rounded-full vertical stadium shape) */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 xs:gap-3 sm:gap-5 md:gap-8 items-center justify-items-center">
+        {/* 4 Sleek Modern Cards (rounded-2xl) */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 md:gap-8 items-center justify-items-center">
           {galleryItems.map((item, idx) => {
             const isCurrent = activeIndex === idx;
 
@@ -91,45 +91,50 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ isActive }) 
                   setIsPaused(true);
                   setActiveIndex(idx);
                 }}
-                className={`reveal-scale delay-${idx + 3} group relative cursor-pointer w-full max-w-[155px] xs:max-w-[170px] sm:max-w-[190px] md:max-w-[210px] aspect-[1/1.38] sm:aspect-[1/1.45] md:aspect-[1/1.5] flex flex-col items-center justify-center transition-all duration-500 ease-out ${
-                  isCurrent ? '-translate-y-2.5 scale-[1.03]' : 'hover:-translate-y-1'
+                className={`reveal-scale delay-${idx + 3} group relative cursor-pointer w-full max-w-[160px] xs:max-w-[175px] sm:max-w-[200px] md:max-w-[220px] aspect-[1/1.32] sm:aspect-[1/1.38] md:aspect-[1/1.42] flex flex-col items-center justify-center transition-all duration-500 ease-out ${
+                  isCurrent ? '-translate-y-2 scale-[1.03]' : 'hover:-translate-y-1'
                 }`}
               >
-                {/* Geometric Shaped Card Container (all in rounded-full vertical stadium shape) */}
+                {/* Modern Card Container with rounded-2xl */}
                 <div
-                  className={`w-full h-full overflow-hidden transition-all duration-500 rounded-full bg-[#0d1620] relative flex flex-col items-center justify-center p-3 sm:p-4 md:p-5 text-center ${
+                  className={`w-full h-full overflow-hidden transition-all duration-500 rounded-2xl bg-[#0d1620] relative flex flex-col items-center justify-end p-3 sm:p-4 md:p-5 text-center ${
                     isCurrent
                       ? 'border-2 border-dispatch-yellow ring-2 ring-dispatch-yellow/40 shadow-[0_0_30px_rgba(251,194,30,0.45)]'
                       : 'border border-white/10 group-hover:border-dispatch-yellow/70 shadow-2xl shadow-black/80'
                   }`}
                 >
-                  {/* Background Skill Artwork with Geometric Clipping */}
+                  {/* Background Artwork: high opacity and vibrant on selected/hover */}
                   <img
                     src={item.image}
                     alt={item.title}
-                    className={`absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out ${
-                      isCurrent ? 'scale-110' : 'group-hover:scale-110'
+                    className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out ${
+                      isCurrent
+                        ? 'scale-110 opacity-100 brightness-110'
+                        : 'opacity-70 group-hover:opacity-100 group-hover:scale-105 group-hover:brightness-110'
                     }`}
                     loading="lazy"
                   />
 
-                  {/* Dark Gradient Scrim Overlay for Contrast & Text Legibility */}
+                  {/* Dark Black Layer: Disappears completely (opacity-0) when selected or hovered */}
                   <div
-                    className={`absolute inset-0 bg-gradient-to-t from-[#081017]/95 via-[#081017]/80 to-[#081017]/50 z-10 transition-opacity duration-300 ${
-                      isCurrent ? 'via-[#081017]/65' : 'group-hover:via-[#081017]/65'
+                    className={`absolute inset-0 bg-[#081017]/85 transition-opacity duration-500 z-10 pointer-events-none ${
+                      isCurrent ? 'opacity-0' : 'opacity-100 group-hover:opacity-0'
                     }`}
                   />
 
-                  {/* Foreground Card Content — Centered */}
-                  <div className="relative z-20 flex flex-col items-center justify-center w-full px-1 sm:px-2">
+                  {/* Natural Bottom Gradient specifically for Text Readability */}
+                  <div className="absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/95 via-black/50 to-transparent z-15 pointer-events-none" />
+
+                  {/* Foreground Card Content — Grounded at Bottom */}
+                  <div className="relative z-20 flex flex-col items-center justify-end w-full px-1">
                     <h4
-                      className={`text-xs xs:text-[13px] sm:text-sm md:text-base font-bold mb-1 sm:mb-1.5 leading-snug drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] transition-colors duration-300 ${
+                      className={`text-xs xs:text-[13px] sm:text-sm md:text-base font-bold mb-1 leading-snug drop-shadow-[0_2px_4px_rgba(0,0,0,1)] transition-colors duration-300 ${
                         isCurrent ? 'text-dispatch-yellow' : 'text-white group-hover:text-dispatch-yellow'
                       }`}
                     >
                       {item.title}
                     </h4>
-                    <p className="text-[8.5px] xs:text-[9.5px] sm:text-[10px] md:text-[11px] text-white/85 leading-relaxed font-mono drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] line-clamp-3">
+                    <p className="text-[8.5px] xs:text-[9.5px] sm:text-[10px] md:text-[11px] text-white/90 leading-relaxed font-mono drop-shadow-[0_1px_3px_rgba(0,0,0,1)] line-clamp-2">
                       {item.subtitle}
                     </p>
                   </div>
