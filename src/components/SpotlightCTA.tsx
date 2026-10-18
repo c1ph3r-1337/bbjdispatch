@@ -11,18 +11,19 @@ export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ isActive, onOpenEnro
     <section id="spotlight" className={`snap-section relative z-20 min-h-[100dvh] min-h-screen flex flex-col justify-center pt-20 pb-4 sm:pt-24 sm:pb-8 md:pt-28 md:pb-12 bg-[#081017] overflow-hidden ${isActive ? 'section-active' : ''}`}>
       <div className="max-w-6xl mx-auto px-6 md:px-12 lg:px-16 flex flex-col items-center">
         {/* Top Header with Tilted CTA Badge */}
-        <div className="relative text-center mb-8 md:mb-12">
-          <h3 className="reveal-item delay-1 text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest leading-tight text-white">
+        <div className="relative inline-block text-center mb-8 md:mb-12">
+          <h3 className="reveal-item delay-1 text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest leading-tight text-white px-2">
             Attend A ₹49 Demo <br />
             <span className="text-dispatch-yellow">Class First</span>
           </h3>
 
-          {/* Tilted Floating '₹49 Demo' Circular Badge */}
+          {/* Tilted Floating 'Book Demo' Circular Badge */}
           <button
             onClick={() => openWhatsApp('demo')}
-            className="reveal-scale delay-2 absolute -top-3 -right-6 sm:-right-16 md:-right-24 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[11px] sm:text-xs md:text-sm tracking-wider uppercase rotate-12 hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center text-center p-2 leading-tight"
+            className="reveal-scale delay-2 absolute -top-3 -right-2 xs:-right-4 sm:-top-5 sm:-right-10 md:-right-14 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[11px] sm:text-xs md:text-sm tracking-wider uppercase rotate-12 hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center text-center p-2 leading-tight cursor-pointer"
+            aria-label="Book Demo Class"
           >
-            ₹49<br />Demo
+            Book<br />Demo
           </button>
         </div>
 
