@@ -82,7 +82,7 @@ export const Hero: React.FC<HeroProps> = ({ isActive = true, onOpenEnrollModal }
                 onClick={() => openWhatsApp('demo')}
                 className="group inline-flex items-center gap-2 text-xs md:text-sm font-bold tracking-wider text-dispatch-yellow hover:text-white transition-colors uppercase"
               >
-                <span>Book Free Demo Class</span>
+                <span>Book ₹49 Demo Class</span>
                 <span className="w-6 h-6 rounded-full border border-dispatch-yellow/40 group-hover:border-white group-hover:translate-x-1 flex items-center justify-center transition-all">
                   →
                 </span>

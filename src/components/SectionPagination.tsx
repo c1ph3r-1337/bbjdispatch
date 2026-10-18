@@ -13,7 +13,7 @@ export const SECTIONS: SectionItem[] = [
   { id: 'courses', label: 'Course Modules' },
   { id: 'caller-id', label: 'Trainer Hotline & Map' },
   { id: 'reviews', label: 'Student Reviews' },
-  { id: 'spotlight', label: 'Free Demo Class' },
+  { id: 'spotlight', label: '₹49 Demo Class' },
   { id: 'contact-banners', label: 'Admissions & Syllabus' },
   { id: 'footer', label: 'Campus & Directory' },
 ];

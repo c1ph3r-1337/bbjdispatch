@@ -33,7 +33,7 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({
     onClose();
   };
 
-  const whatsAppUrl = `https://wa.me/917888825122?text=Hello%20BBJ%20Dispatch%2C%20I%20want%20to%20book%20a%20free%20demo%20class.%0AName:%20${encodeURIComponent(name || 'Interested Student')}%0APhone:%20${encodeURIComponent(phone || 'Not provided')}%0AFormat:%20${encodeURIComponent(format)}%0ACity:%20${encodeURIComponent(city || 'General Enquiry')}`;
+  const whatsAppUrl = `https://wa.me/917888825122?text=Hello%20BBJ%20Dispatch%2C%20I%20want%20to%20book%20the%20%E2%82%B949%20Demo%20Class.%0AName:%20${encodeURIComponent(name || 'Interested Student')}%0APhone:%20${encodeURIComponent(phone || 'Not provided')}%0AFormat:%20${encodeURIComponent(format)}%0ACity:%20${encodeURIComponent(city || 'General Enquiry')}%0APlease%20share%20the%20UPI%2FQR%20payment%20details%20and%20schedule.`;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-modal-backdrop">
@@ -94,13 +94,13 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({
           <div>
             <div className="mb-6">
               <span className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
-                // {isSyllabusMode ? '45-Day Curriculum Request' : 'Free Demo Class Booking'}
+                // {isSyllabusMode ? '45-Day Curriculum Request' : '₹49 Demo Class Booking'}
               </span>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-                {isSyllabusMode ? 'Get Full 45-Day Syllabus' : 'Book Your Free Demo Class'}
+                {isSyllabusMode ? 'Get Full 45-Day Syllabus' : 'Book Your ₹49 Demo Class'}
               </h3>
               <p className="text-xs sm:text-sm text-dispatch-muted mt-1.5">
-                No experience needed. Attend the demo class first, meet trainer Harry Dhillon, then decide.
+                No experience needed. Attend the ₹49 demo class first, meet trainer Harry Dhillon, then decide.
               </p>
             </div>
 
@@ -115,7 +115,7 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({
                   className="w-full px-4 py-3 bg-[#081017] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-dispatch-yellow transition-colors"
                 >
                   <option value="45-Day Truck Dispatch Course">45-Day Truck Dispatch Course (Full Program)</option>
-                  <option value="Free Demo Class Session">Book Free Demo Class Session</option>
+                  <option value="₹49 Demo Class Session">Book ₹49 Demo Class Session</option>
                   <option value="Online Live Interactive Batch">Online Live Interactive Batch</option>
                   <option value="Offline Classroom Batch">Offline Classroom Training Batch</option>
                   <option value="Admissions Consultation">Direct Admissions Consultation</option>
@@ -187,7 +187,7 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({
                   type="submit"
                   className="w-full py-3.5 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs md:text-sm tracking-wider uppercase transition-all shadow-lg shadow-dispatch-yellow/20 flex items-center justify-center gap-2"
                 >
-                  <span>{isSyllabusMode ? 'Request Day-Wise Syllabus' : 'Confirm Free Demo Request'}</span>
+                  <span>{isSyllabusMode ? 'Request Day-Wise Syllabus' : 'Confirm ₹49 Demo Request'}</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>

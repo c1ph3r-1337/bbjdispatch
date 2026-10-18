@@ -16,8 +16,8 @@ export function getWhatsAppUrl(type: WhatsAppActionType, context?: string): stri
       break;
     case 'demo':
       message = context
-        ? `Hello BBJ Dispatch, I want to book a free demo class for ${context}. Please share the schedule.`
-        : 'Hello BBJ Dispatch, I want to book a free demo class for the 45-Day Truck Dispatch Training. Please share the available schedule.';
+        ? `Hello BBJ Dispatch, I want to book the ₹49 Demo Class for ${context}. Please share the UPI/QR payment details and schedule.`
+        : 'Hello BBJ Dispatch, I want to book the ₹49 Demo Class for the 45-Day Truck Dispatch Training. Please share the UPI/QR payment details and schedule.';
       break;
     case 'talk':
       message = context

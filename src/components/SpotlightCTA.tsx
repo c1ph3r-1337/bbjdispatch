@@ -13,16 +13,16 @@ export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ isActive, onOpenEnro
         {/* Top Header with Tilted CTA Badge */}
         <div className="relative text-center mb-8 md:mb-12">
           <h3 className="reveal-item delay-1 text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest leading-tight text-white">
-            Attend A Free Demo <br />
+            Attend A ₹49 Demo <br />
             <span className="text-dispatch-yellow">Class First</span>
           </h3>
 
-          {/* Tilted Floating 'Free Demo' Circular Badge */}
+          {/* Tilted Floating '₹49 Demo' Circular Badge */}
           <button
             onClick={() => openWhatsApp('demo')}
             className="reveal-scale delay-2 absolute -top-3 -right-6 sm:-right-16 md:-right-24 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[11px] sm:text-xs md:text-sm tracking-wider uppercase rotate-12 hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center text-center p-2 leading-tight"
           >
-            Free<br />Demo
+            ₹49<br />Demo
           </button>
         </div>
 

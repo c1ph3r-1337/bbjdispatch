@@ -74,10 +74,10 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onBack }) => {
 
           <section className="space-y-3">
             <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-              3. Free Demo Class &amp; Enrollment Policy
+              3. ₹49 Demo Class &amp; Enrollment Policy
             </h2>
             <p>
-              Prospective students are encouraged to attend a complimentary free demo class prior to formal registration. Enrollment is confirmed upon completion of the admission process and payment of the applicable course fee.
+              Prospective students are invited to attend an introductory ₹49 demo class session prior to formal registration. Enrollment is confirmed upon completion of the admission process and payment of the applicable course fee.
             </p>
             <p>
               Course fees cover instruction, study materials, mock call practice sessions, and trainer support for the duration of the registered batch. Seat reservations are non-transferable without prior written authorization from the academy administration.

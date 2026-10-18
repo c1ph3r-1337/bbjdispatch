@@ -128,7 +128,7 @@ export const Footer: React.FC<FooterProps> = ({ isActive, onNavigate }) => {
                   onClick={() => openWhatsApp('demo')}
                   className="text-dispatch-yellow font-bold hover:underline text-center inline-block leading-snug"
                 >
-                  Attend Free Demo Class →
+                  Attend ₹49 Demo Class →
                 </button>
               </li>
             </ul>
@@ -146,7 +146,7 @@ export const Footer: React.FC<FooterProps> = ({ isActive, onNavigate }) => {
             <span className="text-[10px] sm:text-xs bg-black/15 px-2 py-0.5 rounded-full font-semibold">Fast Reply</span>
           </button>
           <p className="text-[10px] sm:text-xs text-white/50 mt-1.5 sm:mt-2.5">
-            Instant answers about upcoming batches, offline classroom seats &amp; free demo class
+            Instant answers about upcoming batches, offline classroom seats &amp; ₹49 demo class
           </p>
         </div>
 

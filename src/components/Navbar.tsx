@@ -355,7 +355,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
                   className="w-full py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs tracking-wider uppercase transition-all shadow-lg shadow-dispatch-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <WhatsAppIcon className="w-3.5 h-3.5 fill-dispatch-bg" />
-                  <span>BOOK FREE DEMO CLASS</span>
+                  <span>BOOK ₹49 DEMO CLASS</span>
                 </button>
               </div>
             </div>
@@ -413,7 +413,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
               className="w-full py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs tracking-wider uppercase transition-all shadow-md shadow-dispatch-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
             >
               <WhatsAppIcon className="w-4 h-4 fill-dispatch-bg" />
-              <span>BOOK FREE DEMO CLASS</span>
+              <span>BOOK ₹49 DEMO CLASS</span>
             </button>
           </div>
         </div>

@@ -75,7 +75,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onBack }) => {
               The information we collect is utilized exclusively for genuine educational and administrative purposes:
             </p>
             <ul className="list-disc list-inside space-y-1.5 pl-2 text-dispatch-muted">
-              <li>Scheduling your free demo class session and sharing class link details.</li>
+              <li>Scheduling your ₹49 demo class session and sharing class link details.</li>
               <li>Delivering the 45-day syllabus breakdown, course schedules, and fee information via WhatsApp.</li>
               <li>Providing 1-on-1 counseling with senior trainers Harry Dhillon &amp; Jazz Dhillon.</li>
               <li>Enrolling students into active cohorts and managing student attendance records.</li>

@@ -111,7 +111,7 @@ export const DesktopCraneHotline: React.FC<DesktopCraneHotlineProps> = ({ isActi
                   Jazz Dhillon • +91 98143 79035
                 </a>
                 <span className="text-[9.5px] sm:text-[10px] xl:text-[10.5px] text-white/60 block mt-0.5">
-                  Course Enquiry &amp; Free Demo Class Booking
+                  Course Enquiry &amp; ₹49 Demo Class Booking
                 </span>
               </div>
             </div>

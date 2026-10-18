@@ -116,7 +116,7 @@ export const MobileCallerIdSection: React.FC<MobileCallerIdSectionProps> = ({
                 Jazz Dhillon • +91 98143 79035
               </a>
               <span className="text-[10px] text-white/60 block mt-0.5">
-                Course Enquiry &amp; Free Demo Class Booking
+                Course Enquiry &amp; ₹49 Demo Class Booking
               </span>
             </div>
 
