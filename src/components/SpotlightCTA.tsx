@@ -16,11 +16,11 @@ export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ isActive, onOpenEnro
             Attend A ₹49 Dem
             <span className="relative inline-block">
               o
-              {/* Floating 'BOOK DEMO' Circular Badge overlapping right side of letter 'o' matching mockup */}
+              {/* Floating 'BOOK DEMO' Circular Badge slightly above top of 'o' and overlapping right side */}
               <button
                 type="button"
                 onClick={() => openWhatsApp('demo')}
-                className="reveal-scale delay-2 absolute left-[45%] top-[25%] sm:left-[48%] sm:top-[28%] w-14 h-14 xs:w-16 xs:h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-wider uppercase transition-transform duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(251,194,30,0.35)] flex items-center justify-center text-center p-1.5 sm:p-2 leading-tight cursor-pointer z-30"
+                className="reveal-scale delay-2 absolute -top-[6%] left-[55%] sm:-top-[10%] sm:left-[60%] md:-top-[12%] md:left-[62%] w-14 h-14 xs:w-16 xs:h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-wider uppercase transition-transform duration-300 hover:scale-105 shadow-[0_10px_25px_rgba(251,194,30,0.35)] flex items-center justify-center text-center p-1.5 sm:p-2 leading-tight cursor-pointer z-30"
                 aria-label="Book Demo Class"
               >
                 BOOK<br />DEMO
