@@ -13,18 +13,22 @@ export const SpotlightCTA: React.FC<SpotlightCTAProps> = ({ isActive, onOpenEnro
         {/* Top Header with Tilted CTA Badge */}
         <div className="relative inline-block text-center mb-8 md:mb-12">
           <h3 className="reveal-item delay-1 text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest leading-tight text-white px-2">
-            Attend A ₹49 Demo <br />
+            Attend A ₹49 Dem
+            <span className="relative inline-block">
+              o
+              {/* Tilted Floating 'Book Demo' Circular Badge anchored directly on top of the 'o' */}
+              <button
+                type="button"
+                onClick={() => openWhatsApp('demo')}
+                className="reveal-scale delay-2 absolute top-1/2 left-1/2 -translate-x-[35%] -translate-y-[62%] w-14 h-14 xs:w-16 xs:h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[10px] xs:text-[11px] sm:text-xs md:text-sm tracking-wider uppercase rotate-12 hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center text-center p-1.5 sm:p-2 leading-tight cursor-pointer z-30"
+                aria-label="Book Demo Class"
+              >
+                Book<br />Demo
+              </button>
+            </span>
+            <br />
             <span className="text-dispatch-yellow">Class First</span>
           </h3>
-
-          {/* Tilted Floating 'Book Demo' Circular Badge */}
-          <button
-            onClick={() => openWhatsApp('demo')}
-            className="reveal-scale delay-2 absolute -top-3 -right-2 xs:-right-4 sm:-top-5 sm:-right-10 md:-right-14 w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-[11px] sm:text-xs md:text-sm tracking-wider uppercase rotate-12 hover:rotate-0 transition-transform duration-300 shadow-xl shadow-dispatch-yellow/20 flex items-center justify-center text-center p-2 leading-tight cursor-pointer"
-            aria-label="Book Demo Class"
-          >
-            Book<br />Demo
-          </button>
         </div>
 
         {/* 3D Yellow Container Visual with Foreground Typography */}
