@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, ArrowRight, Phone, MapPin, ChevronDown } from 'lucide-react';
+import { X, ArrowRight, Phone, MapPin, ChevronDown, MessageSquare } from 'lucide-react';
 import { openWhatsApp } from '../utils/whatsapp';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
 
@@ -347,16 +347,29 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
                   </div>
                 </div>
 
-                <button
-                  onClick={() => {
-                    setMenuOpen(false);
-                    openWhatsApp('demo');
-                  }}
-                  className="w-full py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs tracking-wider uppercase transition-all shadow-lg shadow-dispatch-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <WhatsAppIcon className="w-3.5 h-3.5 fill-dispatch-bg" />
-                  <span>BOOK ₹49 DEMO CLASS</span>
-                </button>
+                <div className="space-y-2">
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      onOpenEnrollModal?.('Truck Dispatch');
+                    }}
+                    className="w-full py-2.5 rounded-full border border-white/20 hover:border-dispatch-yellow text-white hover:text-dispatch-yellow font-bold text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5" />
+                    <span>Ask a Course Query</span>
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setMenuOpen(false);
+                      openWhatsApp('demo');
+                    }}
+                    className="w-full py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs tracking-wider uppercase transition-all shadow-lg shadow-dispatch-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <WhatsAppIcon className="w-3.5 h-3.5 fill-dispatch-bg" />
+                    <span>BOOK ₹49 DEMO CLASS</span>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -404,6 +417,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
                 +91 78888 25122
               </a>
             </div>
+
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                onOpenEnrollModal?.('Truck Dispatch');
+              }}
+              className="w-full py-2.5 rounded-full border border-white/20 hover:border-dispatch-yellow text-white hover:text-dispatch-yellow font-bold text-xs tracking-wider uppercase transition-all flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>Ask a Course Query</span>
+            </button>
 
             <button
               onClick={() => {

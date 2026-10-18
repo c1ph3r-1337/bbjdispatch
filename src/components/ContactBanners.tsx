@@ -41,7 +41,15 @@ export const ContactBanners: React.FC<ContactBannersProps> = ({
 
         {/* Banner 2: Get Syllabus / Quote (White) */}
         <div
-          onClick={() => openWhatsApp('syllabus')}
+          onClick={() => {
+            if (onOpenSyllabusModal) {
+              onOpenSyllabusModal();
+            } else if (onOpenContactModal) {
+              onOpenContactModal();
+            } else {
+              openWhatsApp('syllabus');
+            }
+          }}
           className="reveal-item delay-3 group cursor-pointer py-10 md:py-14 border-b border-white/20 flex flex-col md:flex-row md:items-center justify-between gap-6 transition-all duration-300 hover:bg-white/[0.02]"
         >
           <div className="md:w-1/4">

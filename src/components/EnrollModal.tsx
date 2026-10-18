@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, CheckCircle, ArrowRight, MessageSquare, Phone } from 'lucide-react';
 
 interface EnrollModalProps {
@@ -8,68 +8,95 @@ interface EnrollModalProps {
   isSyllabusMode?: boolean;
 }
 
+export const COURSE_OPTIONS = [
+  'Freight brokerage',
+  'Truck Dispatch',
+  'Dispatch course',
+  'Logging and Tracking course',
+] as const;
+
 export const EnrollModal: React.FC<EnrollModalProps> = ({
   isOpen,
   onClose,
-  defaultCourse = '45-Day Truck Dispatch Course',
+  defaultCourse = 'Truck Dispatch',
   isSyllabusMode = false,
 }) => {
-  const [selectedCourse, setSelectedCourse] = useState(defaultCourse);
-  const [format, setFormat] = useState('Online');
+  const [selectedCourse, setSelectedCourse] = useState<string>(() => {
+    return COURSE_OPTIONS.includes(defaultCourse as any) ? defaultCourse : 'Truck Dispatch';
+  });
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
-  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [details, setDetails] = useState('');
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (defaultCourse) {
+      const match = COURSE_OPTIONS.find((c) => c.toLowerCase() === defaultCourse.toLowerCase());
+      if (match) setSelectedCourse(match);
+    }
+  }, [defaultCourse]);
 
   if (!isOpen) return null;
 
+  const buildWhatsAppMessage = () => {
+    return `Hello BBJ Dispatch, I have a course query:
+• Name: ${name.trim() || 'Interested Student'}
+• Course: ${selectedCourse}
+• Address: ${address.trim() || 'Not specified'}
+• Phone: ${phone.trim() || 'Not provided'}
+• Details: ${details.trim() || 'None'}`;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const url = `https://wa.me/917888825122?text=${encodeURIComponent(buildWhatsAppMessage())}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
 
   const handleReset = () => {
     setSubmitted(false);
+    setName('');
+    setPhone('');
+    setAddress('');
+    setDetails('');
     onClose();
   };
 
-  const whatsAppUrl = `https://wa.me/917888825122?text=Hello%20BBJ%20Dispatch%2C%20I%20want%20to%20book%20the%20%E2%82%B949%20Demo%20Class.%0AName:%20${encodeURIComponent(name || 'Interested Student')}%0APhone:%20${encodeURIComponent(phone || 'Not provided')}%0AFormat:%20${encodeURIComponent(format)}%0ACity:%20${encodeURIComponent(city || 'General Enquiry')}%0APlease%20share%20the%20UPI%2FQR%20payment%20details%20and%20schedule.`;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-modal-backdrop">
-      <div className="relative w-full max-w-lg bg-[#0d1620] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl shadow-black/80 animate-modal-card">
+      <div className="relative w-full max-w-lg bg-[#0d1620] border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl shadow-black/80 animate-modal-card max-h-[90dvh] overflow-y-auto">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 rounded-full hover:bg-white/10 text-dispatch-muted hover:text-white transition-colors"
+          className="absolute top-5 right-5 p-2 rounded-full hover:bg-white/10 text-dispatch-muted hover:text-white transition-colors cursor-pointer"
           aria-label="Close modal"
         >
           <X className="w-5 h-5" />
         </button>
 
         {submitted ? (
-          <div className="py-8 text-center space-y-4">
+          <div className="py-6 text-center space-y-4">
             <div className="w-16 h-16 rounded-full bg-dispatch-yellow/15 border border-dispatch-yellow flex items-center justify-center mx-auto text-dispatch-yellow">
               <CheckCircle className="w-8 h-8" />
             </div>
             <h3 className="text-2xl font-extrabold text-white">
-              {isSyllabusMode ? 'Syllabus Ready!' : 'Demo Class Requested!'}
+              Query Sent on WhatsApp!
             </h3>
             <p className="text-sm text-dispatch-muted max-w-sm mx-auto">
-              {isSyllabusMode
-                ? `We have prepared the 45-day curriculum breakdown for ${selectedCourse}. Connect on WhatsApp below for instant syllabus download.`
-                : `Thank you ${name}. Harry Dhillon & the admissions team will reach out at ${phone} to confirm your batch dates.`}
+              Thank you {name}. Harry Dhillon &amp; the admissions team have received your query for <span className="text-dispatch-yellow font-semibold">{selectedCourse}</span> and will reply on WhatsApp shortly.
             </p>
 
             <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
-                href={whatsAppUrl}
+                href={`https://wa.me/917888825122?text=${encodeURIComponent(buildWhatsAppMessage())}`}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="w-full sm:w-auto px-6 py-3 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-500/20"
               >
                 <MessageSquare className="w-4 h-4" />
-                <span>Open WhatsApp Ready</span>
+                <span>Re-open WhatsApp</span>
               </a>
 
               <a
@@ -84,7 +111,7 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({
             <div className="pt-2">
               <button
                 onClick={handleReset}
-                className="text-xs text-dispatch-muted hover:text-white underline transition-colors"
+                className="text-xs text-dispatch-muted hover:text-white underline transition-colors cursor-pointer"
               >
                 Close &amp; Return to Academy
               </button>
@@ -92,37 +119,39 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({
           </div>
         ) : (
           <div>
-            <div className="mb-6">
+            <div className="mb-5">
               <span className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
-                // {isSyllabusMode ? '45-Day Curriculum Request' : '₹49 Demo Class Booking'}
+                // {isSyllabusMode ? 'Course Query & Syllabus' : 'Student Query & Consultation'}
               </span>
               <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">
-                {isSyllabusMode ? 'Get Full 45-Day Syllabus' : 'Book Your ₹49 Demo Class'}
+                Course Query Question
               </h3>
               <p className="text-xs sm:text-sm text-dispatch-muted mt-1.5">
-                No experience needed. Attend the ₹49 demo class first, meet trainer Harry Dhillon, then decide.
+                Have a question about our courses? Enter your details below to send your query directly to senior trainer Harry Dhillon on WhatsApp.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3.5">
+              {/* 1. Course Selection Dropdown */}
               <div>
                 <label className="block text-xs font-semibold text-white/80 uppercase tracking-wider mb-1.5">
-                  Target Program
+                  Select Course
                 </label>
                 <select
                   value={selectedCourse}
                   onChange={(e) => setSelectedCourse(e.target.value)}
-                  className="w-full px-4 py-3 bg-[#081017] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-dispatch-yellow transition-colors"
+                  className="w-full px-4 py-3 bg-[#081017] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-dispatch-yellow transition-colors cursor-pointer"
                 >
-                  <option value="45-Day Truck Dispatch Course">45-Day Truck Dispatch Course (Full Program)</option>
-                  <option value="₹49 Demo Class Session">Book ₹49 Demo Class Session</option>
-                  <option value="Online Live Interactive Batch">Online Live Interactive Batch</option>
-                  <option value="Offline Classroom Batch">Offline Classroom Training Batch</option>
-                  <option value="Admissions Consultation">Direct Admissions Consultation</option>
+                  {COURSE_OPTIONS.map((course) => (
+                    <option key={course} value={course} className="bg-[#081017] text-white">
+                      {course}
+                    </option>
+                  ))}
                 </select>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* 2. Name & Phone */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                 <div>
                   <label className="block text-xs font-semibold text-white/80 uppercase tracking-wider mb-1.5">
                     Your Name
@@ -152,48 +181,49 @@ export const EnrollModal: React.FC<EnrollModalProps> = ({
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-semibold text-white/80 uppercase tracking-wider mb-1.5">
-                    Class Format
-                  </label>
-                  <select
-                    value={format}
-                    onChange={(e) => setFormat(e.target.value)}
-                    className="w-full px-4 py-3 bg-[#081017] border border-white/10 rounded-xl text-white text-sm focus:outline-none focus:border-dispatch-yellow transition-colors"
-                  >
-                    <option value="Online">Online Classes (Live from Home)</option>
-                    <option value="Offline">Offline (Classroom Setup)</option>
-                    <option value="Not sure">Not sure yet</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-semibold text-white/80 uppercase tracking-wider mb-1.5">
-                    Your City
-                  </label>
-                  <input
-                    type="text"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    placeholder="e.g. Ludhiana, Mohali, Delhi..."
-                    className="w-full px-4 py-3 bg-[#081017] border border-white/10 rounded-xl text-white placeholder-dispatch-textMuted text-sm focus:outline-none focus:border-dispatch-yellow transition-colors"
-                  />
-                </div>
+              {/* 3. Address */}
+              <div>
+                <label className="block text-xs font-semibold text-white/80 uppercase tracking-wider mb-1.5">
+                  Address
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="e.g. Mallawala Road, Zira, Punjab or City / State"
+                  className="w-full px-4 py-3 bg-[#081017] border border-white/10 rounded-xl text-white placeholder-dispatch-textMuted text-sm focus:outline-none focus:border-dispatch-yellow transition-colors"
+                />
               </div>
 
-              <div className="pt-3">
+              {/* 4. Other Details / Query Question */}
+              <div>
+                <label className="block text-xs font-semibold text-white/80 uppercase tracking-wider mb-1.5">
+                  Other Details / Query Question
+                </label>
+                <textarea
+                  rows={2}
+                  value={details}
+                  onChange={(e) => setDetails(e.target.value)}
+                  placeholder="Ask about batch timings, fees, load boards taught, placement assistance, etc."
+                  className="w-full px-4 py-2.5 bg-[#081017] border border-white/10 rounded-xl text-white placeholder-dispatch-textMuted text-sm focus:outline-none focus:border-dispatch-yellow transition-colors resize-none"
+                />
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-3.5 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs md:text-sm tracking-wider uppercase transition-all shadow-lg shadow-dispatch-yellow/20 flex items-center justify-center gap-2"
+                  className="w-full py-3.5 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs md:text-sm tracking-wider uppercase transition-all shadow-lg shadow-dispatch-yellow/20 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>{isSyllabusMode ? 'Request Day-Wise Syllabus' : 'Confirm ₹49 Demo Request'}</span>
+                  <MessageSquare className="w-4 h-4 fill-dispatch-bg" />
+                  <span>Send Query on WhatsApp</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
 
               <p className="text-[11px] text-dispatch-textMuted text-center">
-                Or call directly: <a href="tel:+917888825122" className="text-dispatch-yellow font-bold hover:underline">+91 78888 25122</a> (India) / <a href="tel:+15593852018" className="text-dispatch-yellow font-bold hover:underline">+1 (559) 385-2018</a> (USA)
+                Instant response from Harry Dhillon &bull; <a href="tel:+917888825122" className="text-dispatch-yellow font-bold hover:underline">+91 78888 25122</a>
               </p>
             </form>
           </div>
