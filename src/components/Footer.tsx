@@ -150,7 +150,7 @@ export const Footer: React.FC<FooterProps> = ({ isActive, onNavigate }) => {
           </p>
         </div>
 
-        {/* Bottom Bar: Centered Copyright & Dedicated Legal Links */}
+        {/* Bottom Bar: Centered Copyright, Dedicated Legal Links & Developer Credit */}
         <div className="reveal-item delay-5 pt-3 sm:pt-5 md:pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 text-[10px] sm:text-xs text-dispatch-textMuted text-center">
           <div>
             <span>© 2026 BBJ Dispatch Academy. All rights reserved.</span>
@@ -158,7 +158,7 @@ export const Footer: React.FC<FooterProps> = ({ isActive, onNavigate }) => {
 
           <span className="hidden sm:inline text-white/20">•</span>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-4 sm:gap-6">
             <button
               onClick={(e) => handleLegalClick(e, 'terms')}
               className="hover:text-white transition-colors"
@@ -171,6 +171,20 @@ export const Footer: React.FC<FooterProps> = ({ isActive, onNavigate }) => {
             >
               Privacy Policy
             </button>
+          </div>
+
+          <span className="hidden sm:inline text-white/20">•</span>
+
+          <div>
+            <span>Made by </span>
+            <a
+              href="https://wa.me/919779744244?text=Hello%20Jaskaran,%20I%20saw%20your%20work%20on%20BBJ%20Dispatch"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-dispatch-yellow hover:underline font-semibold transition-colors"
+            >
+              Jaskaran Singh
+            </a>
           </div>
         </div>
       </div>
