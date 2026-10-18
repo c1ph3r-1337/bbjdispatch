@@ -13,25 +13,25 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ isActive }) 
       id: 1,
       title: 'Freight brokerage',
       subtitle: 'Live broker calls, shipper contracts & commission negotiation',
-      image: './assets/skill-broker-negotiation.png',
+      image: './assets/skill-broker-negotiation.webp',
     },
     {
       id: 2,
       title: 'Truck Dispatch',
       subtitle: 'DAT One & Truckstop load board sourcing, carrier coordination',
-      image: './assets/skill-load-board.png',
+      image: './assets/skill-load-board.webp',
     },
     {
       id: 3,
       title: 'Dispatch course',
       subtitle: '45-Day full practical dispatch masterclass & career prep',
-      image: './assets/skill-interview-prep.png',
+      image: './assets/skill-interview-prep.webp',
     },
     {
       id: 4,
       title: 'Logging and Tracking course',
       subtitle: 'ELD compliance, GPS tracking, hours of service & check calls',
-      image: './assets/skill-booking-papers.png',
+      image: './assets/skill-booking-papers.webp',
     },
   ];
 
@@ -112,7 +112,9 @@ export const GeometricGallery: React.FC<GeometricGalleryProps> = ({ isActive }) 
                         ? 'scale-110 opacity-100 brightness-110'
                         : 'opacity-70 group-hover:opacity-100 group-hover:scale-105 group-hover:brightness-110'
                     }`}
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
+                    fetchPriority="high"
                   />
 
                   {/* Dark Black Layer: Disappears completely (opacity-0) when selected or hovered */}
