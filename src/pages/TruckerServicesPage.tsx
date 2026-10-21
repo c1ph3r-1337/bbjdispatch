@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { 
   ArrowLeft, 
-  Truck, 
   ShieldCheck, 
   PhoneCall, 
   FileText, 
   CheckCircle2, 
-  TrendingUp, 
   Clock, 
   DollarSign, 
   Layers, 
@@ -69,11 +67,6 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
       <main className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 py-10 sm:py-16 space-y-16 sm:space-y-24">
         {/* Hero Section */}
         <div className="relative text-center max-w-4xl mx-auto space-y-5 sm:space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dispatch-yellow/10 border border-dispatch-yellow/30 text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
-            <Truck className="w-3.5 h-3.5" />
-            <span>Commercial Fleet &amp; Carrier Services</span>
-          </div>
-
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tightest leading-tight text-white">
             Freight Brokerage &amp; Dedicated <span className="text-dispatch-yellow">Truck Dispatch</span>
           </h1>
@@ -117,10 +110,6 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
             {/* Service 1: Truck Dispatch Service */}
             <div className="bg-white/[0.03] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-dispatch-yellow/50 transition-all space-y-6 flex flex-col justify-between">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-dispatch-yellow/10 border border-dispatch-yellow/30 flex items-center justify-center text-dispatch-yellow">
-                  <Truck className="w-6 h-6" />
-                </div>
-
                 <div className="space-y-1.5">
                   <span className="text-[11px] font-mono uppercase tracking-widest text-dispatch-yellow">
                     For Active Motor Carriers
@@ -173,10 +162,6 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
             {/* Service 2: Freight Brokerage */}
             <div className="bg-white/[0.03] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-dispatch-yellow/50 transition-all space-y-6 flex flex-col justify-between">
               <div className="space-y-4">
-                <div className="w-12 h-12 rounded-xl bg-dispatch-yellow/10 border border-dispatch-yellow/30 flex items-center justify-center text-dispatch-yellow">
-                  <TrendingUp className="w-6 h-6" />
-                </div>
-
                 <div className="space-y-1.5">
                   <span className="text-[11px] font-mono uppercase tracking-widest text-dispatch-yellow">
                     Shipper &amp; Freight Solutions
