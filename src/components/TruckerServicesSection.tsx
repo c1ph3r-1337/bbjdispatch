@@ -17,28 +17,21 @@ export const TruckerServicesSection: React.FC<TruckerServicesSectionProps> = ({
       }`}
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-        {/* Left Column: Descriptive Story & Minimalist Arrow Button */}
+        {/* Left Column: Descriptive Story & Arrow Button */}
         <div className="lg:col-span-5 space-y-8 order-2 lg:order-1">
           <p className="reveal-item delay-3 text-sm md:text-base text-dispatch-muted font-normal leading-relaxed">
-            Separate from our academy, BBJ Dispatch operates an active commercial logistics desk across North America. We provide owner-operators and fleet owners with 1-on-1 dedicated dispatchers, top per-mile load booking on DAT One, complete broker paperwork, factoring billing, and direct shipper freight — with zero forced dispatch.
+            Separate from our academy, BBJ Dispatch operates an active freight brokerage and commercial dispatch desk. We provide owner-operators and fleet owners with dedicated dispatchers, top per-mile load booking on DAT One, complete paperwork, and factoring billing — with zero forced dispatch.
           </p>
 
-          <div className="reveal-scale delay-4 flex items-center gap-4">
+          <div className="reveal-scale delay-4">
             <button
               onClick={onExploreServices}
-              className="group inline-flex items-center justify-center w-14 h-14 rounded-full border border-white/20 hover:border-dispatch-yellow hover:bg-dispatch-yellow/10 transition-all duration-300 cursor-pointer shrink-0"
-              aria-label="Explore dedicated carrier services"
-              title="Explore Carrier Services"
+              className="group inline-flex items-center justify-center w-14 h-14 rounded-full border border-white/20 hover:border-dispatch-yellow hover:bg-dispatch-yellow/10 transition-all duration-300 cursor-pointer"
+              aria-label="Explore dedicated trucker services and fleet dispatch"
             >
               <span className="text-xl text-white group-hover:text-dispatch-yellow group-hover:translate-x-1 transition-all">
                 →
               </span>
-            </button>
-            <button
-              onClick={onExploreServices}
-              className="text-xs font-mono uppercase tracking-widest text-white/60 hover:text-dispatch-yellow transition-colors cursor-pointer text-left"
-            >
-              Explore Carrier Services &amp; Fleet Onboarding
             </button>
           </div>
         </div>
@@ -46,11 +39,11 @@ export const TruckerServicesSection: React.FC<TruckerServicesSectionProps> = ({
         {/* Right Column: High-Impact Typography with Yellow Highlight Badge */}
         <div className="lg:col-span-7 order-1 lg:order-2">
           <h2 className="reveal-item delay-1 text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest leading-[1.1] text-white">
-            Dedicated Truck Dispatch &amp; Freight Brokerage For{' '}
+            Dedicated Dispatch &amp; Freight Brokerage Built For{' '}
             <span className="reveal-scale delay-2 inline-block bg-dispatch-yellow text-dispatch-bg px-3 py-0.5 rounded-md font-black shadow-md shadow-dispatch-yellow/20">
-              Carriers
+              Truckers
             </span>{' '}
-            &amp; Fleet Owners
+            &amp; Fleets
           </h2>
         </div>
       </div>
