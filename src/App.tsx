@@ -210,6 +210,10 @@ export const App: React.FC = () => {
 
     const handleTouchStart = (e: TouchEvent) => {
       if (modalOpen) return;
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest('.overflow-y-auto, header, nav, [data-nav-drawer]')) {
+        return;
+      }
       touchStartXRef.current = e.touches[0].clientX;
       touchStartYRef.current = e.touches[0].clientY;
       touchStartTimeRef.current = Date.now();
@@ -219,6 +223,10 @@ export const App: React.FC = () => {
 
     const handleTouchMove = (e: TouchEvent) => {
       if (modalOpen) return;
+      const target = e.target as HTMLElement | null;
+      if (target && target.closest('.overflow-y-auto, header, nav, [data-nav-drawer]')) {
+        return; // Allow native interaction/scroll in navbar & modal drawers
+      }
       // Prevent browser default free-scrolling / momentum drift
       if (e.cancelable) {
         e.preventDefault();

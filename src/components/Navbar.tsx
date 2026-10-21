@@ -179,6 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   const handleServicesClick = () => {
+    document.body.style.overflow = '';
     setMenuOpen(false);
     if (onNavigateRoute) {
       onNavigateRoute('services');
@@ -188,6 +189,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   const handleNavClick = (id: string) => {
+    document.body.style.overflow = '';
     setMenuOpen(false);
     if (onNavigate) {
       onNavigate(id);
@@ -202,7 +204,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-40 w-full px-6 md:px-12 lg:px-16 flex items-center justify-between transition-all duration-300 border-b border-white/5 ${
+        className={`fixed top-0 inset-x-0 z-50 w-full px-6 md:px-12 lg:px-16 flex items-center justify-between transition-all duration-300 border-b border-white/5 ${
           isScrolled
             ? 'py-3.5 md:py-4 bg-[#081017]/95 backdrop-blur-xl'
             : 'py-4 md:py-5 bg-[#081017]/80 backdrop-blur-md'
@@ -286,8 +288,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Backdrop overlay for outside-click dismissal */}
       <div
-        onClick={() => setMenuOpen(false)}
-        className={`fixed inset-0 top-[60px] md:top-[68px] z-30 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
+        onClick={() => {
+          document.body.style.overflow = '';
+          setMenuOpen(false);
+        }}
+        className={`fixed inset-0 top-[64px] md:top-[68px] z-30 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ${
           menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         aria-hidden="true"
@@ -295,10 +300,11 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Minimalist Dropdown Navigation Menu */}
       <div
-        className={`fixed top-[60px] md:top-[68px] inset-x-0 z-40 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu will-change-[transform,opacity] ${
+        data-nav-drawer="true"
+        className={`fixed top-[64px] md:top-[68px] inset-x-0 z-40 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] transform-gpu will-change-[transform,opacity] ${
           menuOpen
-            ? 'translate-y-0 opacity-100 pointer-events-auto'
-            : '-translate-y-4 opacity-0 pointer-events-none'
+            ? 'translate-y-0 opacity-100 pointer-events-auto visible'
+            : '-translate-y-4 opacity-0 pointer-events-none invisible'
         }`}
       >
         {/* Desktop Container (Glassmorphic floating panel centered under header) */}
@@ -371,9 +377,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-dispatch-yellow/10 border border-dispatch-yellow/30 flex items-center justify-between gap-3">
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-white/20 transition-colors flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
-                    <Truck className="w-4 h-4 text-dispatch-yellow shrink-0" />
+                    <Truck className="w-4 h-4 text-white/70 shrink-0" />
                     <div>
                       <p className="text-[11px] font-bold text-white">Trucker &amp; Carrier Services</p>
                       <p className="text-[10px] text-dispatch-muted">Dedicated dispatch &amp; brokerage</p>
@@ -381,7 +387,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </div>
                   <button
                     onClick={handleServicesClick}
-                    className="px-3 py-1.5 rounded-lg bg-dispatch-yellow text-dispatch-bg font-extrabold text-[10px] uppercase tracking-wider hover:bg-dispatch-yellowLight transition-colors cursor-pointer shrink-0"
+                    className="px-3 py-1.5 rounded-lg border border-white/15 text-white/90 font-bold text-[10px] uppercase tracking-wider hover:border-dispatch-yellow hover:text-dispatch-yellow transition-colors cursor-pointer shrink-0"
                   >
                     View Services →
                   </button>
@@ -398,6 +404,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                   <button
                     onClick={() => {
+                      document.body.style.overflow = '';
                       setMenuOpen(false);
                       openWhatsApp('demo');
                     }}
@@ -411,17 +418,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Bottom Drag-Up Handle Bar */}
-            <div
-              onMouseDown={handleDragStart}
-              onClick={() => setMenuOpen(false)}
-              className="mt-6 pt-3 border-t border-white/5 flex flex-col items-center justify-center cursor-grab active:cursor-grabbing group select-none"
-              title="Drag up or click to close"
-            >
-              <div className="w-12 h-1 rounded-full bg-white/20 group-hover:bg-dispatch-yellow transition-colors mb-1" />
-              <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 group-hover:text-dispatch-yellow transition-colors">
-                Pull up to close
-              </span>
-            </div>
+                <div
+                  onMouseDown={handleDragStart}
+                  onClick={() => {
+                    document.body.style.overflow = '';
+                    setMenuOpen(false);
+                  }}
+                  className="mt-6 pt-3 border-t border-white/5 flex flex-col items-center justify-center cursor-grab active:cursor-grabbing group select-none"
+                  title="Drag up or click to close"
+                >
+                  <div className="w-12 h-1 rounded-full bg-white/20 group-hover:bg-dispatch-yellow transition-colors mb-1" />
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 group-hover:text-dispatch-yellow transition-colors">
+                    Pull up to close
+                  </span>
+                </div>
           </div>
         </div>
 
@@ -430,12 +440,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Top highlight button for Carrier Services in mobile menu */}
           <button
             onClick={handleServicesClick}
-            className="w-full py-2.5 px-3 rounded-xl bg-dispatch-yellow/10 border border-dispatch-yellow/30 flex items-center justify-between text-left cursor-pointer group"
+            className="w-full py-2.5 px-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-white/20 flex items-center justify-between text-left cursor-pointer group transition-colors"
           >
             <div className="flex items-center gap-2.5">
-              <Truck className="w-4 h-4 text-dispatch-yellow" />
+              <Truck className="w-4 h-4 text-white/70 group-hover:text-dispatch-yellow transition-colors" />
               <div>
-                <span className="text-xs font-bold text-white group-hover:text-dispatch-yellow block">
+                <span className="text-xs font-bold text-white group-hover:text-dispatch-yellow transition-colors block">
                   Trucker Services (Brokerage &amp; Dispatch)
                 </span>
                 <span className="text-[10px] text-dispatch-muted block">
@@ -443,7 +453,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </span>
               </div>
             </div>
-            <ArrowRight className="w-3.5 h-3.5 text-dispatch-yellow" />
+            <ArrowRight className="w-3.5 h-3.5 text-white/40 group-hover:text-dispatch-yellow group-hover:translate-x-0.5 transition-all" />
           </button>
 
           <div className="space-y-1">
@@ -484,6 +494,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             <button
               onClick={() => {
+                document.body.style.overflow = '';
                 setMenuOpen(false);
                 openWhatsApp('demo');
               }}
@@ -491,6 +502,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <WhatsAppIcon className="w-4 h-4 fill-dispatch-bg" />
               <span>BOOK ₹49 DEMO CLASS</span>
+            </button>
+
+            {/* Dedicated Mobile Close Button */}
+            <button
+              onClick={() => {
+                document.body.style.overflow = '';
+                setMenuOpen(false);
+              }}
+              className="w-full py-2.5 mt-1 border-t border-white/10 flex items-center justify-center gap-2 text-xs font-mono uppercase tracking-widest text-white/50 hover:text-dispatch-yellow transition-colors cursor-pointer"
+              aria-label="Close menu"
+            >
+              <X className="w-3.5 h-3.5" />
+              <span>Close Menu</span>
             </button>
           </div>
         </div>
