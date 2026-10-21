@@ -16,13 +16,17 @@ import { MobileBottomDock } from './components/mobile/MobileBottomDock';
 import { SectionPagination, SECTIONS } from './components/SectionPagination';
 import { TermsPage } from './pages/TermsPage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import { TruckerServicesPage } from './pages/TruckerServicesPage';
+import { RealVsDummySection } from './components/RealVsDummySection';
+import { TruckerServicesSection } from './components/TruckerServicesSection';
 import { openDialer } from './utils/whatsapp';
 
-type Route = 'home' | 'terms' | 'privacy';
+type Route = 'home' | 'terms' | 'privacy' | 'services';
 
 function getRouteFromHash(): Route {
   if (typeof window === 'undefined') return 'home';
   const hash = window.location.hash.toLowerCase();
+  if (hash === '#services' || hash.startsWith('#services')) return 'services';
   if (hash === '#terms' || hash.startsWith('#terms')) return 'terms';
   if (hash === '#privacy' || hash.startsWith('#privacy')) return 'privacy';
   return 'home';
@@ -350,6 +354,11 @@ export const App: React.FC = () => {
       if (metaDescription) {
         metaDescription.setAttribute('content', 'Privacy Policy and student data protection standards for BBJ Dispatch Academy.');
       }
+    } else if (currentRoute === 'services') {
+      document.title = 'Truck Dispatch & Freight Brokerage Services | BBJ Dispatch';
+      if (metaDescription) {
+        metaDescription.setAttribute('content', 'Commercial Freight Brokerage and Dedicated Truck Dispatch services for active carriers, fleet owners, and owner-operators across North America.');
+      }
     } else {
       document.title = 'BBJ Dispatch Academy | 45-Day US Truck Dispatch Training';
       if (metaDescription) {
@@ -397,6 +406,11 @@ export const App: React.FC = () => {
     return <PrivacyPage onBack={() => navigateTo('home')} />;
   }
 
+  // Dedicated Trucker & Commercial Fleet Services Page
+  if (currentRoute === 'services') {
+    return <TruckerServicesPage onBack={() => navigateTo('home')} />;
+  }
+
   // Main Single-Page Experience
   return (
     <div className="relative min-h-screen bg-[#081017] text-white selection:bg-dispatch-yellow selection:text-[#081017]">
@@ -405,6 +419,7 @@ export const App: React.FC = () => {
         onOpenEnrollModal={handleOpenEnroll}
         onOpenContactModal={handleOpenContact}
         onNavigate={scrollToSection}
+        onNavigateRoute={(route) => navigateTo(route)}
       />
 
       {/* Desktop Floating Right-Side Section Pagination Dots */}
@@ -427,25 +442,36 @@ export const App: React.FC = () => {
           onOpenEnrollModal={() => handleOpenEnroll('Curriculum Deep Dive')}
         />
 
-        {/* 3. Experience Metrics (Desktop: 13+ stat & 3/4 truck rear | Mobile: "Out For Delivery" Transit Card) */}
+        {/* 3. Real Practical Training vs Dummy Simulations Section */}
+        <RealVsDummySection
+          isActive={activeSection === 'real-vs-dummy'}
+        />
+
+        {/* 4. Experience Metrics (Desktop: 13+ stat & 3/4 truck rear | Mobile: "Out For Delivery" Transit Card) */}
         <ExperienceMetrics
           isActive={activeSection === 'step-by-step-course'}
           onOpenEnrollModal={() => handleOpenEnroll('Industry Placement')}
         />
 
-        {/* 4. Multi-Shape Geometric Photo Gallery (4 signature cutout frames, outline TRAINING text) */}
+        {/* 5. Multi-Shape Geometric Photo Gallery (4 signature cutout frames, outline TRAINING text) */}
         <GeometricGallery
           isActive={activeSection === 'gallery'}
           onOpenEnrollModal={(topic) => handleOpenEnroll(topic)}
         />
 
-        {/* 5. Interactive Courses Accordion with 3D Vehicle Hover reveals */}
+        {/* 6. Interactive Courses Accordion with 3D Vehicle Hover reveals */}
         <CoursesAccordion
           isActive={activeSection === 'courses'}
           onOpenEnrollModal={(course) => handleOpenEnroll(course)}
         />
 
-        {/* 6. Admissions Hotline & Caller ID Section (Profile Card, Dark GPS Route Map, Make a Call Slider) */}
+        {/* 7. Dedicated Trucker Services (Freight Brokerage & Fleet Dispatch for Active Truckers) */}
+        <TruckerServicesSection
+          isActive={activeSection === 'trucker-services'}
+          onExploreServices={() => navigateTo('services')}
+        />
+
+        {/* 8. Admissions Hotline & Caller ID Section (Profile Card, Dark GPS Route Map, Make a Call Slider) */}
         <MobileCallerIdSection
           isActive={activeSection === 'caller-id'}
           onOpenConsultation={() => openDialer('+917888825122')}

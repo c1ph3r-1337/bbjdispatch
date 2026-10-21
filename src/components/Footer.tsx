@@ -6,11 +6,11 @@ interface FooterProps {
   isActive?: boolean;
   onOpenEnrollModal?: (topic?: string) => void;
   onOpenContactModal?: () => void;
-  onNavigate?: (route: 'terms' | 'privacy') => void;
+  onNavigate?: (route: 'terms' | 'privacy' | 'services') => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ isActive, onNavigate }) => {
-  const handleLegalClick = (e: React.MouseEvent, route: 'terms' | 'privacy') => {
+  const handleLegalClick = (e: React.MouseEvent, route: 'terms' | 'privacy' | 'services') => {
     e.preventDefault();
     if (onNavigate) {
       onNavigate(route);
@@ -158,13 +158,21 @@ export const Footer: React.FC<FooterProps> = ({ isActive, onNavigate }) => {
 
           <span className="hidden sm:inline text-white/20">•</span>
 
-          <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex items-center flex-wrap justify-center gap-3 sm:gap-6">
+            <button
+              onClick={(e) => handleLegalClick(e, 'services')}
+              className="text-dispatch-yellow hover:underline transition-colors font-semibold"
+            >
+              Carrier &amp; Fleet Services
+            </button>
+            <span className="text-white/20">•</span>
             <button
               onClick={(e) => handleLegalClick(e, 'terms')}
               className="hover:text-white transition-colors"
             >
               Terms of Service
             </button>
+            <span className="text-white/20">•</span>
             <button
               onClick={(e) => handleLegalClick(e, 'privacy')}
               className="hover:text-white transition-colors"

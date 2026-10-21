@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, ArrowRight, Phone, MapPin, ChevronDown, MessageSquare } from 'lucide-react';
+import { X, ArrowRight, Phone, MapPin, ChevronDown, MessageSquare, Truck } from 'lucide-react';
 import { openWhatsApp } from '../utils/whatsapp';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
 
@@ -7,9 +7,15 @@ interface NavbarProps {
   onOpenEnrollModal?: (courseName?: string) => void;
   onOpenContactModal?: () => void;
   onNavigate?: (id: string) => void;
+  onNavigateRoute?: (route: 'home' | 'terms' | 'privacy' | 'services') => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContactModal, onNavigate }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  onOpenEnrollModal,
+  onOpenContactModal,
+  onNavigate,
+  onNavigateRoute,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const dragHandleRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
@@ -161,14 +167,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
 
   const navLinks = [
     { number: '01', title: 'Overview & Training', href: 'hero', subtitle: '45-Day US dispatch foundation' },
-    { number: '02', title: '45-Day Program', href: 'step-by-step-course', subtitle: 'Step-by-step dispatch workflow' },
-    { number: '03', title: 'What You’ll Learn', href: 'gallery', subtitle: 'Load boards, negotiation & paperwork' },
-    { number: '04', title: 'Course Modules', href: 'courses', subtitle: 'Curriculum, live calls & tools' },
-    { number: '05', title: 'Trainer Hotline & Map', href: 'caller-id', subtitle: 'Direct lines to Harry & Jazz Dhillon' },
-    { number: '06', title: 'Student Reviews', href: 'reviews', subtitle: 'Verified student feedback' },
-    { number: '07', title: 'Course Query Form', href: 'query', subtitle: 'Submit questions via WhatsApp' },
-    { number: '08', title: '₹49 Demo Class', href: 'spotlight', subtitle: 'Interactive live demo class' },
+    { number: '02', title: 'Live vs Dummy Training', href: 'real-vs-dummy', subtitle: 'Real DAT load boards vs fake mockups' },
+    { number: '03', title: '45-Day Program', href: 'step-by-step-course', subtitle: 'Step-by-step dispatch workflow' },
+    { number: '04', title: 'What You’ll Learn', href: 'gallery', subtitle: 'Load boards, negotiation & paperwork' },
+    { number: '05', title: 'Course Modules', href: 'courses', subtitle: 'Curriculum, live calls & tools' },
+    { number: '06', title: 'Carrier & Trucker Services', href: 'trucker-services', subtitle: 'Freight brokerage & fleet dispatch' },
+    { number: '07', title: 'Trainer Hotline & Map', href: 'caller-id', subtitle: 'Direct lines to Harry & Jazz Dhillon' },
+    { number: '08', title: 'Student Reviews', href: 'reviews', subtitle: 'Verified student feedback' },
+    { number: '09', title: 'Course Query Form', href: 'query', subtitle: 'Submit questions via WhatsApp' },
+    { number: '10', title: '₹49 Demo Class', href: 'spotlight', subtitle: 'Interactive live demo class' },
   ];
+
+  const handleServicesClick = () => {
+    setMenuOpen(false);
+    if (onNavigateRoute) {
+      onNavigateRoute('services');
+    } else {
+      window.location.hash = '#services';
+    }
+  };
 
   const handleNavClick = (id: string) => {
     setMenuOpen(false);
@@ -354,6 +371,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
                   </div>
                 </div>
 
+                <div className="p-3 rounded-xl bg-dispatch-yellow/10 border border-dispatch-yellow/30 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2">
+                    <Truck className="w-4 h-4 text-dispatch-yellow shrink-0" />
+                    <div>
+                      <p className="text-[11px] font-bold text-white">Trucker &amp; Carrier Services</p>
+                      <p className="text-[10px] text-dispatch-muted">Dedicated dispatch &amp; brokerage</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={handleServicesClick}
+                    className="px-3 py-1.5 rounded-lg bg-dispatch-yellow text-dispatch-bg font-extrabold text-[10px] uppercase tracking-wider hover:bg-dispatch-yellowLight transition-colors cursor-pointer shrink-0"
+                  >
+                    View Services →
+                  </button>
+                </div>
+
                 <div className="space-y-2">
                   <button
                     onClick={() => handleNavClick('query')}
@@ -394,6 +427,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenEnrollModal, onOpenContact
 
         {/* Mobile Container (Sleek full-width dropdown below header) */}
         <div className="block md:hidden w-full bg-[#081017]/98 backdrop-blur-2xl border-b border-white/10 shadow-2xl px-5 py-4 space-y-4 max-h-[calc(100dvh-70px)] overflow-y-auto">
+          {/* Top highlight button for Carrier Services in mobile menu */}
+          <button
+            onClick={handleServicesClick}
+            className="w-full py-2.5 px-3 rounded-xl bg-dispatch-yellow/10 border border-dispatch-yellow/30 flex items-center justify-between text-left cursor-pointer group"
+          >
+            <div className="flex items-center gap-2.5">
+              <Truck className="w-4 h-4 text-dispatch-yellow" />
+              <div>
+                <span className="text-xs font-bold text-white group-hover:text-dispatch-yellow block">
+                  Trucker Services (Brokerage &amp; Dispatch)
+                </span>
+                <span className="text-[10px] text-dispatch-muted block">
+                  For active carriers &amp; owner-operators
+                </span>
+              </div>
+            </div>
+            <ArrowRight className="w-3.5 h-3.5 text-dispatch-yellow" />
+          </button>
+
           <div className="space-y-1">
             {navLinks.map((item) => (
               <button

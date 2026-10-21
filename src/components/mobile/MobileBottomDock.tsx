@@ -65,8 +65,8 @@ export const MobileBottomDock: React.FC<MobileBottomDockProps> = ({
   const isFirstSection = currentSection === 'hero' && !isPastHero;
   const isHiddenSection = isFirstSection || currentSection === 'caller-id';
   const isStepByStep = currentSection === 'step-by-step-course';
-  const isHomeActive = ['hero', 'features'].includes(currentSection);
-  const isCoursesActive = ['step-by-step-course', 'gallery', 'courses'].includes(currentSection);
+  const isHomeActive = ['hero', 'features', 'real-vs-dummy'].includes(currentSection);
+  const isCoursesActive = ['step-by-step-course', 'gallery', 'courses', 'trucker-services'].includes(currentSection);
   const isHotlineActive = currentSection === 'caller-id';
   const isEnrollActive = ['reviews', 'spotlight', 'contact-banners', 'query', 'footer'].includes(currentSection);
 

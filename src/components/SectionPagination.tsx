@@ -8,9 +8,11 @@ export interface SectionItem {
 export const SECTIONS: SectionItem[] = [
   { id: 'hero', label: 'Overview' },
   { id: 'features', label: 'Training Method' },
+  { id: 'real-vs-dummy', label: 'Live vs Dummy' },
   { id: 'step-by-step-course', label: '45-Day Program' },
   { id: 'gallery', label: 'What You’ll Learn' },
   { id: 'courses', label: 'Course Modules' },
+  { id: 'trucker-services', label: 'Trucker Services' },
   { id: 'caller-id', label: 'Trainer Hotline & Map' },
   { id: 'reviews', label: 'Student Reviews' },
   { id: 'spotlight', label: '₹49 Demo Class' },

@@ -1,7 +1,7 @@
 export const TRAINER_WHATSAPP = '917888825122';
 export const TRAINER_PHONE = '+917888825122';
 
-export type WhatsAppActionType = 'demo' | 'talk' | 'batch' | 'start' | 'syllabus';
+export type WhatsAppActionType = 'demo' | 'talk' | 'batch' | 'start' | 'syllabus' | 'carrier';
 
 export function getWhatsAppUrl(type: WhatsAppActionType, context?: string): string {
   let message = '';
@@ -28,6 +28,11 @@ export function getWhatsAppUrl(type: WhatsAppActionType, context?: string): stri
       message = context
         ? `Hello BBJ Dispatch, I want to know about the next batch dates and seat availability for ${context}.`
         : 'Hello BBJ Dispatch, I want to know about the next batch start dates, seat availability, and online/offline timings.';
+      break;
+    case 'carrier':
+      message = context
+        ? `Hello BBJ Dispatch, I am a carrier / owner-operator interested in your ${context}. Please share onboarding details and how we can get started.`
+        : 'Hello BBJ Dispatch, I am a carrier / owner-operator inquiring about your commercial Truck Dispatch & Freight Brokerage services.';
       break;
   }
   return `https://wa.me/${TRAINER_WHATSAPP}?text=${encodeURIComponent(message)}`;
