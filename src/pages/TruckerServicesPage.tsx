@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import { 
   ArrowLeft, 
-  ShieldCheck, 
   PhoneCall, 
-  FileText, 
   CheckCircle2, 
+  ArrowRight,
+  ShieldCheck, 
   Clock, 
-  DollarSign, 
-  Layers, 
-  HelpCircle,
-  ExternalLink
+  DollarSign
 } from 'lucide-react';
 import { openWhatsApp, openDialer } from '../utils/whatsapp';
 import { WhatsAppIcon } from '../components/icons/WhatsAppIcon';
@@ -37,26 +34,26 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
             <span className="font-extrabold text-xl tracking-tight text-white group-hover:text-dispatch-yellow transition-colors">
               bbj dispatch
             </span>
-            <span className="w-2 h-2 rounded-full bg-dispatch-yellow inline-block animate-pulse" />
-            <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-white/10 text-dispatch-yellow ml-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-dispatch-yellow inline-block animate-pulse" />
+            <span className="text-[10px] uppercase font-mono tracking-widest text-dispatch-yellow/80 ml-1">
               Carrier Division
             </span>
           </button>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-3">
             <button
-              onClick={() => openDialer('+917888825122')}
-              className="hidden md:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-white/90 transition-colors"
+              onClick={() => openDialer('+15593852018')}
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-white/80 hover:text-white transition-colors"
             >
               <PhoneCall className="w-3.5 h-3.5 text-dispatch-yellow" />
-              <span>+91 78888 25122</span>
+              <span>+1 (559) 385-2018</span>
             </button>
 
             <button
               onClick={onBack}
-              className="inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-xs sm:text-sm font-semibold text-white transition-all cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-semibold text-white transition-all cursor-pointer"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to Academy</span>
             </button>
           </div>
@@ -64,53 +61,56 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
       </header>
 
       {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 py-10 sm:py-16 space-y-16 sm:space-y-24">
-        {/* Hero Section */}
-        <div className="relative text-center max-w-4xl mx-auto space-y-5 sm:space-y-6">
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tightest leading-tight text-white">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 md:px-10 py-12 sm:py-20 space-y-16 sm:space-y-24">
+        {/* Minimalist Hero Section */}
+        <div className="text-center max-w-3xl mx-auto space-y-6">
+          <p className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
+            // Commercial Logistics Desk
+          </p>
+          
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tightest leading-[1.1] text-white">
             Freight Brokerage &amp; Dedicated <span className="text-dispatch-yellow">Truck Dispatch</span>
           </h1>
 
-          <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-            Separate from our training academy, BBJ Dispatch operates a full-scale commercial logistics desk. We negotiate top-paying loads, manage complete broker paperwork, and keep your wheels turning with <strong className="text-white">zero forced dispatch</strong>.
+          <p className="text-sm sm:text-base text-dispatch-muted leading-relaxed max-w-2xl mx-auto">
+            Operating independently from our training academy, BBJ Dispatch connects active motor carriers and shippers across North America with premium spot freight, top-tier rate negotiations, and complete back-office support.
           </p>
 
-          {/* Quick Action CTAs */}
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5 sm:gap-4">
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
-              onClick={() => openWhatsApp('carrier', 'Truck Dispatch Service')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-sm uppercase tracking-wider shadow-lg shadow-dispatch-yellow/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              onClick={() => openWhatsApp('carrier', 'Commercial Carrier Onboarding')}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-dispatch-yellow/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               <WhatsAppIcon className="w-4 h-4 fill-dispatch-bg" />
-              <span>Onboard Your Truck / Fleet</span>
+              <span>Onboard Your Fleet</span>
             </button>
 
             <button
               onClick={() => openDialer('+15593852018')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white font-bold text-sm transition-all"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white/80 hover:text-white font-medium text-xs sm:text-sm transition-all"
             >
-              <PhoneCall className="w-4 h-4 text-dispatch-yellow" />
-              <span>USA Dispatch Desk: +1 (559) 385-2018</span>
+              <PhoneCall className="w-3.5 h-3.5 text-dispatch-yellow" />
+              <span>USA Desk: +1 (559) 385-2018</span>
             </button>
           </div>
         </div>
 
-        {/* 2 Core Services Breakdown */}
-        <div className="space-y-6">
-          <div className="text-center space-y-2">
+        {/* 2 Core Services: Minimalist Editorial Columns */}
+        <div className="space-y-8">
+          <div className="border-b border-white/10 pb-4">
             <p className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
-              // Solutions for Owner-Operators &amp; Fleets
+              // Core Capabilities
             </p>
-            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mt-1">
               Two Specialized Freight Services
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {/* Service 1: Truck Dispatch Service */}
-            <div className="bg-white/[0.03] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-dispatch-yellow/50 transition-all space-y-6 flex flex-col justify-between">
+            {/* Service 1: Truck Dispatch */}
+            <div className="rounded-2xl bg-white/[0.02] border border-white/10 p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-dispatch-yellow/40 transition-colors">
               <div className="space-y-4">
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   <span className="text-[11px] font-mono uppercase tracking-widest text-dispatch-yellow">
                     For Active Motor Carriers
                   </span>
@@ -118,36 +118,24 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
                     Dedicated Truck Dispatching
                   </h3>
                   <p className="text-xs sm:text-sm text-dispatch-muted leading-relaxed">
-                    A dedicated dispatcher works exclusively on finding, negotiating, and locking in the best loads for your specific equipment.
+                    A dedicated dispatcher managing load search, broker calls, and rate negotiations tailored strictly to your equipment.
                   </p>
                 </div>
 
-                <ul className="space-y-2.5 text-xs sm:text-sm text-white/80 pt-2 border-t border-white/10">
-                  <li className="flex items-start gap-2.5">
+                <div className="space-y-3 pt-3 border-t border-white/10 text-xs sm:text-sm text-white/80">
+                  <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>1-on-1 Dedicated Dispatcher:</strong> Knows your preferred lanes, target rpm, and home-time requirements.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
+                    <span><strong>1-on-1 Senior Dispatcher:</strong> Locked in on your preferred lanes, target RPM, and required home-time schedule.</span>
+                  </div>
+                  <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Aggressive Rate Negotiation:</strong> We push spot market rates higher using DAT One and Truckstop Pro live analytics.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
+                    <span><strong>Aggressive Spot Negotiation:</strong> Live booking on DAT One &amp; Truckstop Pro with zero forced dispatch.</span>
+                  </div>
+                  <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Complete Carrier Packets:</strong> Setup packets, COI requests, W-9, and NOA handled without you pulling over.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Factoring &amp; Invoicing:</strong> Invoices submitted same-day directly to your factoring company or direct-bill brokers.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Detention &amp; TONU Collection:</strong> We aggressively pursue every dollar of shipper detention ($50–$100/hr) and TONU ($150–$300).</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Zero Forced Dispatch:</strong> You have 100% approval rights on every load before we sign the rate confirmation.</span>
-                  </li>
-                </ul>
+                    <span><strong>End-to-End Back Office:</strong> Packets, COI setup, same-day factoring submissions, and detention/TONU recovery.</span>
+                  </div>
+                </div>
               </div>
 
               <button
@@ -160,46 +148,34 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
             </div>
 
             {/* Service 2: Freight Brokerage */}
-            <div className="bg-white/[0.03] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 hover:border-dispatch-yellow/50 transition-all space-y-6 flex flex-col justify-between">
+            <div className="rounded-2xl bg-white/[0.02] border border-white/10 p-6 sm:p-8 flex flex-col justify-between space-y-6 hover:border-dispatch-yellow/40 transition-colors">
               <div className="space-y-4">
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   <span className="text-[11px] font-mono uppercase tracking-widest text-dispatch-yellow">
-                    Shipper &amp; Freight Solutions
+                    For Shippers &amp; Fleet Partners
                   </span>
                   <h3 className="text-xl sm:text-2xl font-bold text-white">
                     Freight Brokerage &amp; Load Matching
                   </h3>
                   <p className="text-xs sm:text-sm text-dispatch-muted leading-relaxed">
-                    Connecting reputable motor carriers with credit-vetted freight, high-volume recurring lanes, and prompt payment processing.
+                    Connecting reputable motor carriers with direct commercial freight, verified credit brokers, and fast payment processing.
                   </p>
                 </div>
 
-                <ul className="space-y-2.5 text-xs sm:text-sm text-white/80 pt-2 border-t border-white/10">
-                  <li className="flex items-start gap-2.5">
+                <div className="space-y-3 pt-3 border-t border-white/10 text-xs sm:text-sm text-white/80">
+                  <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Direct &amp; Contracted Freight:</strong> Steady freight volumes across Midwest, South, Southeast, and West Coast corridors.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
+                    <span><strong>Steady Regional Corridors:</strong> Contracted and spot freight across Midwest, South, Southeast, and Coast-to-Coast lanes.</span>
+                  </div>
+                  <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Fast &amp; Secure Payments:</strong> QuickPay options, direct ACH, and seamless integration with all major factoring houses.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
+                    <span><strong>Prompt Payment Processing:</strong> QuickPay options, direct ACH, and seamless integration with major factoring houses.</span>
+                  </div>
+                  <div className="flex items-start gap-2.5">
                     <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Transparent Rate Confirmations:</strong> Clean, straightforward documentation with zero unexpected deductions.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>24/7 Operational Support:</strong> Live track-and-trace team available throughout transit, loading, and unloading.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>High Equipment Compatibility:</strong> Dry Van, Reefer, Flatbed, Step Deck, and Hotshot equipment loads available daily.</span>
-                  </li>
-                  <li className="flex items-start gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-dispatch-yellow shrink-0 mt-0.5" />
-                    <span><strong>Vetted Brokers Only:</strong> Every broker load is verified for high credit rating and verified payment history before booking.</span>
-                  </li>
-                </ul>
+                    <span><strong>Transparent Documentation:</strong> Clean rate confirmations, vetted shipper credit, and 24/7 tracking support.</span>
+                  </div>
+                </div>
               </div>
 
               <button
@@ -213,37 +189,33 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
           </div>
         </div>
 
-        {/* Equipment Supported */}
-        <div className="bg-white/[0.02] border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-10 space-y-6">
-          <div className="text-center space-y-2">
-            <p className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
-              // Fleet Compatibility
-            </p>
-            <h3 className="text-xl sm:text-3xl font-bold text-white">
-              Equipment Types We Dispatch &amp; Broker
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 text-center">
+        {/* Equipment Supported: Minimalist Pill Ribbon */}
+        <div className="space-y-4">
+          <p className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest text-center">
+            // Fleet Compatibility
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-4xl mx-auto">
             {[
-              { name: 'Dry Van (53\')', desc: 'General Freight' },
-              { name: 'Reefer (53\')', desc: 'Temperature-Controlled' },
-              { name: 'Flatbed', desc: 'Construction & Steel' },
-              { name: 'Step Deck', desc: 'Oversized & Machinery' },
-              { name: 'Power Only', desc: 'Drop & Hook Trailers' },
-              { name: 'Box Truck / Hotshot', desc: 'Expedited & Local' },
-            ].map((eq) => (
-              <div key={eq.name} className="p-4 rounded-xl bg-white/[0.03] border border-white/5 space-y-1">
-                <p className="text-xs sm:text-sm font-bold text-white">{eq.name}</p>
-                <p className="text-[10px] sm:text-xs text-dispatch-muted">{eq.desc}</p>
-              </div>
+              'Dry Van (53\')',
+              'Reefer (53\')',
+              'Flatbed',
+              'Step Deck',
+              'Power Only',
+              'Box Truck / Hotshot'
+            ].map((equipment) => (
+              <span
+                key={equipment}
+                className="px-4 py-2 rounded-full bg-white/[0.03] border border-white/10 text-xs sm:text-sm font-medium text-white/90 hover:border-dispatch-yellow/40 transition-colors"
+              >
+                {equipment}
+              </span>
             ))}
           </div>
         </div>
 
-        {/* 3-Step Simple Onboarding */}
+        {/* 3-Step Simple Onboarding: Clean Numbered Flow */}
         <div className="space-y-8">
-          <div className="text-center space-y-2">
+          <div className="text-center space-y-1">
             <p className="text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
               // Fast Setup
             </p>
@@ -252,86 +224,74 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3 relative">
-              <span className="text-3xl font-black text-dispatch-yellow/40 font-mono">01</span>
-              <h4 className="text-base sm:text-lg font-bold text-white">Send Credentials</h4>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-2">
+              <span className="text-2xl font-black font-mono text-dispatch-yellow">01</span>
+              <h4 className="text-base font-bold text-white">Send Credentials</h4>
               <p className="text-xs sm:text-sm text-dispatch-muted leading-relaxed">
-                Provide your MC Authority certificate, Certificate of Insurance (COI) listing $1,000,000 auto liability &amp; $100,000 cargo, and signed W-9.
+                Provide your MC certificate, COI ($1M auto liability / $100k cargo), and signed W-9.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3 relative">
-              <span className="text-3xl font-black text-dispatch-yellow/40 font-mono">02</span>
-              <h4 className="text-base sm:text-lg font-bold text-white">Define Preferences</h4>
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-2">
+              <span className="text-2xl font-black font-mono text-dispatch-yellow">02</span>
+              <h4 className="text-base font-bold text-white">Define Preferences</h4>
               <p className="text-xs sm:text-sm text-dispatch-muted leading-relaxed">
-                Consult with your assigned senior dispatcher to outline preferred regional lanes, minimum acceptable rate per mile, and home-time schedules.
+                Consult with your dispatcher to set preferred freight lanes, target $/mile, and home time.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3 relative">
-              <span className="text-3xl font-black text-dispatch-yellow/40 font-mono">03</span>
-              <h4 className="text-base sm:text-lg font-bold text-white">Roll &amp; Get Paid</h4>
+            <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/10 space-y-2">
+              <span className="text-2xl font-black font-mono text-dispatch-yellow">03</span>
+              <h4 className="text-base font-bold text-white">Roll &amp; Get Paid</h4>
               <p className="text-xs sm:text-sm text-dispatch-muted leading-relaxed">
-                You review and approve each load. We secure rate confirmations, manage broker check calls, and file your paperwork for prompt payment.
+                You approve each load before booking. We secure rate cons, handle check calls, and file your factoring.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Why Carriers Partner With BBJ Dispatch */}
-        <div className="bg-gradient-to-b from-white/[0.04] to-transparent border border-white/10 rounded-3xl p-6 sm:p-10 space-y-8">
-          <div className="max-w-2xl mx-auto text-center space-y-2">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-              Our Core Carrier Guarantees
-            </h3>
-            <p className="text-xs sm:text-sm text-dispatch-muted">
-              Built on transparency, respect for the driver, and maximizing your take-home revenue.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-            <div className="space-y-2 p-4">
-              <ShieldCheck className="w-8 h-8 text-dispatch-yellow mx-auto" />
-              <h4 className="text-sm sm:text-base font-bold text-white">Zero Forced Dispatch</h4>
-              <p className="text-xs text-dispatch-muted leading-relaxed">
-                You are the captain of your truck. If a load, lane, or shipper does not suit your schedule or price, we move to the next one.
+        {/* Core Carrier Guarantees: Minimalist Trust Banner */}
+        <div className="border-t border-b border-white/10 py-8 sm:py-10">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 text-center divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+            <div className="space-y-1.5 pt-4 sm:pt-0">
+              <p className="text-lg sm:text-xl font-extrabold text-white">Zero Forced Dispatch</p>
+              <p className="text-xs text-dispatch-muted max-w-xs mx-auto">
+                100% approval rights on every load. You decide when, where, and what you haul.
               </p>
             </div>
 
-            <div className="space-y-2 p-4">
-              <DollarSign className="w-8 h-8 text-dispatch-yellow mx-auto" />
-              <h4 className="text-sm sm:text-base font-bold text-white">Transparent Low Percentage</h4>
-              <p className="text-xs text-dispatch-muted leading-relaxed">
-                No hidden administrative fees or upfront deposits. Simple percentage (5%–8%) per completed load or flat weekly dispatch structure.
+            <div className="space-y-1.5 pt-4 sm:pt-0 sm:px-4">
+              <p className="text-lg sm:text-xl font-extrabold text-dispatch-yellow">5%–8% Transparent Fee</p>
+              <p className="text-xs text-dispatch-muted max-w-xs mx-auto">
+                Simple percentage per completed load or flat weekly rate. Zero hidden administrative charges.
               </p>
             </div>
 
-            <div className="space-y-2 p-4">
-              <Clock className="w-8 h-8 text-dispatch-yellow mx-auto" />
-              <h4 className="text-sm sm:text-base font-bold text-white">No Long-Term Lock-in</h4>
-              <p className="text-xs text-dispatch-muted leading-relaxed">
-                We earn your business on every run. No predatory 6-month or 1-year contracts; pause or stop service anytime with zero penalty.
+            <div className="space-y-1.5 pt-4 sm:pt-0 sm:pl-4">
+              <p className="text-lg sm:text-xl font-extrabold text-white">No Lock-in Contracts</p>
+              <p className="text-xs text-dispatch-muted max-w-xs mx-auto">
+                We earn your business on every run. Pause or discontinue service anytime with zero penalty.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Bottom Contact / Direct Line CTA */}
-        <div className="text-center space-y-6 pt-4 border-t border-white/10">
+        {/* Minimalist Bottom Action / Direct Desk */}
+        <div className="text-center space-y-6 pt-2">
           <div className="space-y-2">
             <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
               Ready to Keep Your Trucks Moving?
             </h3>
-            <p className="text-xs sm:text-sm text-dispatch-muted max-w-xl mx-auto">
-              Connect directly with our commercial dispatch desk via WhatsApp or call our senior dispatchers right away.
+            <p className="text-xs sm:text-sm text-dispatch-muted max-w-md mx-auto">
+              Connect directly with our commercial dispatch desk via WhatsApp or phone.
             </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={() => openWhatsApp('carrier', 'Commercial Dispatch & Freight Brokerage')}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-dispatch-yellow/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-dispatch-yellow/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               <WhatsAppIcon className="w-4 h-4 fill-dispatch-bg" />
               <span>Connect on WhatsApp</span>
@@ -339,10 +299,10 @@ export const TruckerServicesPage: React.FC<TruckerServicesPageProps> = ({ onBack
 
             <button
               onClick={onBack}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-xs sm:text-sm transition-colors cursor-pointer"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium text-xs sm:text-sm transition-colors cursor-pointer"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Return to Academy Home</span>
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Return to Academy</span>
             </button>
           </div>
         </div>
