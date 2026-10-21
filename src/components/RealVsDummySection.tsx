@@ -1,26 +1,33 @@
 import React from 'react';
-import { Check, X } from 'lucide-react';
-import { openWhatsApp } from '../utils/whatsapp';
+import { Check, X, PhoneCall } from 'lucide-react';
+import { openWhatsApp, openDialer } from '../utils/whatsapp';
 
 interface RealVsDummySectionProps {
   isActive?: boolean;
 }
 
 export const RealVsDummySection: React.FC<RealVsDummySectionProps> = ({ isActive }) => {
-  const bbjFeatures = [
-    'Live DAT One & Truckstop Pro access',
-    'Direct phone calls to US freight brokers',
-    'Real rate confirmations & factoring billing',
-    'Live detention & TONU problem recovery',
-    'Day-1 job-ready desk muscle memory',
-  ];
-
-  const dummyFeatures = [
-    'Offline dummy simulation databases',
-    'Scripted classroom roleplay & old audio',
-    'Static PowerPoint slides & sample PDFs',
-    'Zero operational crisis handling',
-    'Paper certificate with zero instincts',
+  const features = [
+    {
+      title: 'Commercial Load Boards',
+      desc: 'Live enterprise DAT One & Truckstop Pro accounts',
+    },
+    {
+      title: 'Live Broker Phone Calls',
+      desc: 'Direct calls to US & Canada freight brokers from floor',
+    },
+    {
+      title: 'Genuine Compliance & Paperwork',
+      desc: 'Real carrier setup packets, COIs, W-9s & factoring',
+    },
+    {
+      title: 'Operational Crisis Handling',
+      desc: 'Live detention claims ($50–$100/hr) & TONU recovery',
+    },
+    {
+      title: 'Post-Course Job Readiness',
+      desc: 'Day-1 desk muscle memory & dispatcher placement',
+    },
   ];
 
   return (
@@ -30,84 +37,91 @@ export const RealVsDummySection: React.FC<RealVsDummySectionProps> = ({ isActive
         isActive ? 'section-active' : ''
       }`}
     >
-      <div className="max-w-4xl mx-auto w-full space-y-8 sm:space-y-12">
-        {/* Centered Minimalist Header */}
-        <div className="reveal-item delay-1 text-center space-y-2.5 max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tightest text-white">
-            Train On Real Freight, Not Simulations
-          </h2>
-          <p className="text-xs sm:text-sm md:text-base text-dispatch-muted leading-relaxed">
-            Why BBJ Dispatch students get hired while dummy simulation graduates get stuck.
-          </p>
-        </div>
-
-        {/* Minimalist Side-by-Side Comparison Container */}
-        <div className="reveal-item delay-2 relative bg-[#0b131c]/90 border border-white/10 rounded-2xl sm:rounded-3xl p-3 sm:p-5 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-stretch">
-          {/* Left Column: BBJ Dispatch Academy (Elevated, Golden Yellow Accent, Green Checkmarks) */}
-          <div className="relative bg-[#101b27] border-2 border-dispatch-yellow/70 rounded-xl sm:rounded-2xl p-5 sm:p-7 md:p-8 shadow-[0_16px_40px_rgba(0,0,0,0.85),0_0_30px_rgba(251,194,30,0.15)] flex flex-col justify-between space-y-6">
-            <div className="space-y-5">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-dispatch-yellow font-bold block mb-1">
-                    100% Practical &amp; Live
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
-                    BBJ Dispatch
-                  </h3>
-                </div>
-                <span className="w-2.5 h-2.5 rounded-full bg-dispatch-yellow animate-pulse" />
-              </div>
-
-              <ul className="space-y-3.5">
-                {bbjFeatures.map((feat, i) => (
-                  <li key={i} className="flex items-center gap-3 text-xs sm:text-sm font-semibold text-white">
-                    <span className="w-5 h-5 rounded-full bg-[#25D366]/20 text-[#25D366] flex items-center justify-center shrink-0">
-                      <Check className="w-3.5 h-3.5 stroke-[3]" />
-                    </span>
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="pt-2">
-              <button
-                onClick={() => openWhatsApp('demo', 'Live Desk vs Dummy Simulations')}
-                className="w-full py-3 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs uppercase tracking-wider transition-all shadow-md shadow-dispatch-yellow/20 flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <span>Experience Live Floor (₹49 Demo)</span>
-                <span>→</span>
-              </button>
-            </div>
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+        {/* Left Column: Narrative & CTA (Stytch Left Side) */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-dispatch-yellow/10 border border-dispatch-yellow/30 text-dispatch-yellow text-xs font-mono uppercase tracking-widest">
+            <span>Live Floor vs Simulation</span>
           </div>
 
-          {/* Right Column: Other Institutes (Flat, Muted, Red Crosses) */}
-          <div className="relative p-5 sm:p-7 md:p-8 flex flex-col justify-between space-y-6 opacity-75 md:opacity-85">
-            <div className="space-y-5">
-              <div className="border-b border-white/10 pb-4">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-white/40 font-semibold block mb-1">
-                  Traditional Institutes
-                </span>
-                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white/70">
-                  Dummy Software
-                </h3>
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tightest leading-[1.1] text-white">
+            Train On Real Freight,{' '}
+            <span className="inline-block bg-dispatch-yellow text-dispatch-bg px-3 py-0.5 rounded-md font-black shadow-md shadow-dispatch-yellow/20">
+              Not
+            </span>{' '}
+            Simulations
+          </h2>
+
+          <p className="text-sm md:text-base text-dispatch-muted font-normal leading-relaxed">
+            Other institutes charge high fees to teach on obsolete simulation mockups and scripted peer roleplays. At BBJ Dispatch, you train on active commercial DAT One &amp; Truckstop accounts, dialing real US freight brokers, negotiating live spot rates, and managing genuine carrier paperwork from day one.
+          </p>
+
+          <div className="pt-2 flex flex-col sm:flex-row items-center gap-3.5">
+            <button
+              onClick={() => openWhatsApp('demo', 'Live Floor vs Dummy Simulations')}
+              className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-dispatch-yellow hover:bg-dispatch-yellowLight text-dispatch-bg font-extrabold text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg shadow-dispatch-yellow/20 hover:scale-105 active:scale-95 cursor-pointer"
+            >
+              Book ₹49 Demo Class →
+            </button>
+
+            <button
+              onClick={() => openDialer('+917888825122')}
+              className="w-full sm:w-auto px-5 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold text-xs sm:text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <PhoneCall className="w-3.5 h-3.5 text-dispatch-yellow" />
+              <span>Talk to Trainer</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Right Column: Stytch-Style Comparison Table with Elevated Brand Column Pill */}
+        <div className="lg:col-span-7 relative pt-3 pb-3">
+          <div className="relative bg-[#0d1622] border border-white/10 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl">
+            {/* Elevated Vertical Accent Column Pill for BBJ Dispatch (Stytch Signature Style) */}
+            <div className="pointer-events-none absolute -top-3 -bottom-3 left-[48%] sm:left-[56.5%] w-[26%] sm:w-[25%] rounded-2xl sm:rounded-3xl border-2 border-dispatch-yellow/80 bg-[#121e2c] shadow-[0_12px_40px_rgba(0,0,0,0.9),0_0_25px_rgba(251,194,30,0.18)] z-0" />
+
+            {/* Table Content */}
+            <div className="relative z-10">
+              {/* Table Header Row */}
+              <div className="grid grid-cols-12 gap-2 sm:gap-4 items-center pb-4 border-b border-white/10 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-dispatch-muted">
+                <div className="col-span-6 sm:col-span-7 pl-1 sm:pl-2 font-semibold">Training Standard</div>
+                <div className="col-span-3 text-center font-black text-dispatch-yellow">
+                  <span className="block text-xs sm:text-sm font-bold text-white tracking-tight">BBJ</span>
+                  <span className="hidden sm:inline text-[9px] text-dispatch-yellow">Dispatch</span>
+                </div>
+                <div className="col-span-3 sm:col-span-2 text-center text-white/40">
+                  <span className="block text-xs sm:text-sm font-semibold text-white/50">Others</span>
+                  <span className="hidden sm:inline text-[9px] text-white/30">Simulators</span>
+                </div>
               </div>
 
-              <ul className="space-y-3.5">
-                {dummyFeatures.map((feat, i) => (
-                  <li key={i} className="flex items-center gap-3 text-xs sm:text-sm text-white/60">
-                    <span className="w-5 h-5 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center shrink-0">
-                      <X className="w-3.5 h-3.5 stroke-[2.5]" />
-                    </span>
-                    <span>{feat}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              {/* Feature Comparison Rows */}
+              <div className="divide-y divide-white/5">
+                {features.map((feat, idx) => (
+                  <div key={idx} className="grid grid-cols-12 gap-2 sm:gap-4 items-center py-3.5 sm:py-4">
+                    {/* Feature Info */}
+                    <div className="col-span-6 sm:col-span-7 pl-1 sm:pl-2 space-y-0.5">
+                      <p className="text-xs sm:text-sm font-bold text-white leading-snug">{feat.title}</p>
+                      <p className="text-[10px] sm:text-xs text-dispatch-muted line-clamp-1">{feat.desc}</p>
+                    </div>
 
-            <p className="text-[11px] text-white/40 leading-relaxed pt-2">
-              * Simulated tools cannot prepare you for live broker market volatility or real phone pressure.
-            </p>
+                    {/* BBJ Dispatch Checkmark (Inside the Elevated Column) */}
+                    <div className="col-span-3 flex justify-center items-center">
+                      <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-dispatch-yellow text-dispatch-bg flex items-center justify-center font-black shadow-md shadow-dispatch-yellow/30">
+                        <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" />
+                      </span>
+                    </div>
+
+                    {/* Other Institutes Cross */}
+                    <div className="col-span-3 sm:col-span-2 flex justify-center items-center">
+                      <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/5 text-white/30 flex items-center justify-center">
+                        <X className="w-3.5 h-3.5 stroke-[2]" />
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
